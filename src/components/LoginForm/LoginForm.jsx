@@ -10,6 +10,7 @@ import {
   InputAdornment,
   FormControl,
   TextField,
+  //   FormHelperText,
 } from '@material-ui/core';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 
@@ -33,7 +34,7 @@ const LoginForm = () => {
       onSubmit={handleSubmit(data => console.log(data))}
       autoComplete="off"
     >
-      <h2>Log in</h2>
+      <h2 className={styles.formTitle}>Log in</h2>
 
       <section className={styles.formLabel}>
         <RHFInput
@@ -80,17 +81,18 @@ const LoginForm = () => {
             }
             name="password"
             rules={{ required: true }}
-            register={register({
-              pattern: /^[a-z0-9_-]{7,18}$/,
-            })}
+            // register={register({
+            //   pattern: /^[a-z0-9_-]{7,18}$/,
+            // })}
+            register={register}
             setValue={setValue}
           />
-          {errors.password && (
-            <span className={styles.errorMessage}>
+          {/* {errors.password && (
+            <FormHelperText>
               Password length cannot be shorter than 7 characters, can contain
               letters, numbers, hyphens and underscores
-            </span>
-          )}
+            </FormHelperText>
+          )} */}
         </FormControl>
       </section>
 

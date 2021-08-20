@@ -12,13 +12,15 @@ import {
   TextField,
   Checkbox,
   FormControlLabel,
+  FormHelperText,
 } from '@material-ui/core';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 
 import styles from './RegisterForm.module.scss';
 
 const RegisterForm = () => {
-  const { handleSubmit, control, errors, register, setValue } = useForm();
+  const { handleSubmit, control, errors, getValues, register, setValue } =
+    useForm();
   const [showPassword, setShowPassword] = useState(false);
 
   const handleClickShowPassword = () => {
@@ -32,28 +34,29 @@ const RegisterForm = () => {
   return (
     <form
       className={styles.RegisterForm}
-      onSubmit={handleSubmit(data => console.log(data))}
+      onSubmit={handleSubmit(data => {
+        console.log(data);
+        const values = getValues();
+        console.log('values', values);
+      })}
       autoComplete="off"
     >
-      <h2>Sign up</h2>
+      <h2 className={styles.formTitle}>Sign up</h2>
       <section className={styles.formLabel}>
         <RHFInput
           as={
             <TextField required type="text" label="Name" variant="outlined" />
           }
-          rules={{ required: true }}
+          rules={{ required: true, minLength: 3 }}
           name="name"
-          register={register({
-            minLength: {
-              value: 2,
-            },
-          })}
+          register={register}
+          mode="onChange"
           setValue={setValue}
         />
         {errors.name && (
-          <span className={styles.errorMessage}>
-            The name is required and must contain at least two letters
-          </span>
+          <FormHelperText>
+            The name is required and must contain at least 3 letters
+          </FormHelperText>
         )}
       </section>
 
@@ -108,10 +111,10 @@ const RegisterForm = () => {
             setValue={setValue}
           />
           {errors.password && (
-            <span className={styles.errorMessage}>
+            <FormHelperText>
               Password length cannot be shorter than 7 characters, can contain
               letters, numbers, hyphens and underscores
-            </span>
+            </FormHelperText>
           )}
         </FormControl>
       </section>
@@ -121,15 +124,15 @@ const RegisterForm = () => {
           as={
             <TextField required type="number" label="Age" variant="outlined" />
           }
-          rules={{ required: true }}
+          rules={{ required: true, min: 1 }}
           name="age"
-          register={register({
-            min: {
-              value: 1,
-            },
-          })}
+          register={register}
           setValue={setValue}
+          mode="onChange"
         />
+        {errors.age && (
+          <FormHelperText>Value must be greater than 1</FormHelperText>
+        )}
       </section>
 
       <section className={styles.checkbox}>

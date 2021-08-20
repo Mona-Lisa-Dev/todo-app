@@ -4,10 +4,14 @@
   margin: 0 auto;
 
   padding: 20px;
-  max-width: 320px;
+  max-width: 520px;
   border-radius: 8px;
   background-color: rgb(121, 134, 209);
   box-shadow: 7px 7px 13px 0px rgba(0, 0, 0, 0.38);
+
+  .formTitle {
+    margin: 0 auto 20px;
+  }
 
   .formLabel,
   .checkbox {
@@ -18,15 +22,6 @@
 
   .checkbox span {
     font-size: 12px;
-  }
-
-  .errorMessage {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 10px;
-
-    color: white;
   }
 
   .labelCheckbox {
