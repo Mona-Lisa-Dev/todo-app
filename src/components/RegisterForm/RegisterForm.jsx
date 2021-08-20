@@ -122,7 +122,13 @@ const RegisterForm = () => {
       <section className={styles.formLabel}>
         <RHFInput
           as={
-            <TextField required type="number" label="Age" variant="outlined" />
+            <TextField
+              required
+              type="number"
+              InputProps={{ inputProps: { min: 1, max: 99 } }}
+              label="Age"
+              variant="outlined"
+            />
           }
           rules={{ required: true, min: 1 }}
           name="age"
