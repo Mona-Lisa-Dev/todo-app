@@ -1,0 +1,43 @@
+.RegisterForm {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+
+  padding: 20px;
+  max-width: 320px;
+  border-radius: 8px;
+  background-color: rgb(121, 134, 209);
+  box-shadow: 7px 7px 13px 0px rgba(0, 0, 0, 0.38);
+
+  .formLabel,
+  .checkbox {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .checkbox span {
+    font-size: 12px;
+  }
+
+  .errorMessage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 10px;
+
+    color: white;
+  }
+
+  .labelCheckbox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    font-size: 10px;
+
+    .checkbox {
+      margin: 0 5px;
+    }
+  }
+}
