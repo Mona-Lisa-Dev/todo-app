@@ -1,4 +1,4 @@
-.RegisterForm {
+.LoginForm {
   display: flex;
   flex-direction: column;
   margin: 0 auto;
@@ -13,26 +13,9 @@
     margin: 0 auto 20px;
   }
 
-  .formLabel,
-  .checkbox {
+  .inputWrapper {
     margin-bottom: 20px;
     display: flex;
     flex-direction: column;
-  }
-
-  .checkbox span {
-    font-size: 12px;
-  }
-
-  .labelCheckbox {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 20px;
-    font-size: 10px;
-
-    .checkbox {
-      margin: 0 5px;
-    }
   }
 }

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { RHFInput } from 'react-hook-form-input';
-import Button from '@material-ui/core/Button';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 import {
   IconButton,
@@ -10,14 +10,17 @@ import {
   InputAdornment,
   FormControl,
   TextField,
-  //   FormHelperText,
+  FormHelperText,
+  Button,
 } from '@material-ui/core';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 
 import styles from './LoginForm.module.scss';
 
-const LoginForm = () => {
-  const { handleSubmit, errors, register, setValue } = useForm();
+const LoginForm = ({ validationSchema }) => {
+  const { handleSubmit, errors, register, setValue, getValues } = useForm({
+    resolver: yupResolver(validationSchema),
+  });
   const [showPassword, setShowPassword] = useState(false);
 
   const handleClickShowPassword = () => {
@@ -28,19 +31,25 @@ const LoginForm = () => {
     event.preventDefault();
   };
 
+  const handleSubmitForm = data => {
+    console.log(data);
+    const user = getValues();
+    console.log('user', user);
+  };
+
   return (
     <form
-      className={styles.RegisterForm}
-      onSubmit={handleSubmit(data => console.log(data))}
+      className={styles.LoginForm}
+      onSubmit={handleSubmit(handleSubmitForm)}
       autoComplete="off"
     >
       <h2 className={styles.formTitle}>Log in</h2>
 
-      <section className={styles.formLabel}>
+      <div className={styles.inputWrapper}>
         <RHFInput
           as={
             <TextField
-              required
+              // required
               type="email"
               label="E-mail"
               variant="outlined"
@@ -48,12 +57,13 @@ const LoginForm = () => {
           }
           rules={{ required: true }}
           name="email"
-          register={register}
+          register={register({ required: true })}
           setValue={setValue}
         />
-      </section>
+        <FormHelperText>{errors.email?.message}</FormHelperText>
+      </div>
 
-      <section className={styles.formLabel}>
+      <div className={styles.inputWrapper}>
         <FormControl variant="outlined">
           <InputLabel htmlFor="outlined-adornment-password">
             Password
@@ -61,7 +71,7 @@ const LoginForm = () => {
           <RHFInput
             as={
               <OutlinedInput
-                required
+                // required
                 id="outlined-adornment-password"
                 type={showPassword ? 'text' : 'password'}
                 endAdornment={
@@ -80,21 +90,13 @@ const LoginForm = () => {
               />
             }
             name="password"
-            rules={{ required: true }}
-            // register={register({
-            //   pattern: /^[a-z0-9_-]{7,18}$/,
-            // })}
+            // rules={{ required: true, minLength: 7, maxLength: 18 }}
             register={register}
             setValue={setValue}
           />
-          {/* {errors.password && (
-            <FormHelperText>
-              Password length cannot be shorter than 7 characters, can contain
-              letters, numbers, hyphens and underscores
-            </FormHelperText>
-          )} */}
         </FormControl>
-      </section>
+        <FormHelperText>{errors.password?.message}</FormHelperText>
+      </div>
 
       <Button type="submit" variant="contained" color="primary">
         Log in

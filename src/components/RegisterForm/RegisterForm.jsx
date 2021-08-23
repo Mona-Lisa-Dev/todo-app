@@ -1,66 +1,52 @@
-import { useState } from 'react';
+// import { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { RHFInput } from 'react-hook-form-input';
-import Button from '@material-ui/core/Button';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 import {
-  IconButton,
-  OutlinedInput,
-  InputLabel,
-  InputAdornment,
-  FormControl,
+  Button,
   TextField,
   Checkbox,
   FormControlLabel,
   FormHelperText,
 } from '@material-ui/core';
-import { Visibility, VisibilityOff } from '@material-ui/icons';
 
 import styles from './RegisterForm.module.scss';
 
-const RegisterForm = () => {
+const RegisterForm = ({ validationSchema }) => {
   const { handleSubmit, control, errors, getValues, register, setValue } =
-    useForm();
-  const [showPassword, setShowPassword] = useState(false);
+    useForm({
+      mode: 'onChange',
+      resolver: yupResolver(validationSchema),
+    });
 
-  const handleClickShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
-
-  const handleMouseDownPassword = event => {
-    event.preventDefault();
+  const handleSubmitForm = data => {
+    console.log(data);
+    const user = getValues();
+    console.log('user', user);
   };
 
   return (
     <form
       className={styles.RegisterForm}
-      onSubmit={handleSubmit(data => {
-        console.log(data);
-        const values = getValues();
-        console.log('values', values);
-      })}
+      onSubmit={handleSubmit(handleSubmitForm)}
       autoComplete="off"
     >
       <h2 className={styles.formTitle}>Sign up</h2>
-      <section className={styles.formLabel}>
+      <div className={styles.inputWrapper}>
         <RHFInput
           as={
             <TextField required type="text" label="Name" variant="outlined" />
           }
-          rules={{ required: true, minLength: 3 }}
+          // rules={{ required: true, minLength: 3 }}
           name="name"
           register={register}
-          mode="onChange"
           setValue={setValue}
         />
-        {errors.name && (
-          <FormHelperText>
-            The name is required and must contain at least 3 letters
-          </FormHelperText>
-        )}
-      </section>
+        <FormHelperText>{errors.name?.message}</FormHelperText>
+      </div>
 
-      <section className={styles.formLabel}>
+      <div className={styles.inputWrapper}>
         <RHFInput
           as={
             <TextField
@@ -70,56 +56,53 @@ const RegisterForm = () => {
               variant="outlined"
             />
           }
-          rules={{ required: true }}
+          // rules={{ required: true }}
           name="email"
           register={register}
           setValue={setValue}
         />
-      </section>
+        <FormHelperText>{errors.email?.message}</FormHelperText>
+      </div>
 
-      <section className={styles.formLabel}>
-        <FormControl variant="outlined">
-          <InputLabel htmlFor="outlined-adornment-password">
-            Password
-          </InputLabel>
-          <RHFInput
-            as={
-              <OutlinedInput
-                required
-                id="outlined-adornment-password"
-                type={showPassword ? 'text' : 'password'}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                      edge="end"
-                    >
-                      {showPassword ? <Visibility /> : <VisibilityOff />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-                labelWidth={70}
-              />
-            }
-            name="password"
-            rules={{ required: true }}
-            register={register({
-              pattern: /^[a-z0-9_-]{7,18}$/,
-            })}
-            setValue={setValue}
-          />
-          {errors.password && (
-            <FormHelperText>
-              Password length cannot be shorter than 7 characters, can contain
-              letters, numbers, hyphens and underscores
-            </FormHelperText>
-          )}
-        </FormControl>
-      </section>
+      <div className={styles.inputWrapper}>
+        <RHFInput
+          as={
+            <TextField
+              required
+              type="password"
+              label="Password"
+              variant="outlined"
+            />
+          }
+          name="password"
+          // rules={{ required: true }}
+          register={register({
+            pattern: /^[a-z0-9_-]{7,18}$/,
+          })}
+          setValue={setValue}
+        />
+        <FormHelperText>{errors.password?.message}</FormHelperText>
+      </div>
 
-      <section className={styles.formLabel}>
+      <div className={styles.inputWrapper}>
+        <RHFInput
+          as={
+            <TextField
+              required
+              type="password"
+              label="Repeat password"
+              variant="outlined"
+            />
+          }
+          name="confirmPassword"
+          // rules={{ required: true }}
+          register={register}
+          setValue={setValue}
+        />
+        <FormHelperText>{errors.confirmPassword?.message}</FormHelperText>
+      </div>
+
+      <div className={styles.inputWrapper}>
         <RHFInput
           as={
             <TextField
@@ -130,23 +113,20 @@ const RegisterForm = () => {
               variant="outlined"
             />
           }
-          rules={{ required: true, min: 1 }}
+          // rules={{ required: true, min: 1 }}
           name="age"
           register={register}
           setValue={setValue}
-          mode="onChange"
         />
-        {errors.age && (
-          <FormHelperText>Value must be greater than 1</FormHelperText>
-        )}
-      </section>
+        <FormHelperText>{errors.age?.message}</FormHelperText>
+      </div>
 
-      <section className={styles.checkbox}>
+      <div className={styles.checkbox}>
         <Controller
           name="agreed"
           control={control}
           defaultValue={false}
-          rules={{ required: true }}
+          // rules={{ required: true }}
           render={props => (
             <FormControlLabel
               control={
@@ -161,7 +141,8 @@ const RegisterForm = () => {
             />
           )}
         />
-      </section>
+        <FormHelperText>{errors.agreed?.message}</FormHelperText>
+      </div>
 
       <Button type="submit" variant="contained" color="primary">
         Sign up
