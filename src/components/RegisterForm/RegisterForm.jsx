@@ -1,7 +1,6 @@
-// import { useState } from 'react';
+// import { useState, useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { RHFInput } from 'react-hook-form-input';
-import { yupResolver } from '@hookform/resolvers/yup';
 
 import {
   Button,
@@ -13,17 +12,27 @@ import {
 
 import styles from './RegisterForm.module.scss';
 
-const RegisterForm = ({ validationSchema }) => {
-  const { handleSubmit, control, errors, getValues, register, setValue } =
-    useForm({
-      mode: 'onChange',
-      resolver: yupResolver(validationSchema),
-    });
+const RegisterForm = () => {
+  const {
+    handleSubmit,
+    control,
+    errors,
+    triggerValidation,
+    getValues,
+    register,
+    setValue,
+  } = useForm({
+    criteriaMode: 'all',
+    mode: 'onChange',
+    reValidateMode: 'onBlur',
+  });
 
-  const handleSubmitForm = data => {
+  const handleSubmitForm = async data => {
     console.log(data);
     const user = getValues();
     console.log('user', user);
+
+    // let isValid = await triggerValidation();
   };
 
   return (
@@ -38,11 +47,18 @@ const RegisterForm = ({ validationSchema }) => {
           as={
             <TextField required type="text" label="Name" variant="outlined" />
           }
-          // rules={{ required: true, minLength: 3 }}
           name="name"
           register={register}
-          setValue={setValue}
+          rules={{
+            required: 'Name is required',
+            minLength: {
+              value: 3,
+              message: 'Name must be at least 3 characters',
+            },
+          }}
+          setValue={() => {}}
         />
+
         <FormHelperText>{errors.name?.message}</FormHelperText>
       </div>
 
@@ -56,10 +72,18 @@ const RegisterForm = ({ validationSchema }) => {
               variant="outlined"
             />
           }
-          // rules={{ required: true }}
           name="email"
           register={register}
-          setValue={setValue}
+          // mode="onChange"
+          rules={{
+            required: 'E-mail is required',
+            pattern: {
+              value:
+                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+              message: 'E-mail is not valid',
+            },
+          }}
+          setValue={() => {}}
         />
         <FormHelperText>{errors.email?.message}</FormHelperText>
       </div>
@@ -75,11 +99,25 @@ const RegisterForm = ({ validationSchema }) => {
             />
           }
           name="password"
-          // rules={{ required: true }}
-          register={register({
-            pattern: /^[a-z0-9_-]{7,18}$/,
-          })}
-          setValue={setValue}
+          register={register}
+          // mode="onChange"
+          rules={{
+            required: 'Password is required',
+            pattern: {
+              value: /^[a-z0-9_-]{7,18}$/,
+              message:
+                'Password can contain letters, numbers, hyphens and underscores',
+            },
+            minLength: {
+              value: 7,
+              message: 'Password must be at least 7 characters',
+            },
+            maxLength: {
+              value: 18,
+              message: 'Password must be at most 18 characters',
+            },
+          }}
+          setValue={() => {}}
         />
         <FormHelperText>{errors.password?.message}</FormHelperText>
       </div>
@@ -94,12 +132,21 @@ const RegisterForm = ({ validationSchema }) => {
               variant="outlined"
             />
           }
-          name="confirmPassword"
-          // rules={{ required: true }}
+          name="passwordConfirmation"
           register={register}
-          setValue={setValue}
+          // mode="onChange"
+          rules={{
+            required: 'Password is required',
+            validate: {
+              matchesPreviousPassword: value => {
+                const { password } = getValues();
+                return password === value || 'Passwords should match!';
+              },
+            },
+          }}
+          setValue={() => {}}
         />
-        <FormHelperText>{errors.confirmPassword?.message}</FormHelperText>
+        <FormHelperText>{errors.passwordConfirmation?.message}</FormHelperText>
       </div>
 
       <div className={styles.inputWrapper}>
@@ -113,10 +160,17 @@ const RegisterForm = ({ validationSchema }) => {
               variant="outlined"
             />
           }
-          // rules={{ required: true, min: 1 }}
           name="age"
           register={register}
-          setValue={setValue}
+          rules={{
+            required: 'Age is required',
+            valueAsNumber: true,
+            validate: {
+              positiveNumber: value =>
+                parseFloat(value) > 0 || 'Value must be greater than 1',
+            },
+          }}
+          setValue={() => {}}
         />
         <FormHelperText>{errors.age?.message}</FormHelperText>
       </div>
@@ -126,7 +180,7 @@ const RegisterForm = ({ validationSchema }) => {
           name="agreed"
           control={control}
           defaultValue={false}
-          // rules={{ required: true }}
+          rules={{ required: true }}
           render={props => (
             <FormControlLabel
               control={

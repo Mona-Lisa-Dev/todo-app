@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { RHFInput } from 'react-hook-form-input';
-import { yupResolver } from '@hookform/resolvers/yup';
 
 import {
   IconButton,
@@ -17,10 +16,18 @@ import { Visibility, VisibilityOff } from '@material-ui/icons';
 
 import styles from './LoginForm.module.scss';
 
-const LoginForm = ({ validationSchema }) => {
-  const { handleSubmit, errors, register, setValue, getValues } = useForm({
-    resolver: yupResolver(validationSchema),
+const LoginForm = () => {
+  const {
+    handleSubmit,
+    errors,
+    triggerValidation,
+    register,
+    setValue,
+    getValues,
+  } = useForm({
+    reValidateMode: 'onBlur',
   });
+
   const [showPassword, setShowPassword] = useState(false);
 
   const handleClickShowPassword = () => {
@@ -31,10 +38,12 @@ const LoginForm = ({ validationSchema }) => {
     event.preventDefault();
   };
 
-  const handleSubmitForm = data => {
+  const handleSubmitForm = async data => {
     console.log(data);
     const user = getValues();
     console.log('user', user);
+
+    // let isValid = await triggerValidation();
   };
 
   return (
@@ -49,16 +58,24 @@ const LoginForm = ({ validationSchema }) => {
         <RHFInput
           as={
             <TextField
-              // required
+              required
               type="email"
               label="E-mail"
               variant="outlined"
             />
           }
-          rules={{ required: true }}
           name="email"
-          register={register({ required: true })}
-          setValue={setValue}
+          register={register}
+          mode="onChange"
+          rules={{
+            required: 'E-mail is required',
+            pattern: {
+              value:
+                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+              message: 'E-mail is not valid',
+            },
+          }}
+          setValue={() => {}}
         />
         <FormHelperText>{errors.email?.message}</FormHelperText>
       </div>
@@ -71,7 +88,7 @@ const LoginForm = ({ validationSchema }) => {
           <RHFInput
             as={
               <OutlinedInput
-                // required
+                required
                 id="outlined-adornment-password"
                 type={showPassword ? 'text' : 'password'}
                 endAdornment={
@@ -90,9 +107,25 @@ const LoginForm = ({ validationSchema }) => {
               />
             }
             name="password"
-            // rules={{ required: true, minLength: 7, maxLength: 18 }}
             register={register}
-            setValue={setValue}
+            mode="onChange"
+            rules={{
+              required: 'Password is required',
+              pattern: {
+                value: /^[a-z0-9_-]{7,18}$/,
+                message:
+                  'Password can contain letters, numbers, hyphens and underscores',
+              },
+              minLength: {
+                value: 7,
+                message: 'Password must be at least 7 characters',
+              },
+              maxLength: {
+                value: 18,
+                message: 'Password must be at most 18 characters',
+              },
+            }}
+            setValue={() => {}}
           />
         </FormControl>
         <FormHelperText>{errors.password?.message}</FormHelperText>
