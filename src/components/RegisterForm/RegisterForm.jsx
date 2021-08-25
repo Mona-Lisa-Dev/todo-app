@@ -23,9 +23,10 @@ const RegisterForm = () => {
     setValue,
   } = useForm({
     criteriaMode: 'all',
-    // mode: 'all',
-    reValidateMode: 'onBlur',
+    mode: 'onChange',
   });
+
+  console.log('errors:', errors);
 
   const handleSubmitForm = async data => {
     console.log(data);
@@ -45,12 +46,10 @@ const RegisterForm = () => {
       <h2 className={styles.formTitle}>Sign up</h2>
       <div className={styles.inputWrapper}>
         <RHFInput
-          mode="onChange"
           as={
             <TextField
               required
-              error={!!errors.name}
-              // helperText={errors.name && errors.name?.message}
+              // error={!!errors.name}
               type="text"
               label="Name"
               variant="outlined"
@@ -65,21 +64,9 @@ const RegisterForm = () => {
               message: 'Name must be at least 3 characters',
             },
           }}
+          onChange={() => trigger('name')}
           setValue={setValue}
         />
-
-        {/* <input
-          required
-          type="text"
-          name="name"
-          ref={register({
-            required: 'Name is required',
-            minLength: {
-              value: 3,
-              message: 'Name must be at least 3 characters',
-            },
-          })}
-        /> */}
         {errors.name && <FormHelperText>{errors.name?.message}</FormHelperText>}
       </div>
 
@@ -89,14 +76,13 @@ const RegisterForm = () => {
             <TextField
               required
               type="email"
-              error={!!errors.email}
+              // error={!!errors.email}
               label="E-mail"
               variant="outlined"
             />
           }
           name="email"
           register={register}
-          mode="onChange"
           rules={{
             required: 'E-mail is required',
             pattern: {
@@ -106,6 +92,7 @@ const RegisterForm = () => {
             },
           }}
           setValue={setValue}
+          onChange={() => trigger('email')}
         />
         {errors.email && (
           <FormHelperText>{errors.email?.message}</FormHelperText>
@@ -118,14 +105,13 @@ const RegisterForm = () => {
             <TextField
               required
               type="password"
-              error={!!errors.password}
+              // error={!!errors.password}
               label="Password"
               variant="outlined"
             />
           }
           name="password"
           register={register}
-          mode="onChange"
           rules={{
             required: 'Password is required',
             pattern: {
@@ -143,6 +129,7 @@ const RegisterForm = () => {
             },
           }}
           setValue={setValue}
+          onChange={() => trigger('password')}
         />
         {errors.password && (
           <FormHelperText>{errors.password?.message}</FormHelperText>
@@ -155,14 +142,13 @@ const RegisterForm = () => {
             <TextField
               required
               type="password"
-              error={!!errors.passwordConfirmation}
+              // error={!!errors.passwordConfirmation}
               label="Repeat password"
               variant="outlined"
             />
           }
           name="passwordConfirmation"
           register={register}
-          mode="onChange"
           rules={{
             required: 'Password is required',
             validate: {
@@ -173,6 +159,7 @@ const RegisterForm = () => {
             },
           }}
           setValue={setValue}
+          onChange={() => trigger('passwordConfirmation')}
         />
 
         {errors.passwordConfirmation && (
@@ -189,6 +176,7 @@ const RegisterForm = () => {
               required
               type="number"
               InputProps={{ inputProps: { min: 1, max: 99 } }}
+              // error={!!errors.age}
               label="Age"
               variant="outlined"
             />
@@ -205,6 +193,7 @@ const RegisterForm = () => {
             },
           }}
           setValue={setValue}
+          onChange={() => trigger('age')}
         />
         {errors.age && <FormHelperText>{errors.age?.message}</FormHelperText>}
       </div>
@@ -229,9 +218,6 @@ const RegisterForm = () => {
             />
           )}
         />
-        {errors.agreed && (
-          <FormHelperText>{errors.agreed?.message}</FormHelperText>
-        )}
       </div>
 
       <Button type="submit" variant="contained" color="primary">

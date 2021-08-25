@@ -19,7 +19,7 @@ import styles from './LoginForm.module.scss';
 const LoginForm = () => {
   const { handleSubmit, errors, trigger, register, setValue, getValues } =
     useForm({
-      reValidateMode: 'onBlur',
+      mode: 'onChange',
     });
 
   const [showPassword, setShowPassword] = useState(false);
@@ -61,7 +61,6 @@ const LoginForm = () => {
           }
           name="email"
           register={register}
-          mode="onChange"
           rules={{
             required: 'E-mail is required',
             pattern: {
@@ -71,6 +70,7 @@ const LoginForm = () => {
             },
           }}
           setValue={setValue}
+          onChange={() => trigger('email')}
         />
         {errors.email && (
           <FormHelperText>{errors.email?.message}</FormHelperText>
@@ -105,7 +105,6 @@ const LoginForm = () => {
             }
             name="password"
             register={register}
-            mode="onChange"
             rules={{
               required: 'Password is required',
               pattern: {
@@ -123,6 +122,7 @@ const LoginForm = () => {
               },
             }}
             setValue={setValue}
+            onChange={() => trigger('password')}
           />
         </FormControl>
         {errors.password && (
