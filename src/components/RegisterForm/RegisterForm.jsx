@@ -24,7 +24,6 @@ const RegisterForm = () => {
   } = useForm({
     criteriaMode: 'all',
     // mode: 'all',
-    mode: 'onChange',
     reValidateMode: 'onBlur',
   });
 
@@ -48,7 +47,14 @@ const RegisterForm = () => {
         <RHFInput
           mode="onChange"
           as={
-            <TextField required type="text" label="Name" variant="outlined" />
+            <TextField
+              required
+              error={!!errors.name}
+              // helperText={errors.name && errors.name?.message}
+              type="text"
+              label="Name"
+              variant="outlined"
+            />
           }
           name="name"
           register={register}
@@ -59,7 +65,7 @@ const RegisterForm = () => {
               message: 'Name must be at least 3 characters',
             },
           }}
-          setValue={() => {}}
+          setValue={setValue}
         />
 
         {/* <input
@@ -83,6 +89,7 @@ const RegisterForm = () => {
             <TextField
               required
               type="email"
+              error={!!errors.email}
               label="E-mail"
               variant="outlined"
             />
@@ -98,7 +105,7 @@ const RegisterForm = () => {
               message: 'E-mail is not valid',
             },
           }}
-          setValue={() => {}}
+          setValue={setValue}
         />
         {errors.email && (
           <FormHelperText>{errors.email?.message}</FormHelperText>
@@ -111,6 +118,7 @@ const RegisterForm = () => {
             <TextField
               required
               type="password"
+              error={!!errors.password}
               label="Password"
               variant="outlined"
             />
@@ -134,7 +142,7 @@ const RegisterForm = () => {
               message: 'Password must be at most 18 characters',
             },
           }}
-          setValue={() => {}}
+          setValue={setValue}
         />
         {errors.password && (
           <FormHelperText>{errors.password?.message}</FormHelperText>
@@ -147,6 +155,7 @@ const RegisterForm = () => {
             <TextField
               required
               type="password"
+              error={!!errors.passwordConfirmation}
               label="Repeat password"
               variant="outlined"
             />
@@ -163,8 +172,9 @@ const RegisterForm = () => {
               },
             },
           }}
-          setValue={() => {}}
+          setValue={setValue}
         />
+
         {errors.passwordConfirmation && (
           <FormHelperText>
             {errors.passwordConfirmation?.message}
@@ -194,7 +204,7 @@ const RegisterForm = () => {
                 parseFloat(value) > 0 || 'Value must be greater than 1',
             },
           }}
-          setValue={() => {}}
+          setValue={setValue}
         />
         {errors.age && <FormHelperText>{errors.age?.message}</FormHelperText>}
       </div>

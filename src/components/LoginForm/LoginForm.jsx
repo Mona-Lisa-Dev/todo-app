@@ -19,7 +19,6 @@ import styles from './LoginForm.module.scss';
 const LoginForm = () => {
   const { handleSubmit, errors, trigger, register, setValue, getValues } =
     useForm({
-      mode: 'onChange',
       reValidateMode: 'onBlur',
     });
 
@@ -71,7 +70,7 @@ const LoginForm = () => {
               message: 'E-mail is not valid',
             },
           }}
-          setValue={() => {}}
+          setValue={setValue}
         />
         {errors.email && (
           <FormHelperText>{errors.email?.message}</FormHelperText>
@@ -123,7 +122,7 @@ const LoginForm = () => {
                 message: 'Password must be at most 18 characters',
               },
             }}
-            setValue={() => {}}
+            setValue={setValue}
           />
         </FormControl>
         {errors.password && (
