@@ -1,4 +1,5 @@
 // import { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { useForm, Controller } from 'react-hook-form';
 import { RHFInput } from 'react-hook-form-input';
 
@@ -9,6 +10,8 @@ import {
   FormControlLabel,
   FormHelperText,
 } from '@material-ui/core';
+
+import { signup } from 'redux/auth/auth-operations';
 
 import styles from './RegisterForm.module.scss';
 
@@ -25,6 +28,7 @@ const RegisterForm = () => {
     criteriaMode: 'all',
     mode: 'onChange',
   });
+  const dispatch = useDispatch();
 
   console.log('errors:', errors);
 
@@ -35,6 +39,8 @@ const RegisterForm = () => {
 
     let isValid = await trigger();
     console.log(isValid);
+
+    dispatch(signup(user));
   };
 
   return (

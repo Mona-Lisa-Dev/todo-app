@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { RHFInput } from 'react-hook-form-input';
 
@@ -14,6 +15,8 @@ import {
 } from '@material-ui/core';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 
+import { login } from 'redux/auth/auth-operations';
+
 import styles from './LoginForm.module.scss';
 
 const LoginForm = () => {
@@ -23,6 +26,8 @@ const LoginForm = () => {
     });
 
   const [showPassword, setShowPassword] = useState(false);
+
+  const dispatch = useDispatch();
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
@@ -39,6 +44,7 @@ const LoginForm = () => {
 
     let isValid = await trigger();
     console.log(isValid);
+    dispatch(login(user)); // lena@mail.ua 12345678
   };
 
   return (

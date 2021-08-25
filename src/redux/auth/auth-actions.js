@@ -1,0 +1,9 @@
+import { createAction } from '@reduxjs/toolkit';
+
+export const signupRequest = createAction('auth/signupRequest');
+export const signupSuccess = createAction('auth/signupSuccess');
+export const signupError = createAction('auth/signupError');
+
+export const loginRequest = createAction('auth/loginRequest');
+export const loginSuccess = createAction('auth/loginSuccess');
+export const loginError = createAction('auth/loginError');
