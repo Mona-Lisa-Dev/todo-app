@@ -17,16 +17,11 @@ import { Visibility, VisibilityOff } from '@material-ui/icons';
 import styles from './LoginForm.module.scss';
 
 const LoginForm = () => {
-  const {
-    handleSubmit,
-    errors,
-    triggerValidation,
-    register,
-    setValue,
-    getValues,
-  } = useForm({
-    reValidateMode: 'onBlur',
-  });
+  const { handleSubmit, errors, trigger, register, setValue, getValues } =
+    useForm({
+      mode: 'onChange',
+      reValidateMode: 'onBlur',
+    });
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -43,7 +38,8 @@ const LoginForm = () => {
     const user = getValues();
     console.log('user', user);
 
-    // let isValid = await triggerValidation();
+    let isValid = await trigger();
+    console.log(isValid);
   };
 
   return (
@@ -77,7 +73,9 @@ const LoginForm = () => {
           }}
           setValue={() => {}}
         />
-        <FormHelperText>{errors.email?.message}</FormHelperText>
+        {errors.email && (
+          <FormHelperText>{errors.email?.message}</FormHelperText>
+        )}
       </div>
 
       <div className={styles.inputWrapper}>
@@ -128,7 +126,9 @@ const LoginForm = () => {
             setValue={() => {}}
           />
         </FormControl>
-        <FormHelperText>{errors.password?.message}</FormHelperText>
+        {errors.password && (
+          <FormHelperText>{errors.password?.message}</FormHelperText>
+        )}
       </div>
 
       <Button type="submit" variant="contained" color="primary">

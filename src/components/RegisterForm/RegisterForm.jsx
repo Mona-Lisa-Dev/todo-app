@@ -17,12 +17,13 @@ const RegisterForm = () => {
     handleSubmit,
     control,
     errors,
-    triggerValidation,
+    trigger,
     getValues,
     register,
     setValue,
   } = useForm({
     criteriaMode: 'all',
+    // mode: 'all',
     mode: 'onChange',
     reValidateMode: 'onBlur',
   });
@@ -32,7 +33,8 @@ const RegisterForm = () => {
     const user = getValues();
     console.log('user', user);
 
-    // let isValid = await triggerValidation();
+    let isValid = await trigger();
+    console.log(isValid);
   };
 
   return (
@@ -44,6 +46,7 @@ const RegisterForm = () => {
       <h2 className={styles.formTitle}>Sign up</h2>
       <div className={styles.inputWrapper}>
         <RHFInput
+          mode="onChange"
           as={
             <TextField required type="text" label="Name" variant="outlined" />
           }
@@ -59,7 +62,19 @@ const RegisterForm = () => {
           setValue={() => {}}
         />
 
-        <FormHelperText>{errors.name?.message}</FormHelperText>
+        {/* <input
+          required
+          type="text"
+          name="name"
+          ref={register({
+            required: 'Name is required',
+            minLength: {
+              value: 3,
+              message: 'Name must be at least 3 characters',
+            },
+          })}
+        /> */}
+        {errors.name && <FormHelperText>{errors.name?.message}</FormHelperText>}
       </div>
 
       <div className={styles.inputWrapper}>
@@ -74,7 +89,7 @@ const RegisterForm = () => {
           }
           name="email"
           register={register}
-          // mode="onChange"
+          mode="onChange"
           rules={{
             required: 'E-mail is required',
             pattern: {
@@ -85,7 +100,9 @@ const RegisterForm = () => {
           }}
           setValue={() => {}}
         />
-        <FormHelperText>{errors.email?.message}</FormHelperText>
+        {errors.email && (
+          <FormHelperText>{errors.email?.message}</FormHelperText>
+        )}
       </div>
 
       <div className={styles.inputWrapper}>
@@ -100,7 +117,7 @@ const RegisterForm = () => {
           }
           name="password"
           register={register}
-          // mode="onChange"
+          mode="onChange"
           rules={{
             required: 'Password is required',
             pattern: {
@@ -119,7 +136,9 @@ const RegisterForm = () => {
           }}
           setValue={() => {}}
         />
-        <FormHelperText>{errors.password?.message}</FormHelperText>
+        {errors.password && (
+          <FormHelperText>{errors.password?.message}</FormHelperText>
+        )}
       </div>
 
       <div className={styles.inputWrapper}>
@@ -134,7 +153,7 @@ const RegisterForm = () => {
           }
           name="passwordConfirmation"
           register={register}
-          // mode="onChange"
+          mode="onChange"
           rules={{
             required: 'Password is required',
             validate: {
@@ -146,7 +165,11 @@ const RegisterForm = () => {
           }}
           setValue={() => {}}
         />
-        <FormHelperText>{errors.passwordConfirmation?.message}</FormHelperText>
+        {errors.passwordConfirmation && (
+          <FormHelperText>
+            {errors.passwordConfirmation?.message}
+          </FormHelperText>
+        )}
       </div>
 
       <div className={styles.inputWrapper}>
@@ -162,6 +185,7 @@ const RegisterForm = () => {
           }
           name="age"
           register={register}
+          mode="onChange"
           rules={{
             required: 'Age is required',
             valueAsNumber: true,
@@ -172,7 +196,7 @@ const RegisterForm = () => {
           }}
           setValue={() => {}}
         />
-        <FormHelperText>{errors.age?.message}</FormHelperText>
+        {errors.age && <FormHelperText>{errors.age?.message}</FormHelperText>}
       </div>
 
       <div className={styles.checkbox}>
@@ -195,7 +219,9 @@ const RegisterForm = () => {
             />
           )}
         />
-        <FormHelperText>{errors.agreed?.message}</FormHelperText>
+        {errors.agreed && (
+          <FormHelperText>{errors.agreed?.message}</FormHelperText>
+        )}
       </div>
 
       <Button type="submit" variant="contained" color="primary">
