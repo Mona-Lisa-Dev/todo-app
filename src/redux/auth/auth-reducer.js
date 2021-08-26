@@ -8,6 +8,7 @@ import {
   loginRequest,
   loginSuccess,
   loginError,
+  clearError,
 } from './auth-actions';
 
 const initialUserState = { name: null, email: null, age: null };
@@ -30,8 +31,23 @@ const isAuthorized = createReducer(false, {
   [loginError]: () => false,
 });
 
+const setError = (_, { payload }) => payload;
+const errorSignup = createReducer(null, {
+  [signupError]: setError,
+  [signupRequest]: () => null,
+  [clearError]: () => null,
+});
+
+const errorLogin = createReducer(null, {
+  [loginError]: setError,
+  [loginRequest]: () => null,
+  [clearError]: () => null,
+});
+
 export default combineReducers({
   user,
   token,
   isAuthorized,
+  errorSignup,
+  errorLogin,
 });
