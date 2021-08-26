@@ -6,6 +6,9 @@ import {
   loginRequest,
   loginSuccess,
   loginError,
+  logoutRequest,
+  logoutSuccess,
+  logoutError,
 } from './auth-actions';
 
 axios.defaults.baseURL = 'https://api-nodejs-todolist.herokuapp.com';
@@ -43,5 +46,17 @@ export const login = payload => async dispatch => {
     return data;
   } catch (error) {
     dispatch(loginError(error.message));
+  }
+};
+
+export const logout = () => async dispatch => {
+  dispatch(logoutRequest());
+
+  try {
+    await axios.post(`/user/logout`);
+    dispatch(logoutSuccess());
+    token.unset();
+  } catch (error) {
+    dispatch(logoutError(error.message));
   }
 };
