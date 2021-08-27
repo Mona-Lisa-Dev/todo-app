@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Redirect, Switch } from 'react-router-dom';
 
 import Homepage from 'pages/Homepage';
@@ -10,10 +12,15 @@ import Container from 'components/Container';
 import PrivateRoute from 'components/PrivateRoute';
 import PublicRoute from 'components/PublicRoute';
 
+import { getCurrentUser } from 'redux/auth/auth-operations';
+
 import routes from 'routes';
 import './scss/_main.scss';
 
 const App = () => {
+  const dispatch = useDispatch();
+  useEffect(() => dispatch(getCurrentUser()), [dispatch]);
+
   return (
     <>
       <AppBar />

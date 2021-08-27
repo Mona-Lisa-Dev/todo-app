@@ -9,6 +9,9 @@ import {
   logoutRequest,
   logoutSuccess,
   logoutError,
+  getCurrentUserRequest,
+  getCurrentUserSuccess,
+  getCurrentUserError,
 } from './auth-actions';
 
 axios.defaults.baseURL = 'https://api-nodejs-todolist.herokuapp.com';
@@ -58,5 +61,25 @@ export const logout = () => async dispatch => {
     token.unset();
   } catch (error) {
     dispatch(logoutError(error.message));
+  }
+};
+
+export const getCurrentUser = () => async (dispatch, getState) => {
+  const {
+    auth: { token: persistedToken },
+  } = getState();
+
+  if (!persistedToken) return;
+
+  token.set(persistedToken);
+  dispatch(getCurrentUserRequest());
+
+  try {
+    const { data } = await axios.get('/user/me');
+    dispatch(getCurrentUserSuccess(data));
+
+    return data;
+  } catch (error) {
+    dispatch(getCurrentUserError(error.message));
   }
 };
