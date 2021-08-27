@@ -19,7 +19,9 @@ export const addTodo = todo => async dispatch => {
   dispatch(addTodoRequest());
 
   try {
-    const { data } = await axios.post('/task', todo);
+    const {
+      data: { data },
+    } = await axios.post('/task', todo);
     dispatch(addTodoSuccess(data));
     return data;
   } catch (error) {
@@ -31,9 +33,8 @@ export const deleteTodo = todoId => async dispatch => {
   dispatch(deleteTodoRequest());
 
   try {
-    const { data } = await axios.delete(`/task/${todoId}`);
+    await axios.delete(`/task/${todoId}`);
     dispatch(deleteTodoSuccess(todoId));
-    return data;
   } catch (error) {
     dispatch(deleteTodoError(error.message));
   }
@@ -43,7 +44,9 @@ export const updateTodo = (id, updatedTodo) => async dispatch => {
   dispatch(updateTodoRequest());
 
   try {
-    const { data } = await axios.put(`/task/${id}`, updatedTodo);
+    const {
+      data: { data },
+    } = await axios.put(`/task/${id}`, updatedTodo);
     dispatch(updateTodoSuccess(data));
     return data;
   } catch (error) {
@@ -55,7 +58,9 @@ export const getAllTodos = () => async dispatch => {
   dispatch(getTodosRequest());
 
   try {
-    const { data } = await axios.get('/task');
+    const {
+      data: { data },
+    } = await axios.get('/task');
     dispatch(getTodosSuccess(data));
     return data;
   } catch (error) {

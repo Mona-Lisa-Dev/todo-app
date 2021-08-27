@@ -17,15 +17,13 @@ import {
 } from './todos-actions';
 import { logoutSuccess } from 'redux/auth/auth-actions';
 
-// Todo запрос на add тудушок іде 201, але стейт не обновляється, перевірити редюсер на всі операції
-
 const items = createReducer([], {
   [getTodosSuccess]: (_, { payload }) => payload,
   [addTodoSuccess]: (state, { payload }) => [...state, payload],
   [deleteTodoSuccess]: (state, { payload }) =>
-    state.filter(({ id }) => id !== payload),
+    state.filter(({ _id }) => _id !== payload),
   [updateTodoSuccess]: (state, { payload }) =>
-    state.map(item => (item.id === payload.id ? payload : item)),
+    state.map(item => (item._id === payload._id ? payload : item)),
 
   [logoutSuccess]: () => [],
 });
