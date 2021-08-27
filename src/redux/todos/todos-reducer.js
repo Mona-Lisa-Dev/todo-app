@@ -14,6 +14,9 @@ import {
   getTodosRequest,
   getTodosSuccess,
   getTodosError,
+  getByPageRequest,
+  getByPageSuccess,
+  getByPageError,
 } from './todos-actions';
 import { logoutSuccess } from 'redux/auth/auth-actions';
 
@@ -28,6 +31,12 @@ const items = createReducer([], {
   [logoutSuccess]: () => [],
 });
 
+const itemsByPage = createReducer([], {
+  [getByPageSuccess]: (_, { payload }) => payload,
+
+  [logoutSuccess]: () => [],
+});
+
 const setError = (_, { payload }) => payload;
 const error = createReducer(null, {
   [getTodosError]: setError,
@@ -38,9 +47,12 @@ const error = createReducer(null, {
   [deleteTodoRequest]: () => null,
   [updateTodoError]: setError,
   [updateTodoRequest]: () => null,
+  [getByPageError]: setError,
+  [getByPageRequest]: () => null,
 });
 
 export default combineReducers({
   items,
+  itemsByPage,
   error,
 });

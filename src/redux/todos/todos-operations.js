@@ -13,6 +13,9 @@ import {
   getTodosRequest,
   getTodosSuccess,
   getTodosError,
+  getByPageRequest,
+  getByPageSuccess,
+  getByPageError,
 } from './todos-actions';
 
 export const addTodo = todo => async dispatch => {
@@ -65,5 +68,19 @@ export const getAllTodos = () => async dispatch => {
     return data;
   } catch (error) {
     dispatch(getTodosError(error.message));
+  }
+};
+
+export const getTodosByPage = (limit, skip) => async dispatch => {
+  dispatch(getByPageRequest());
+
+  try {
+    const {
+      data: { data },
+    } = await axios.get(`/task?limit=${limit}&skip=${skip}`);
+    dispatch(getByPageSuccess(data));
+    return data;
+  } catch (error) {
+    dispatch(getByPageError(error.message));
   }
 };
