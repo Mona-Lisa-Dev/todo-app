@@ -10,7 +10,7 @@ const PaginationTodos = ({ todos, itemsOnPage, countPages }) => {
 
   useEffect(() => {
     const skip = itemsOnPage * (page - 1);
-    dispatch(getTodosByPage(itemsOnPage, skip));
+    dispatch(getTodosByPage(itemsOnPage, skip, page));
   }, [dispatch, itemsOnPage, page, todos]);
 
   const handleChange = (_, value) => setPage(value);

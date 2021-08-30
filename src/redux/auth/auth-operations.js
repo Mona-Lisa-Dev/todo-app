@@ -14,7 +14,8 @@ import {
   getCurrentUserError,
 } from './auth-actions';
 
-axios.defaults.baseURL = 'https://api-nodejs-todolist.herokuapp.com';
+// axios.defaults.baseURL = 'https://api-nodejs-todolist.herokuapp.com';
+axios.defaults.baseURL = 'https://restapi-todos.herokuapp.com/api';
 
 const token = {
   set(token) {
@@ -29,7 +30,11 @@ export const signup = payload => async dispatch => {
   dispatch(signupRequest());
 
   try {
-    const { data } = await axios.post('/user/register', payload);
+    // const { data } = await axios.post('/user/register', payload);
+    const {
+      data: { data },
+    } = await axios.post('/users/signup', payload);
+
     dispatch(signupSuccess(data));
     console.log('sign up', data);
     return data;
@@ -42,7 +47,11 @@ export const login = payload => async dispatch => {
   dispatch(loginRequest());
 
   try {
-    const { data } = await axios.post('/user/login', payload);
+    // const { data } = await axios.post('/user/login', payload);
+    const {
+      data: { data },
+    } = await axios.post('/users/login', payload);
+
     dispatch(loginSuccess(data));
     token.set(data.token);
     console.log('log in', data);
@@ -56,7 +65,9 @@ export const logout = () => async dispatch => {
   dispatch(logoutRequest());
 
   try {
-    await axios.post(`/user/logout`);
+    // await axios.post(`/user/logout`);
+    await axios.post(`/users/logout`);
+
     dispatch(logoutSuccess());
     token.unset();
   } catch (error) {
@@ -75,7 +86,9 @@ export const getCurrentUser = () => async (dispatch, getState) => {
   dispatch(getCurrentUserRequest());
 
   try {
-    const { data } = await axios.get('/user/me');
+    // const { data } = await axios.get('/user/me');
+    const { data } = await axios.get('/users/current');
+
     dispatch(getCurrentUserSuccess(data));
 
     return data;

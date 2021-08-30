@@ -40,12 +40,15 @@ const RegisterForm = () => {
   const handleSubmitForm = async data => {
     console.log(data);
     const user = getValues();
+    const { email, password } = user;
 
     let isValid = await trigger();
     console.log(isValid);
     if (isValid) {
       await dispatch(signup(user));
-      dispatch(login(user));
+
+      // todo викликати тільки при вдалій реєстрації, зробити стейт isSucsessSignup наприклад
+      dispatch(login({ email, password }));
     }
   };
 

@@ -20,8 +20,10 @@ import {
 } from './todos-actions';
 import { logoutSuccess } from 'redux/auth/auth-actions';
 
+// todo перевірити чому не працює апдейт таски і перевірити решту операцій
 const items = createReducer([], {
-  [getTodosSuccess]: (_, { payload }) => payload,
+  // [getTodosSuccess]: (_, { payload }) => payload.tasks,
+  [getByPageSuccess]: (_, { payload }) => payload.tasks,
   [addTodoSuccess]: (state, { payload }) => [...state, payload],
   [deleteTodoSuccess]: (state, { payload }) =>
     state.filter(({ _id }) => _id !== payload),
@@ -31,10 +33,14 @@ const items = createReducer([], {
   [logoutSuccess]: () => [],
 });
 
-const itemsByPage = createReducer([], {
-  [getByPageSuccess]: (_, { payload }) => payload,
+// const itemsByPage = createReducer([], {
+//   [getByPageSuccess]: (_, { payload }) => payload.tasks,
 
-  [logoutSuccess]: () => [],
+//   [logoutSuccess]: () => [],
+// });
+
+const itemsByPageLength = createReducer(null, {
+  [getByPageSuccess]: (_, { payload }) => payload.total,
 });
 
 const setError = (_, { payload }) => payload;
@@ -53,6 +59,7 @@ const error = createReducer(null, {
 
 export default combineReducers({
   items,
-  itemsByPage,
+  // itemsByPage,
+  itemsByPageLength,
   error,
 });
