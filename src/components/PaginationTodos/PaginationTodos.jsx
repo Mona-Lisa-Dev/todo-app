@@ -17,8 +17,6 @@ const PaginationTodos = ({ todos, itemsOnPage, countPages }) => {
       skip = itemsOnPage * (page - 1);
     }
 
-    console.log('page', page);
-    console.log('itemsOnPage', itemsOnPage);
     dispatch(getTodosByPage(itemsOnPage, skip));
   }, [dispatch, itemsOnPage, page, todos]);
 

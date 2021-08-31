@@ -15,6 +15,8 @@ import {
 } from '@material-ui/core';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 
+import AlertError from 'components/AlertError';
+
 import { getErrorLogin } from 'redux/auth/auth-selectors';
 import { login } from 'redux/auth/auth-operations';
 import { clearError } from 'redux/auth/auth-actions';
@@ -52,6 +54,7 @@ const LoginForm = () => {
 
   return (
     <>
+      {error && <AlertError error={error} />}
       <form
         className={styles.LoginForm}
         onSubmit={handleSubmit(handleSubmitForm)}
@@ -73,11 +76,11 @@ const LoginForm = () => {
             register={register}
             rules={{
               required: 'E-mail is required',
-              pattern: {
-                value:
-                  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                message: 'E-mail is not valid',
-              },
+              // pattern: {
+              //   value:
+              //     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+              //   message: 'E-mail is not valid',
+              // },
             }}
             setValue={setValue}
             onChange={() => trigger('email')}
@@ -117,19 +120,19 @@ const LoginForm = () => {
               register={register}
               rules={{
                 required: 'Password is required',
-                pattern: {
-                  value: /^[a-z0-9_-]{7,18}$/,
-                  message:
-                    'Password can contain letters, numbers, hyphens and underscores',
-                },
-                minLength: {
-                  value: 7,
-                  message: 'Password must be at least 7 characters',
-                },
-                maxLength: {
-                  value: 18,
-                  message: 'Password must be at most 18 characters',
-                },
+                // pattern: {
+                //   value: /^[a-z0-9_-]{7,18}$/,
+                //   message:
+                //     'Password can contain letters, numbers, hyphens and underscores',
+                // },
+                // minLength: {
+                //   value: 7,
+                //   message: 'Password must be at least 7 characters',
+                // },
+                // maxLength: {
+                //   value: 18,
+                //   message: 'Password must be at most 18 characters',
+                // },
               }}
               setValue={setValue}
               onChange={() => trigger('password')}
@@ -144,7 +147,6 @@ const LoginForm = () => {
           Log in
         </Button>
       </form>
-      {error && <p>Something went wrong. Try again!</p>}
     </>
   );
 };

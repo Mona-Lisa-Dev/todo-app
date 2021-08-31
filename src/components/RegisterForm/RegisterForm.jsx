@@ -11,7 +11,9 @@ import {
   FormHelperText,
 } from '@material-ui/core';
 
-import { signup, login } from 'redux/auth/auth-operations';
+import AlertError from 'components/AlertError';
+
+import { signup } from 'redux/auth/auth-operations';
 import { getErrorSignup } from 'redux/auth/auth-selectors';
 import { clearError } from 'redux/auth/auth-actions';
 
@@ -33,27 +35,24 @@ const RegisterForm = () => {
 
   const dispatch = useDispatch();
   const error = useSelector(getErrorSignup);
+
   useEffect(() => dispatch(clearError()), [dispatch]);
 
   // console.log('errors:', errors);
 
   const handleSubmitForm = async data => {
-    console.log(data);
     const user = getValues();
-    const { email, password } = user;
 
     let isValid = await trigger();
-    console.log(isValid);
+
     if (isValid) {
       await dispatch(signup(user));
-
-      // todo викликати тільки при вдалій реєстрації, зробити стейт isSucsessSignup наприклад
-      dispatch(login({ email, password }));
     }
   };
 
   return (
     <>
+      {error && <AlertError error={error} />}
       <form
         className={styles.RegisterForm}
         onSubmit={handleSubmit(handleSubmitForm)}
@@ -242,7 +241,6 @@ const RegisterForm = () => {
           Sign up
         </Button>
       </form>
-      {error && <p>Something went wrong. Try again!</p>}
     </>
   );
 };

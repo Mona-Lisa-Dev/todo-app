@@ -24,13 +24,12 @@ const TodosPage = () => {
   const renderTodoList = todosLength > 0;
 
   useEffect(() => {
-    console.log('renderPagination', renderPagination);
     !renderPagination && dispatch(getTodosByPage(ITEMS_ON_PAGE, 0));
   }, [ITEMS_ON_PAGE, dispatch, renderPagination, todosLength]);
 
   useEffect(() => {
     // dispatch(getAllTodos());
-    console.log('second dispatch from todosPage');
+
     dispatch(getTodosByPage(ITEMS_ON_PAGE, 0));
   }, [dispatch]);
 
