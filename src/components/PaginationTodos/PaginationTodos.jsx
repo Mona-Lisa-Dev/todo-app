@@ -9,8 +9,17 @@ const PaginationTodos = ({ todos, itemsOnPage, countPages }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const skip = itemsOnPage * (page - 1);
-    dispatch(getTodosByPage(itemsOnPage, skip, page));
+    let skip;
+
+    if (todos % itemsOnPage === 0 && todos / itemsOnPage < page) {
+      skip = itemsOnPage * (page - 2);
+    } else {
+      skip = itemsOnPage * (page - 1);
+    }
+
+    console.log('page', page);
+    console.log('itemsOnPage', itemsOnPage);
+    dispatch(getTodosByPage(itemsOnPage, skip));
   }, [dispatch, itemsOnPage, page, todos]);
 
   const handleChange = (_, value) => setPage(value);

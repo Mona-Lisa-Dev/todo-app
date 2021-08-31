@@ -10,9 +10,9 @@ import {
   updateTodoRequest,
   updateTodoSuccess,
   updateTodoError,
-  getTodosRequest,
-  getTodosSuccess,
-  getTodosError,
+  // getTodosRequest,
+  // getTodosSuccess,
+  // getTodosError,
   getByPageRequest,
   getByPageSuccess,
   getByPageError,
@@ -59,51 +59,47 @@ export const updateTodo = (id, updatedTodo) => async dispatch => {
     const {
       data: { data },
     } = await axios.put(`/tasks/${id}`, updatedTodo);
-
-    dispatch(updateTodoSuccess(data));
-    return data;
+    console.log(data);
+    dispatch(updateTodoSuccess(data.task));
+    return data.task;
   } catch (error) {
     dispatch(updateTodoError(error.message));
   }
 };
 
-export const getAllTodos = () => async dispatch => {
-  dispatch(getTodosRequest());
+// export const getAllTodos = () => async dispatch => {
+//   dispatch(getTodosRequest());
+
+//   try {
+//     // const {
+//     //   data: { data },
+//     // } = await axios.get('/task');
+//     const {
+//       data: { data },
+//     } = await axios.get('/tasks');
+
+//     dispatch(getTodosSuccess(data));
+//     return data;
+//   } catch (error) {
+//     dispatch(getTodosError(error.message));
+//   }
+// };
+
+export const getTodosByPage = (limit, offset) => async dispatch => {
+  dispatch(getByPageRequest());
 
   try {
     // const {
     //   data: { data },
-    // } = await axios.get('/task');
+    // } = await axios.get(`/task?limit=${limit}&skip=${skip}`);
     const {
-      data: { data },
-    } = await axios.get('/tasks');
-
-    dispatch(getTodosSuccess(data));
-    return data;
+      data: {
+        data: { tasks },
+      },
+    } = await axios.get(`/tasks?limit=${limit}&offset=${offset}}`);
+    dispatch(getByPageSuccess(tasks));
+    return tasks;
   } catch (error) {
-    dispatch(getTodosError(error.message));
+    dispatch(getByPageError(error.message));
   }
 };
-
-export const getTodosByPage =
-  (limit, offset, page = 1) =>
-  async dispatch => {
-    dispatch(getByPageRequest());
-
-    try {
-      // const {
-      //   data: { data },
-      // } = await axios.get(`/task?limit=${limit}&skip=${skip}`);
-      const {
-        data: {
-          data: { tasks },
-        },
-      } = await axios.get(
-        `/tasks?limit=${limit}&offset=${offset}&page=${page}}`,
-      );
-      dispatch(getByPageSuccess(tasks));
-      return tasks;
-    } catch (error) {
-      dispatch(getByPageError(error.message));
-    }
-  };

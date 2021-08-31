@@ -23,13 +23,14 @@ const TodosPage = () => {
   const renderPagination = todosLength > ITEMS_ON_PAGE;
   const renderTodoList = todosLength > 0;
 
-  useEffect(
-    () => !renderPagination && dispatch(getTodosByPage(ITEMS_ON_PAGE, 0)),
-    [ITEMS_ON_PAGE, dispatch, renderPagination, todosLength],
-  );
+  useEffect(() => {
+    console.log('renderPagination', renderPagination);
+    !renderPagination && dispatch(getTodosByPage(ITEMS_ON_PAGE, 0));
+  }, [ITEMS_ON_PAGE, dispatch, renderPagination, todosLength]);
 
   useEffect(() => {
-    dispatch(getAllTodos());
+    // dispatch(getAllTodos());
+    console.log('second dispatch from todosPage');
     dispatch(getTodosByPage(ITEMS_ON_PAGE, 0));
   }, [dispatch]);
 

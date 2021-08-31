@@ -12,9 +12,9 @@ export const updateTodoRequest = createAction('todos/updateTodoRequest');
 export const updateTodoSuccess = createAction('todos/updateTodoSuccess');
 export const updateTodoError = createAction('todos/updateTodoError');
 
-export const getTodosRequest = createAction('todos/getTodosRequest');
-export const getTodosSuccess = createAction('todos/getTodosSuccess');
-export const getTodosError = createAction('todos/getTodosError');
+// export const getTodosRequest = createAction('todos/getTodosRequest');
+// export const getTodosSuccess = createAction('todos/getTodosSuccess');
+// export const getTodosError = createAction('todos/getTodosError');
 
 export const getByPageRequest = createAction('todos/getByPageRequest');
 export const getByPageSuccess = createAction('todos/getByPageSuccess');

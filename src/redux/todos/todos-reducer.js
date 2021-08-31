@@ -11,16 +11,15 @@ import {
   updateTodoRequest,
   updateTodoSuccess,
   updateTodoError,
-  getTodosRequest,
-  getTodosSuccess,
-  getTodosError,
+  // getTodosRequest,
+  // getTodosSuccess,
+  // getTodosError,
   getByPageRequest,
   getByPageSuccess,
   getByPageError,
 } from './todos-actions';
 import { logoutSuccess } from 'redux/auth/auth-actions';
 
-// todo перевірити чому не працює апдейт таски і перевірити решту операцій
 const items = createReducer([], {
   // [getTodosSuccess]: (_, { payload }) => payload.tasks,
   [getByPageSuccess]: (_, { payload }) => payload.tasks,
@@ -41,12 +40,14 @@ const items = createReducer([], {
 
 const itemsByPageLength = createReducer(null, {
   [getByPageSuccess]: (_, { payload }) => payload.total,
+  [addTodoSuccess]: (state, { payload }) => state + 1,
+  [deleteTodoSuccess]: (state, { payload }) => state - 1,
 });
 
 const setError = (_, { payload }) => payload;
 const error = createReducer(null, {
-  [getTodosError]: setError,
-  [getTodosRequest]: () => null,
+  // [getTodosError]: setError,
+  // [getTodosRequest]: () => null,
   [addTodoError]: setError,
   [addTodoRequest]: () => null,
   [deleteTodoError]: setError,
