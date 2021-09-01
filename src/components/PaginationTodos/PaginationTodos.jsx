@@ -4,7 +4,7 @@ import Pagination from '@material-ui/lab/Pagination';
 
 import { getTodosByPage } from 'redux/todos/todos-operations';
 
-const PaginationTodos = ({ status, todos, itemsOnPage, countPages }) => {
+const PaginationTodos = ({ todos, itemsOnPage, countPages }) => {
   const [page, setPage] = useState(1);
   const [change, setChange] = useState(false);
   const dispatch = useDispatch();
