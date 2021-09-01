@@ -14,7 +14,7 @@ import {
 import AlertError from 'components/AlertError';
 
 import { signup } from 'redux/auth/auth-operations';
-import { getErrorSignup } from 'redux/auth/auth-selectors';
+import { getErrorMessage } from 'redux/auth/auth-selectors';
 import { clearError } from 'redux/auth/auth-actions';
 
 import styles from './RegisterForm.module.scss';
@@ -34,7 +34,7 @@ const RegisterForm = () => {
   });
 
   const dispatch = useDispatch();
-  const error = useSelector(getErrorSignup);
+  const error = useSelector(getErrorMessage);
 
   useEffect(() => dispatch(clearError()), [dispatch]);
 

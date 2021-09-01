@@ -17,7 +17,7 @@ import { Visibility, VisibilityOff } from '@material-ui/icons';
 
 import AlertError from 'components/AlertError';
 
-import { getErrorLogin } from 'redux/auth/auth-selectors';
+import { getErrorMessage } from 'redux/auth/auth-selectors';
 import { login } from 'redux/auth/auth-operations';
 import { clearError } from 'redux/auth/auth-actions';
 
@@ -32,7 +32,8 @@ const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const dispatch = useDispatch();
-  const error = useSelector(getErrorLogin);
+
+  const error = useSelector(getErrorMessage);
   useEffect(() => dispatch(clearError()), [dispatch]);
 
   const handleClickShowPassword = () => {
