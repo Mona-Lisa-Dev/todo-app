@@ -22,7 +22,7 @@ const { dispatch } = store;
 axios.defaults.baseURL = 'https://restapi-todos.herokuapp.com/api';
 
 axios.interceptors.response.use(
-  response =>
+  async response =>
     new Promise((resolve, reject) => {
       resolve(response);
     }),
@@ -90,10 +90,10 @@ export const login = payload => async dispatch => {
     const {
       data: { data },
     } = await axios.post('/users/login', payload);
-
-    dispatch(loginSuccess(data));
     token.set(data.token);
-    // console.log('log in', data);
+    dispatch(loginSuccess(data));
+
+    console.log('log in', data);
     return data;
   } catch (error) {
     dispatch(loginError(error.message));

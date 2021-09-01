@@ -75,7 +75,23 @@ export const getTodosByPage = (limit, offset) => async dispatch => {
       data: {
         data: { tasks },
       },
-    } = await axios.get(`/tasks?limit=${limit}&offset=${offset}}`);
+    } = await axios.get(`/tasks?limit=${limit}&offset=${offset}`);
+    dispatch(getByPageSuccess(tasks));
+    return tasks;
+  } catch (error) {
+    dispatch(getByPageError(error.message));
+  }
+};
+
+export const getTodosByStatus = status => async dispatch => {
+  dispatch(getByPageRequest());
+
+  try {
+    const {
+      data: {
+        data: { tasks },
+      },
+    } = await axios.get(`/tasks?isDone=${status}`);
     dispatch(getByPageSuccess(tasks));
     return tasks;
   } catch (error) {

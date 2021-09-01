@@ -1,16 +1,23 @@
 import { useDispatch } from 'react-redux';
 import { logout } from 'redux/auth/auth-operations';
 
-import styles from './UserMenu.module.scss';
+import { Button } from '@material-ui/core';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 const UserMenu = () => {
   const dispatch = useDispatch();
   const logoutHandler = () => dispatch(logout());
 
   return (
-    <button className={styles.logoutButton} onClick={logoutHandler}>
+    <Button
+      type="button"
+      variant="contained"
+      color="primary"
+      endIcon={<ExitToAppIcon>add</ExitToAppIcon>}
+      onClick={logoutHandler}
+    >
       Logout
-    </button>
+    </Button>
   );
 };
 

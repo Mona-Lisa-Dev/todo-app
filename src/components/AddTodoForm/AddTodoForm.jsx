@@ -2,6 +2,7 @@ import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { RHFInput } from 'react-hook-form-input';
 import { TextField, Button } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
 
 import { addTodo } from 'redux/todos/todos-operations';
 
@@ -32,7 +33,12 @@ const AddTodoForm = () => {
         setValue={setValue}
       />
 
-      <Button type="submit" variant="contained" color="primary">
+      <Button
+        type="submit"
+        variant="contained"
+        color="primary"
+        endIcon={<AddIcon>add</AddIcon>}
+      >
         Add
       </Button>
     </form>

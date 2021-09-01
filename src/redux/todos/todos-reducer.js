@@ -14,6 +14,7 @@ import {
   getByPageRequest,
   getByPageSuccess,
   getByPageError,
+  changeFilter,
 } from './todos-actions';
 import { logoutSuccess } from 'redux/auth/auth-actions';
 
@@ -34,6 +35,12 @@ const itemsByPageLength = createReducer(null, {
   [deleteTodoSuccess]: (state, { payload }) => state - 1,
 });
 
+// todo добавити фільтр по тудушкам
+
+const filter = createReducer(null, {
+  [changeFilter]: (_, { payload }) => payload,
+});
+
 const setError = (_, { payload }) => payload;
 const error = createReducer(null, {
   [addTodoError]: setError,
@@ -49,5 +56,6 @@ const error = createReducer(null, {
 export default combineReducers({
   items,
   itemsByPageLength,
+  filter,
   error,
 });

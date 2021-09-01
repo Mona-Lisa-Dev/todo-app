@@ -15,3 +15,5 @@ export const updateTodoError = createAction('todos/updateTodoError');
 export const getByPageRequest = createAction('todos/getByPageRequest');
 export const getByPageSuccess = createAction('todos/getByPageSuccess');
 export const getByPageError = createAction('todos/getByPageError');
+
+export const changeFilter = createAction('todos/changeFilter');
