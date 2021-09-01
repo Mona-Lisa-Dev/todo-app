@@ -30,7 +30,7 @@ axios.interceptors.response.use(
     const errorMessage = 'Something is wrong. Try again!';
     if (!error.response) {
       return new Promise((resolve, reject) => {
-        console.log('Error!', error || errorMessage);
+        // console.log('Error!', error || errorMessage);
         dispatch(createErrorMessage(error) || errorMessage);
         reject(error);
       });
@@ -38,13 +38,13 @@ axios.interceptors.response.use(
 
     if (error.response.status) {
       dispatch(createErrorMessage(error.response.data.message || errorMessage));
-      console.log('Error!', error.response.data.message || errorMessage);
+      // console.log('Error!', error.response.data.message || errorMessage);
     } else {
       return new Promise((resolve, reject) => {
         dispatch(
           createErrorMessage(error.response.data.message || errorMessage),
         );
-        console.log('Error!', error.response.data.message || errorMessage);
+        // console.log('Error!', error.response.data.message || errorMessage);
 
         reject(error);
       });
@@ -69,7 +69,7 @@ export const signup = payload => async dispatch => {
     const {
       data: { data },
     } = await axios.post('/users/signup', payload);
-    console.log('sign up', data);
+    // console.log('sign up', data);
     dispatch(signupSuccess(data));
 
     const { email, password } = payload;
@@ -93,7 +93,7 @@ export const login = payload => async dispatch => {
 
     dispatch(loginSuccess(data));
     token.set(data.token);
-    console.log('log in', data);
+    // console.log('log in', data);
     return data;
   } catch (error) {
     dispatch(loginError(error.message));
