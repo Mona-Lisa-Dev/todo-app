@@ -77,11 +77,6 @@ const LoginForm = () => {
             register={register}
             rules={{
               required: 'E-mail is required',
-              // pattern: {
-              //   value:
-              //     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-              //   message: 'E-mail is not valid',
-              // },
             }}
             setValue={setValue}
             onChange={() => trigger('email')}
@@ -121,19 +116,6 @@ const LoginForm = () => {
               register={register}
               rules={{
                 required: 'Password is required',
-                // pattern: {
-                //   value: /^[a-z0-9_-]{7,18}$/,
-                //   message:
-                //     'Password can contain letters, numbers, hyphens and underscores',
-                // },
-                // minLength: {
-                //   value: 7,
-                //   message: 'Password must be at least 7 characters',
-                // },
-                // maxLength: {
-                //   value: 18,
-                //   message: 'Password must be at most 18 characters',
-                // },
               }}
               setValue={setValue}
               onChange={() => trigger('password')}

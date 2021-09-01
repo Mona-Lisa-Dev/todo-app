@@ -10,9 +10,6 @@ import {
   updateTodoRequest,
   updateTodoSuccess,
   updateTodoError,
-  // getTodosRequest,
-  // getTodosSuccess,
-  // getTodosError,
   getByPageRequest,
   getByPageSuccess,
   getByPageError,
@@ -66,24 +63,6 @@ export const updateTodo = (id, updatedTodo) => async dispatch => {
     dispatch(updateTodoError(error.message));
   }
 };
-
-// export const getAllTodos = () => async dispatch => {
-//   dispatch(getTodosRequest());
-
-//   try {
-//     // const {
-//     //   data: { data },
-//     // } = await axios.get('/task');
-//     const {
-//       data: { data },
-//     } = await axios.get('/tasks');
-
-//     dispatch(getTodosSuccess(data));
-//     return data;
-//   } catch (error) {
-//     dispatch(getTodosError(error.message));
-//   }
-// };
 
 export const getTodosByPage = (limit, offset) => async dispatch => {
   dispatch(getByPageRequest());

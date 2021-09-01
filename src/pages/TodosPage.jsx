@@ -5,12 +5,8 @@ import AddTodoForm from 'components/AddTodoForm';
 import TodoList from 'components/TodoList';
 import PaginationTodos from 'components/PaginationTodos';
 
-import {
-  getTodos,
-  getTodosByOnePage,
-  getTotalTodos,
-} from 'redux/todos/todos-selectors';
-import { getAllTodos, getTodosByPage } from 'redux/todos/todos-operations';
+import { getTodosByOnePage, getTotalTodos } from 'redux/todos/todos-selectors';
+import { getTodosByPage } from 'redux/todos/todos-operations';
 
 const TodosPage = () => {
   const ITEMS_ON_PAGE = 5;
@@ -28,8 +24,6 @@ const TodosPage = () => {
   }, [ITEMS_ON_PAGE, dispatch, renderPagination, todosLength]);
 
   useEffect(() => {
-    // dispatch(getAllTodos());
-
     dispatch(getTodosByPage(ITEMS_ON_PAGE, 0));
   }, [dispatch]);
 
