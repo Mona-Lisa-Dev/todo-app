@@ -29,11 +29,17 @@ const TodosPage = () => {
   const renderTodoList = todosLength > 0;
 
   useEffect(() => {
-    !renderPagination && dispatch(getTodosByPage(ITEMS_ON_PAGE, 0));
+    !renderPagination &&
+      (byStatus
+        ? dispatch(getTodosByStatus(ITEMS_ON_PAGE, 0, completed))
+        : dispatch(getTodosByPage(ITEMS_ON_PAGE, 0)));
   }, [ITEMS_ON_PAGE, dispatch, renderPagination, todosLength]);
 
   useEffect(() => {
-    renderPagination && dispatch(getTodosByPage(ITEMS_ON_PAGE, 0));
+    renderPagination &&
+      (byStatus
+        ? dispatch(getTodosByStatus(ITEMS_ON_PAGE, 0, completed))
+        : dispatch(getTodosByPage(ITEMS_ON_PAGE, 0)));
   }, [dispatch, renderPagination]);
 
   return (
@@ -41,43 +47,45 @@ const TodosPage = () => {
       <AddTodoForm />
       {/* <p>Total todos: {todosLength}</p> */}
 
-      <IconButton
-        aria-label="All todos"
-        type="button"
-        title="All todos"
-        onClick={() => {
-          setByStatus(false);
-          dispatch(getTodosByPage(ITEMS_ON_PAGE, 0));
-        }}
-      >
-        <PlaylistAddCheck />
-      </IconButton>
-
-      <IconButton
-        aria-label="Completed"
-        type="button"
-        title="Completed todos"
-        onClick={() => {
-          setCompleted(true);
-          setByStatus(true);
-          dispatch(getTodosByStatus(ITEMS_ON_PAGE, 0, true));
-        }}
-      >
-        <CheckBox />
-      </IconButton>
-
-      <IconButton
-        aria-label="Not completed"
-        type="button"
-        title="Not completed todos"
-        onClick={() => {
-          setCompleted(false);
-          setByStatus(true);
-          dispatch(getTodosByStatus(ITEMS_ON_PAGE, 0, false));
-        }}
-      >
-        <CheckBoxOutlineBlank />
-      </IconButton>
+      {/* {!!todosLength && ( */}
+      <div>
+        <IconButton
+          aria-label="All todos"
+          type="button"
+          title="All todos"
+          onClick={() => {
+            setByStatus(false);
+            dispatch(getTodosByPage(ITEMS_ON_PAGE, 0));
+          }}
+        >
+          <PlaylistAddCheck />
+        </IconButton>
+        <IconButton
+          aria-label="Completed"
+          type="button"
+          title="Completed todos"
+          onClick={() => {
+            setCompleted(true);
+            setByStatus(true);
+            dispatch(getTodosByStatus(ITEMS_ON_PAGE, 0, true));
+          }}
+        >
+          <CheckBox />
+        </IconButton>
+        <IconButton
+          aria-label="Not completed"
+          type="button"
+          title="Not completed todos"
+          onClick={() => {
+            setCompleted(false);
+            setByStatus(true);
+            dispatch(getTodosByStatus(ITEMS_ON_PAGE, 0, false));
+          }}
+        >
+          <CheckBoxOutlineBlank />
+        </IconButton>
+      </div>
+      {/* )} */}
 
       {renderTodoList && <TodoList todosToShow={todosToShow} />}
       {renderPagination && (
