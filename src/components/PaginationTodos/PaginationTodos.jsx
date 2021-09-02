@@ -2,9 +2,15 @@ import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import Pagination from '@material-ui/lab/Pagination';
 
-import { getTodosByPage } from 'redux/todos/todos-operations';
+import { getTodosByPage, getTodosByStatus } from 'redux/todos/todos-operations';
 
-const PaginationTodos = ({ todos, itemsOnPage, countPages }) => {
+const PaginationTodos = ({
+  status,
+  completed,
+  todos,
+  itemsOnPage,
+  countPages,
+}) => {
   const [page, setPage] = useState(1);
   const [change, setChange] = useState(false);
   const dispatch = useDispatch();
@@ -26,7 +32,13 @@ const PaginationTodos = ({ todos, itemsOnPage, countPages }) => {
       skip = itemsOnPage * (page - 1);
     }
 
-    dispatch(getTodosByPage(itemsOnPage, skip));
+    if (status) {
+      if (!change) setPage(1);
+    }
+
+    status
+      ? change && dispatch(getTodosByStatus(itemsOnPage, skip, completed))
+      : dispatch(getTodosByPage(itemsOnPage, skip));
     setChange(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, itemsOnPage, page, todos]);
