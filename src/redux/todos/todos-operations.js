@@ -16,9 +16,6 @@ import {
   getAllTodosRequest,
   getAllTodosSuccess,
   getAllTodosError,
-  getBySortRequest,
-  getBySortSuccess,
-  getBySortError,
 } from './todos-actions';
 
 export const addTodo = todo => async dispatch => {

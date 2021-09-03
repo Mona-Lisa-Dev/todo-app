@@ -18,9 +18,6 @@ import {
   getAllTodosSuccess,
   getAllTodosError,
   changeFilter,
-  getBySortRequest,
-  getBySortSuccess,
-  getBySortError,
 } from './todos-actions';
 import { logoutSuccess } from 'redux/auth/auth-actions';
 
@@ -55,6 +52,13 @@ const itemsByPageLength = createReducer(null, {
 
 const filter = createReducer([], {
   [changeFilter]: (_, { payload }) => payload,
+  [addTodoSuccess]: (state, { payload }) => [...state, payload],
+  [deleteTodoSuccess]: (state, { payload }) =>
+    state.filter(({ _id }) => _id !== payload),
+  [updateTodoSuccess]: (state, { payload }) =>
+    state.map(item => (item._id === payload._id ? payload : item)),
+
+  [logoutSuccess]: () => [],
 });
 
 const setError = (_, { payload }) => payload;
