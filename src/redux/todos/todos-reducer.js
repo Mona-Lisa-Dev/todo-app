@@ -14,12 +14,26 @@ import {
   getByPageRequest,
   getByPageSuccess,
   getByPageError,
+  getAllTodosRequest,
+  getAllTodosSuccess,
+  getAllTodosError,
   changeFilter,
 } from './todos-actions';
 import { logoutSuccess } from 'redux/auth/auth-actions';
 
 const items = createReducer([], {
   [getByPageSuccess]: (_, { payload }) => payload.tasks,
+  [addTodoSuccess]: (state, { payload }) => [...state, payload],
+  [deleteTodoSuccess]: (state, { payload }) =>
+    state.filter(({ _id }) => _id !== payload),
+  [updateTodoSuccess]: (state, { payload }) =>
+    state.map(item => (item._id === payload._id ? payload : item)),
+
+  [logoutSuccess]: () => [],
+});
+
+const allItems = createReducer([], {
+  [getAllTodosSuccess]: (_, { payload }) => payload,
   [addTodoSuccess]: (state, { payload }) => [...state, payload],
   [deleteTodoSuccess]: (state, { payload }) =>
     state.filter(({ _id }) => _id !== payload),
@@ -51,10 +65,13 @@ const error = createReducer(null, {
   [updateTodoRequest]: () => null,
   [getByPageError]: setError,
   [getByPageRequest]: () => null,
+  [getAllTodosError]: setError,
+  [getAllTodosRequest]: () => null,
 });
 
 export default combineReducers({
   items,
+  allItems,
   itemsByPageLength,
   filter,
   error,

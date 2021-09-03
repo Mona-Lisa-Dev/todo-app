@@ -13,6 +13,9 @@ import {
   getByPageRequest,
   getByPageSuccess,
   getByPageError,
+  getAllTodosRequest,
+  getAllTodosSuccess,
+  getAllTodosError,
 } from './todos-actions';
 
 export const addTodo = todo => async dispatch => {
@@ -83,22 +86,36 @@ export const getTodosByPage = (limit, offset) => async dispatch => {
   }
 };
 
-export const getTodosByStatus =
-  (limit, offset, status = null) =>
-  async dispatch => {
-    dispatch(getByPageRequest());
+export const getTodosByStatus = (limit, offset, status) => async dispatch => {
+  dispatch(getByPageRequest());
 
-    try {
-      const {
-        data: {
-          data: { tasks },
-        },
-      } = await axios.get(
-        `/tasks?limit=${limit}&offset=${offset}&isDone=${status}`,
-      );
-      dispatch(getByPageSuccess(tasks));
-      return tasks;
-    } catch (error) {
-      dispatch(getByPageError(error.message));
-    }
-  };
+  try {
+    const {
+      data: {
+        data: { tasks },
+      },
+    } = await axios.get(
+      `/tasks?limit=${limit}&offset=${offset}&isDone=${status}`,
+    );
+    dispatch(getByPageSuccess(tasks));
+    return tasks;
+  } catch (error) {
+    dispatch(getByPageError(error.message));
+  }
+};
+
+export const getAllTodos = () => async dispatch => {
+  dispatch(getAllTodosRequest());
+
+  try {
+    const {
+      data: {
+        data: { tasks },
+      },
+    } = await axios.get(`/tasks/all`);
+    dispatch(getAllTodosSuccess(tasks));
+    return tasks;
+  } catch (error) {
+    dispatch(getAllTodosError(error.message));
+  }
+};
