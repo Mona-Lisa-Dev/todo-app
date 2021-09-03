@@ -6,6 +6,9 @@ import {
   CheckBox,
   CheckBoxOutlineBlank,
   PlaylistAddCheck,
+  ArrowDownward,
+  ArrowUpward,
+  History,
 } from '@material-ui/icons';
 
 import AddTodoForm from 'components/AddTodoForm';
@@ -25,11 +28,13 @@ import {
   getTodosByPage,
   getTodosByStatus,
   getAllTodos,
+  getTodosSortBy,
 } from 'redux/todos/todos-operations';
 
 const TodosPage = () => {
   const [byStatus, setByStatus] = useState(false);
   const [completed, setCompleted] = useState(false);
+  const [sort, setSort] = useState('');
   const ITEMS_ON_PAGE = 5;
 
   const todosLength = useSelector(getTotalTodos);
@@ -49,8 +54,8 @@ const TodosPage = () => {
   useEffect(() => {
     !renderPagination &&
       (byStatus
-        ? dispatch(getTodosByStatus(ITEMS_ON_PAGE, 0, completed))
-        : dispatch(getTodosByPage(ITEMS_ON_PAGE, 0)));
+        ? dispatch(getTodosByStatus(ITEMS_ON_PAGE, 0, completed, sort))
+        : dispatch(getTodosByPage(ITEMS_ON_PAGE, 0, sort)));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ITEMS_ON_PAGE, dispatch, renderPagination, todosLength]);
 
@@ -58,8 +63,8 @@ const TodosPage = () => {
     dispatch(getAllTodos());
     renderPagination &&
       (byStatus
-        ? dispatch(getTodosByStatus(ITEMS_ON_PAGE, 0, completed))
-        : dispatch(getTodosByPage(ITEMS_ON_PAGE, 0)));
+        ? dispatch(getTodosByStatus(ITEMS_ON_PAGE, 0, completed, sort))
+        : dispatch(getTodosByPage(ITEMS_ON_PAGE, 0, sort)));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, renderPagination]);
 
@@ -71,47 +76,86 @@ const TodosPage = () => {
         <>
           <Search />
           {filteredItems.length === 0 && (
-            <ButtonGroup
-              variant="text"
-              color="primary"
-              aria-label="text primary button group"
-            >
-              <Button
-                type="button"
-                title="All todos"
-                onClick={() => {
-                  setByStatus(false);
-                  dispatch(getTodosByPage(ITEMS_ON_PAGE, 0));
-                }}
-                startIcon={<PlaylistAddCheck />}
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <ButtonGroup
+                variant="text"
+                color="primary"
+                aria-label="text primary button group"
               >
-                {allItems.length}
-              </Button>
-              <Button
-                type="button"
-                title="Completed todos"
-                onClick={() => {
-                  setCompleted(true);
-                  setByStatus(true);
-                  dispatch(getTodosByStatus(ITEMS_ON_PAGE, 0, true));
-                }}
-                startIcon={<CheckBox />}
+                <Button
+                  type="button"
+                  title="All todos"
+                  onClick={() => {
+                    setByStatus(false);
+                    dispatch(getTodosByPage(ITEMS_ON_PAGE, 0, sort));
+                  }}
+                  startIcon={<PlaylistAddCheck />}
+                >
+                  {allItems.length}
+                </Button>
+                <Button
+                  type="button"
+                  title="Completed todos"
+                  onClick={() => {
+                    setCompleted(true);
+                    setByStatus(true);
+                    dispatch(getTodosByStatus(ITEMS_ON_PAGE, 0, true, sort));
+                  }}
+                  startIcon={<CheckBox />}
+                >
+                  {completeItems.length}
+                </Button>
+                <Button
+                  type="button"
+                  title="Not completed todos"
+                  onClick={() => {
+                    setCompleted(false);
+                    setByStatus(true);
+                    dispatch(getTodosByStatus(ITEMS_ON_PAGE, 0, false, sort));
+                  }}
+                  startIcon={<CheckBoxOutlineBlank />}
+                >
+                  {notCompleteItems.length}
+                </Button>
+              </ButtonGroup>
+
+              <ButtonGroup
+                variant="text"
+                color="primary"
+                aria-label="text primary button group"
               >
-                {completeItems.length}
-              </Button>
-              <Button
-                type="button"
-                title="Not completed todos"
-                onClick={() => {
-                  setCompleted(false);
-                  setByStatus(true);
-                  dispatch(getTodosByStatus(ITEMS_ON_PAGE, 0, false));
-                }}
-                startIcon={<CheckBoxOutlineBlank />}
-              >
-                {notCompleteItems.length}
-              </Button>
-            </ButtonGroup>
+                <Button
+                  type="button"
+                  title="Alphabetical sorting"
+                  onClick={() => {
+                    dispatch(getTodosSortBy(ITEMS_ON_PAGE, 0, 'sortBy'));
+                    setSort('sortBy');
+                  }}
+                >
+                  <ArrowUpward />
+                </Button>
+                <Button
+                  type="button"
+                  title="Alphabetical sorting in reverse"
+                  onClick={() => {
+                    dispatch(getTodosSortBy(ITEMS_ON_PAGE, 0, 'sortByDesc'));
+                    setSort('sortByDesc');
+                  }}
+                >
+                  <ArrowDownward />
+                </Button>
+                <Button
+                  type="button"
+                  title="Sort by default"
+                  onClick={() => {
+                    dispatch(getTodosSortBy(ITEMS_ON_PAGE, 0, ''));
+                    setSort('');
+                  }}
+                >
+                  <History />
+                </Button>
+              </ButtonGroup>
+            </div>
           )}
         </>
       )}
@@ -125,6 +169,7 @@ const TodosPage = () => {
 
       {renderPagination && filteredItems.length === 0 && (
         <PaginationTodos
+          sort={sort}
           status={byStatus}
           completed={completed}
           todos={todosLength}

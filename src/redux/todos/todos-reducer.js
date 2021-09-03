@@ -18,11 +18,15 @@ import {
   getAllTodosSuccess,
   getAllTodosError,
   changeFilter,
+  getBySortRequest,
+  getBySortSuccess,
+  getBySortError,
 } from './todos-actions';
 import { logoutSuccess } from 'redux/auth/auth-actions';
 
 const items = createReducer([], {
   [getByPageSuccess]: (_, { payload }) => payload.tasks,
+
   [addTodoSuccess]: (state, { payload }) => [...state, payload],
   [deleteTodoSuccess]: (state, { payload }) =>
     state.filter(({ _id }) => _id !== payload),
@@ -48,8 +52,6 @@ const itemsByPageLength = createReducer(null, {
   [addTodoSuccess]: (state, { payload }) => state + 1,
   [deleteTodoSuccess]: (state, { payload }) => state - 1,
 });
-
-// todo добавити фільтр по тудушкам
 
 const filter = createReducer([], {
   [changeFilter]: (_, { payload }) => payload,

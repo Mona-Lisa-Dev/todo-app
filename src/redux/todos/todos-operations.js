@@ -16,6 +16,9 @@ import {
   getAllTodosRequest,
   getAllTodosSuccess,
   getAllTodosError,
+  getBySortRequest,
+  getBySortSuccess,
+  getBySortError,
 } from './todos-actions';
 
 export const addTodo = todo => async dispatch => {
@@ -67,7 +70,7 @@ export const updateTodo = (id, updatedTodo) => async dispatch => {
   }
 };
 
-export const getTodosByPage = (limit, offset) => async dispatch => {
+export const getTodosByPage = (limit, offset, sort) => async dispatch => {
   dispatch(getByPageRequest());
 
   try {
@@ -78,7 +81,9 @@ export const getTodosByPage = (limit, offset) => async dispatch => {
       data: {
         data: { tasks },
       },
-    } = await axios.get(`/tasks?limit=${limit}&offset=${offset}`);
+    } = await axios.get(
+      `/tasks?limit=${limit}&offset=${offset}&${sort}=description`,
+    );
     dispatch(getByPageSuccess(tasks));
     return tasks;
   } catch (error) {
@@ -86,7 +91,26 @@ export const getTodosByPage = (limit, offset) => async dispatch => {
   }
 };
 
-export const getTodosByStatus = (limit, offset, status) => async dispatch => {
+export const getTodosByStatus =
+  (limit, offset, status, sort) => async dispatch => {
+    dispatch(getByPageRequest());
+
+    try {
+      const {
+        data: {
+          data: { tasks },
+        },
+      } = await axios.get(
+        `/tasks?limit=${limit}&offset=${offset}&isDone=${status}&${sort}=description`,
+      );
+      dispatch(getByPageSuccess(tasks));
+      return tasks;
+    } catch (error) {
+      dispatch(getByPageError(error.message));
+    }
+  };
+
+export const getTodosSortBy = (limit, offset, sort) => async dispatch => {
   dispatch(getByPageRequest());
 
   try {
@@ -95,9 +119,11 @@ export const getTodosByStatus = (limit, offset, status) => async dispatch => {
         data: { tasks },
       },
     } = await axios.get(
-      `/tasks?limit=${limit}&offset=${offset}&isDone=${status}`,
+      `/tasks?limit=${limit}&offset=${offset}&${sort}=description`,
     );
     dispatch(getByPageSuccess(tasks));
+
+    console.log('tasks', tasks);
     return tasks;
   } catch (error) {
     dispatch(getByPageError(error.message));

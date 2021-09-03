@@ -5,6 +5,7 @@ import Pagination from '@material-ui/lab/Pagination';
 import { getTodosByPage, getTodosByStatus } from 'redux/todos/todos-operations';
 
 const PaginationTodos = ({
+  sort,
   status,
   completed,
   todos,
@@ -37,8 +38,8 @@ const PaginationTodos = ({
     }
 
     status
-      ? change && dispatch(getTodosByStatus(itemsOnPage, skip, completed))
-      : dispatch(getTodosByPage(itemsOnPage, skip));
+      ? change && dispatch(getTodosByStatus(itemsOnPage, skip, completed, sort))
+      : dispatch(getTodosByPage(itemsOnPage, skip, sort));
     setChange(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, itemsOnPage, page, todos]);
