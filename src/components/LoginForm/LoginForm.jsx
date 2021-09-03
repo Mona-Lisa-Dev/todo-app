@@ -48,7 +48,7 @@ const LoginForm = () => {
     const user = getValues();
 
     let isValid = await trigger();
-    console.log(isValid);
+    // console.log(isValid);
 
     if (isValid) dispatch(login(user)); // lena@mail.ua 12345678
   };

@@ -14,8 +14,9 @@ const AlertError = ({ error }) => {
   const [open, setOpen] = useState(true);
 
   return (
-    <Collapse style={{ ...alerStyles }} in={open}>
+    <Collapse disableStrictModeCompat style={{ ...alerStyles }} in={open}>
       <Alert
+        variant="filled"
         severity="error"
         onClose={() => {
           setOpen(false);
