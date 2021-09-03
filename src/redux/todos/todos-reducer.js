@@ -51,7 +51,7 @@ const itemsByPageLength = createReducer(null, {
 
 // todo добавити фільтр по тудушкам
 
-const filter = createReducer(null, {
+const filter = createReducer([], {
   [changeFilter]: (_, { payload }) => payload,
 });
 

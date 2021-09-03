@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { IconButton, ButtonGroup } from '@material-ui/core';
+import { Button, ButtonGroup } from '@material-ui/core';
 import {
   CheckBox,
   CheckBoxOutlineBlank,
@@ -11,6 +11,7 @@ import {
 import AddTodoForm from 'components/AddTodoForm';
 import TodoList from 'components/TodoList';
 import PaginationTodos from 'components/PaginationTodos';
+import Search from 'components/Search';
 
 import {
   getTodosByOnePage,
@@ -18,6 +19,7 @@ import {
   getAllItems,
   getCompleteItems,
   getNotCompleteItems,
+  getFilter,
 } from 'redux/todos/todos-selectors';
 import {
   getTodosByPage,
@@ -36,6 +38,7 @@ const TodosPage = () => {
   const allItems = useSelector(getAllItems);
   const completeItems = useSelector(getCompleteItems);
   const notCompleteItems = useSelector(getNotCompleteItems);
+  const filteredItems = useSelector(getFilter);
 
   const dispatch = useDispatch();
 
@@ -48,6 +51,7 @@ const TodosPage = () => {
       (byStatus
         ? dispatch(getTodosByStatus(ITEMS_ON_PAGE, 0, completed))
         : dispatch(getTodosByPage(ITEMS_ON_PAGE, 0)));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ITEMS_ON_PAGE, dispatch, renderPagination, todosLength]);
 
   useEffect(() => {
@@ -56,6 +60,7 @@ const TodosPage = () => {
       (byStatus
         ? dispatch(getTodosByStatus(ITEMS_ON_PAGE, 0, completed))
         : dispatch(getTodosByPage(ITEMS_ON_PAGE, 0)));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, renderPagination]);
 
   return (
@@ -63,54 +68,62 @@ const TodosPage = () => {
       <AddTodoForm />
 
       {!!allItems.length && (
-        <ButtonGroup
-          variant="text"
-          color="primary"
-          aria-label="text primary button group"
-        >
-          <IconButton
-            aria-label="All todos"
-            type="button"
-            title="All todos"
-            onClick={() => {
-              setByStatus(false);
-              dispatch(getTodosByPage(ITEMS_ON_PAGE, 0));
-            }}
-          >
-            <PlaylistAddCheck />
-            <span>{allItems.length}</span>
-          </IconButton>
-          <IconButton
-            aria-label="Completed"
-            type="button"
-            title="Completed todos"
-            onClick={() => {
-              setCompleted(true);
-              setByStatus(true);
-              dispatch(getTodosByStatus(ITEMS_ON_PAGE, 0, true));
-            }}
-          >
-            <CheckBox />
-            <span>{completeItems.length}</span>
-          </IconButton>
-          <IconButton
-            aria-label="Not completed"
-            type="button"
-            title="Not completed todos"
-            onClick={() => {
-              setCompleted(false);
-              setByStatus(true);
-              dispatch(getTodosByStatus(ITEMS_ON_PAGE, 0, false));
-            }}
-          >
-            <CheckBoxOutlineBlank />
-            <span>{notCompleteItems.length}</span>
-          </IconButton>
-        </ButtonGroup>
+        <>
+          <Search />
+          {filteredItems.length === 0 && (
+            <ButtonGroup
+              variant="text"
+              color="primary"
+              aria-label="text primary button group"
+            >
+              <Button
+                type="button"
+                title="All todos"
+                onClick={() => {
+                  setByStatus(false);
+                  dispatch(getTodosByPage(ITEMS_ON_PAGE, 0));
+                }}
+                startIcon={<PlaylistAddCheck />}
+              >
+                {allItems.length}
+              </Button>
+              <Button
+                type="button"
+                title="Completed todos"
+                onClick={() => {
+                  setCompleted(true);
+                  setByStatus(true);
+                  dispatch(getTodosByStatus(ITEMS_ON_PAGE, 0, true));
+                }}
+                startIcon={<CheckBox />}
+              >
+                {completeItems.length}
+              </Button>
+              <Button
+                type="button"
+                title="Not completed todos"
+                onClick={() => {
+                  setCompleted(false);
+                  setByStatus(true);
+                  dispatch(getTodosByStatus(ITEMS_ON_PAGE, 0, false));
+                }}
+                startIcon={<CheckBoxOutlineBlank />}
+              >
+                {notCompleteItems.length}
+              </Button>
+            </ButtonGroup>
+          )}
+        </>
       )}
 
-      {renderTodoList && <TodoList todosToShow={todosToShow} />}
-      {renderPagination && (
+      {renderTodoList &&
+        (filteredItems.length === 0 ? (
+          <TodoList todosToShow={todosToShow} />
+        ) : (
+          <TodoList todosToShow={filteredItems} />
+        ))}
+
+      {renderPagination && filteredItems.length === 0 && (
         <PaginationTodos
           status={byStatus}
           completed={completed}

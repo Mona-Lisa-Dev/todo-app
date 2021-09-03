@@ -59,7 +59,7 @@ export const updateTodo = (id, updatedTodo) => async dispatch => {
     const {
       data: { data },
     } = await axios.put(`/tasks/${id}`, updatedTodo);
-    console.log(data);
+    // console.log(data);
     dispatch(updateTodoSuccess(data.task));
     return data.task;
   } catch (error) {

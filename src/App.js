@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Route, Redirect, Switch } from 'react-router-dom';
 
-import Homepage from 'pages/Homepage';
+// import Homepage from 'pages/Homepage';
 import RegisterPage from 'pages/RegisterPage';
 import LoginPage from 'pages/LoginPage';
 import TodosPage from 'pages/TodosPage';
