@@ -15,6 +15,7 @@ import AddTodoForm from 'components/AddTodoForm';
 import TodoList from 'components/TodoList';
 import PaginationTodos from 'components/PaginationTodos';
 import Search from 'components/Search';
+import Loader from 'components/Loader';
 
 import {
   getTodosByOnePage,
@@ -23,6 +24,7 @@ import {
   getCompleteItems,
   getNotCompleteItems,
   getFilter,
+  getLoadingTodos,
 } from 'redux/todos/todos-selectors';
 import {
   getTodosByPage,
@@ -44,6 +46,7 @@ const TodosPage = () => {
   const completeItems = useSelector(getCompleteItems);
   const notCompleteItems = useSelector(getNotCompleteItems);
   const filteredItems = useSelector(getFilter);
+  const isLoading = useSelector(getLoadingTodos);
 
   const dispatch = useDispatch();
 
@@ -70,7 +73,8 @@ const TodosPage = () => {
 
   return (
     <>
-      <AddTodoForm />
+      {isLoading && <Loader />}
+      {filteredItems.length === 0 && <AddTodoForm />}
 
       {!!allItems.length && (
         <>

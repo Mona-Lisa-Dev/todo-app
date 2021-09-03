@@ -52,13 +52,35 @@ const itemsByPageLength = createReducer(null, {
 
 const filter = createReducer([], {
   [changeFilter]: (_, { payload }) => payload,
-  [addTodoSuccess]: (state, { payload }) => [...state, payload],
+
   [deleteTodoSuccess]: (state, { payload }) =>
     state.filter(({ _id }) => _id !== payload),
   [updateTodoSuccess]: (state, { payload }) =>
     state.map(item => (item._id === payload._id ? payload : item)),
 
   [logoutSuccess]: () => [],
+});
+
+const isLoading = createReducer(false, {
+  [addTodoRequest]: () => true,
+  [addTodoSuccess]: () => false,
+  [addTodoError]: () => false,
+
+  [deleteTodoRequest]: () => true,
+  [deleteTodoSuccess]: () => false,
+  [deleteTodoError]: () => false,
+
+  [updateTodoRequest]: () => true,
+  [updateTodoSuccess]: () => false,
+  [updateTodoError]: () => false,
+
+  [getByPageRequest]: () => true,
+  [getByPageSuccess]: () => false,
+  [getByPageError]: () => false,
+
+  [getAllTodosRequest]: () => true,
+  [getAllTodosSuccess]: () => false,
+  [getAllTodosError]: () => false,
 });
 
 const setError = (_, { payload }) => payload;
@@ -80,5 +102,6 @@ export default combineReducers({
   allItems,
   itemsByPageLength,
   filter,
+  isLoading,
   error,
 });

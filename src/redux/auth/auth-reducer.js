@@ -43,6 +43,24 @@ const isAuthorized = createReducer(false, {
   [getCurrentUserError]: () => false,
 });
 
+const isLoading = createReducer(false, {
+  [signupRequest]: () => true,
+  [signupSuccess]: () => false,
+  [signupError]: () => false,
+
+  [loginRequest]: () => true,
+  [loginSuccess]: () => false,
+  [loginError]: () => false,
+
+  [logoutRequest]: () => true,
+  [logoutSuccess]: () => false,
+  [logoutError]: () => false,
+
+  [getCurrentUserRequest]: () => true,
+  [getCurrentUserSuccess]: () => false,
+  [getCurrentUserError]: () => false,
+});
+
 const setError = (_, { payload }) => payload;
 
 const isErrorMessage = createReducer('', {
@@ -63,6 +81,7 @@ export default combineReducers({
   user,
   token,
   isAuthorized,
+  isLoading,
   error,
   isErrorMessage,
 });
