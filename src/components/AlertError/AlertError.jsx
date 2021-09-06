@@ -3,24 +3,14 @@ import Alert from '@material-ui/lab/Alert';
 
 import { clearError } from 'redux/auth/auth-actions';
 
-const alerStyles = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  zIndex: 1,
-  opacity: 0.8,
-
-  height: '80px',
-  alignItems: 'center',
-};
+import styles from './AlertError.module.scss';
 
 const AlertError = ({ error, onClose = null }) => {
   const dispatch = useDispatch();
 
   return (
     <Alert
-      style={{ ...alerStyles }}
+      className={styles.alert}
       variant="filled"
       severity="error"
       onClose={() => {
