@@ -107,26 +107,6 @@ export const getTodosByStatus =
     }
   };
 
-export const getTodosSortBy = (limit, offset, sort) => async dispatch => {
-  dispatch(getByPageRequest());
-
-  try {
-    const {
-      data: {
-        data: { tasks },
-      },
-    } = await axios.get(
-      `/tasks?limit=${limit}&offset=${offset}&${sort}=description`,
-    );
-    dispatch(getByPageSuccess(tasks));
-
-    console.log('tasks', tasks);
-    return tasks;
-  } catch (error) {
-    dispatch(getByPageError(error.message));
-  }
-};
-
 export const getAllTodos = () => async dispatch => {
   dispatch(getAllTodosRequest());
 

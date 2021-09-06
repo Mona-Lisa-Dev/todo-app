@@ -30,7 +30,6 @@ import {
   getTodosByPage,
   getTodosByStatus,
   getAllTodos,
-  getTodosSortBy,
 } from 'redux/todos/todos-operations';
 
 const TodosPage = () => {
@@ -132,7 +131,17 @@ const TodosPage = () => {
                   type="button"
                   title="Alphabetical sorting"
                   onClick={() => {
-                    dispatch(getTodosSortBy(ITEMS_ON_PAGE, 0, 'sortBy'));
+                    byStatus
+                      ? dispatch(
+                          getTodosByStatus(
+                            ITEMS_ON_PAGE,
+                            0,
+                            completed,
+                            'sortBy',
+                          ),
+                        )
+                      : dispatch(getTodosByPage(ITEMS_ON_PAGE, 0, 'sortBy'));
+
                     setSort('sortBy');
                   }}
                 >
@@ -142,7 +151,18 @@ const TodosPage = () => {
                   type="button"
                   title="Alphabetical sorting in reverse"
                   onClick={() => {
-                    dispatch(getTodosSortBy(ITEMS_ON_PAGE, 0, 'sortByDesc'));
+                    byStatus
+                      ? dispatch(
+                          getTodosByStatus(
+                            ITEMS_ON_PAGE,
+                            0,
+                            completed,
+                            'sortByDesc',
+                          ),
+                        )
+                      : dispatch(
+                          getTodosByPage(ITEMS_ON_PAGE, 0, 'sortByDesc'),
+                        );
                     setSort('sortByDesc');
                   }}
                 >
@@ -152,7 +172,11 @@ const TodosPage = () => {
                   type="button"
                   title="Sort by default"
                   onClick={() => {
-                    dispatch(getTodosSortBy(ITEMS_ON_PAGE, 0, ''));
+                    byStatus
+                      ? dispatch(
+                          getTodosByStatus(ITEMS_ON_PAGE, 0, completed, ''),
+                        )
+                      : dispatch(getTodosByPage(ITEMS_ON_PAGE, 0, ''));
                     setSort('');
                   }}
                 >
