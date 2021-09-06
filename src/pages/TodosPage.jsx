@@ -1,21 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { Button, ButtonGroup } from '@material-ui/core';
-import {
-  CheckBox,
-  CheckBoxOutlineBlank,
-  PlaylistAddCheck,
-  ArrowDownward,
-  ArrowUpward,
-  History,
-} from '@material-ui/icons';
-
 import AddTodoForm from 'components/AddTodoForm';
 import TodoList from 'components/TodoList';
 import PaginationTodos from 'components/PaginationTodos';
 import Search from 'components/Search';
 import Loader from 'components/Loader';
+import DatePicker from 'components/DatePicker';
+import SortButtonsPanel from 'components/SortButtonsPanel';
 
 import {
   getTodosByOnePage,
@@ -36,7 +28,7 @@ const TodosPage = () => {
   const [byStatus, setByStatus] = useState(false);
   const [completed, setCompleted] = useState(false);
   const [sort, setSort] = useState('');
-  const ITEMS_ON_PAGE = 5;
+  const ITEMS_ON_PAGE = 4;
 
   const todosLength = useSelector(getTotalTodos);
   const todosToShow = useSelector(getTodosByOnePage);
@@ -70,6 +62,36 @@ const TodosPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, renderPagination]);
 
+  const handleClickSort = typeOfSort => {
+    byStatus
+      ? dispatch(getTodosByStatus(ITEMS_ON_PAGE, 0, completed, typeOfSort))
+      : dispatch(getTodosByPage(ITEMS_ON_PAGE, 0, typeOfSort));
+    setSort(typeOfSort);
+  };
+
+  const handleChooseCompleted = statusCompleted => {
+    setCompleted(statusCompleted);
+    setByStatus(true);
+    dispatch(getTodosByStatus(ITEMS_ON_PAGE, 0, statusCompleted, sort));
+  };
+
+  const handleClickAllTodos = () => {
+    setByStatus(false);
+    dispatch(getTodosByPage(ITEMS_ON_PAGE, 0, sort));
+  };
+
+  const groupOfItemsForButtons = {
+    allItems,
+    completeItems,
+    notCompleteItems,
+  };
+
+  const groupOfFunctionsForButtons = {
+    handleClickSort,
+    handleChooseCompleted,
+    handleClickAllTodos,
+  };
+
   return (
     <>
       {isLoading && <Loader />}
@@ -78,112 +100,12 @@ const TodosPage = () => {
       {!!allItems.length && (
         <>
           <Search />
+          <DatePicker allItems={allItems} />
           {filteredItems.length === 0 && (
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-              <ButtonGroup
-                variant="text"
-                color="primary"
-                aria-label="text primary button group"
-              >
-                <Button
-                  type="button"
-                  title="All todos"
-                  onClick={() => {
-                    setByStatus(false);
-                    dispatch(getTodosByPage(ITEMS_ON_PAGE, 0, sort));
-                  }}
-                  startIcon={<PlaylistAddCheck />}
-                >
-                  {allItems.length}
-                </Button>
-                <Button
-                  type="button"
-                  title="Completed todos"
-                  onClick={() => {
-                    setCompleted(true);
-                    setByStatus(true);
-                    dispatch(getTodosByStatus(ITEMS_ON_PAGE, 0, true, sort));
-                  }}
-                  startIcon={<CheckBox />}
-                >
-                  {completeItems.length}
-                </Button>
-                <Button
-                  type="button"
-                  title="Not completed todos"
-                  onClick={() => {
-                    setCompleted(false);
-                    setByStatus(true);
-                    dispatch(getTodosByStatus(ITEMS_ON_PAGE, 0, false, sort));
-                  }}
-                  startIcon={<CheckBoxOutlineBlank />}
-                >
-                  {notCompleteItems.length}
-                </Button>
-              </ButtonGroup>
-
-              <ButtonGroup
-                variant="text"
-                color="primary"
-                aria-label="text primary button group"
-              >
-                <Button
-                  type="button"
-                  title="Alphabetical sorting"
-                  onClick={() => {
-                    byStatus
-                      ? dispatch(
-                          getTodosByStatus(
-                            ITEMS_ON_PAGE,
-                            0,
-                            completed,
-                            'sortBy',
-                          ),
-                        )
-                      : dispatch(getTodosByPage(ITEMS_ON_PAGE, 0, 'sortBy'));
-
-                    setSort('sortBy');
-                  }}
-                >
-                  <ArrowUpward />
-                </Button>
-                <Button
-                  type="button"
-                  title="Alphabetical sorting in reverse"
-                  onClick={() => {
-                    byStatus
-                      ? dispatch(
-                          getTodosByStatus(
-                            ITEMS_ON_PAGE,
-                            0,
-                            completed,
-                            'sortByDesc',
-                          ),
-                        )
-                      : dispatch(
-                          getTodosByPage(ITEMS_ON_PAGE, 0, 'sortByDesc'),
-                        );
-                    setSort('sortByDesc');
-                  }}
-                >
-                  <ArrowDownward />
-                </Button>
-                <Button
-                  type="button"
-                  title="Sort by default"
-                  onClick={() => {
-                    byStatus
-                      ? dispatch(
-                          getTodosByStatus(ITEMS_ON_PAGE, 0, completed, ''),
-                        )
-                      : dispatch(getTodosByPage(ITEMS_ON_PAGE, 0, ''));
-                    setSort('');
-                  }}
-                >
-                  <History />
-                </Button>
-              </ButtonGroup>
-            </div>
+            <SortButtonsPanel
+              items={groupOfItemsForButtons}
+              onClicks={groupOfFunctionsForButtons}
+            />
           )}
         </>
       )}

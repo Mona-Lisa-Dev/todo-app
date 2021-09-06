@@ -34,7 +34,10 @@ const PaginationTodos = ({
     }
 
     if (status) {
-      if (!change) setPage(1);
+      if (!change) {
+        setPage(1);
+        skip = 0;
+      }
     }
 
     status
