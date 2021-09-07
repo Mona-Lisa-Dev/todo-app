@@ -39,7 +39,7 @@ const AddTodoForm = () => {
         color="primary"
         endIcon={<AddIcon>add</AddIcon>}
       >
-        Add
+        Add todo
       </Button>
     </form>
   );

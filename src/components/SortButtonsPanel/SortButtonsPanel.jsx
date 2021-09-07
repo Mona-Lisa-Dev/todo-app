@@ -31,7 +31,7 @@ const SortButtonsPanel = ({ items, onClicks }) => {
           }}
           startIcon={<PlaylistAddCheck />}
         >
-          {allItems.length}
+          All: {allItems.length}
         </Button>
         <Button
           className={classCheckedCompleted === 'completed' && styles.checked}
@@ -43,7 +43,7 @@ const SortButtonsPanel = ({ items, onClicks }) => {
           }}
           startIcon={<CheckBox />}
         >
-          {completeItems.length}
+          Completed: {completeItems.length}
         </Button>
         <Button
           className={classCheckedCompleted === 'notCompleted' && styles.checked}
@@ -55,7 +55,7 @@ const SortButtonsPanel = ({ items, onClicks }) => {
           }}
           startIcon={<CheckBoxOutlineBlank />}
         >
-          {notCompleteItems.length}
+          Not completed: {notCompleteItems.length}
         </Button>
       </ButtonGroup>
 

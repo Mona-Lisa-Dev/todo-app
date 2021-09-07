@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {
   ListItem,
@@ -5,31 +6,56 @@ import {
   IconButton,
   Checkbox,
 } from '@material-ui/core';
-import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import { Edit, DeleteForever } from '@material-ui/icons';
+
+import Modal from 'components/Modal';
+import ModalFormCreateUpdateTodo from 'components/ModalFormCreateUpdateTodo';
 
 import { deleteTodo, updateTodo } from 'redux/todos/todos-operations';
 
 const TodoItem = ({ todo }) => {
   const { _id: id, description, isDone } = todo;
+  const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
 
+  const handleToggleModal = () => setShowModal(!showModal);
   const handleCompleted = () => dispatch(updateTodo(id, { isDone: !isDone }));
   const handleDeleteTask = () => dispatch(deleteTodo(id));
 
   return (
-    <ListItem divider>
-      <Checkbox color="primary" checked={isDone} onChange={handleCompleted} />
-      <ListItemText>{description}</ListItemText>
+    <>
+      {showModal && (
+        <Modal onClose={handleToggleModal}>
+          <ModalFormCreateUpdateTodo
+            todo={todo}
+            onCloseModal={handleToggleModal}
+          />
+        </Modal>
+      )}
 
-      <IconButton
-        aria-label="Delete"
-        type="button"
-        onClick={handleDeleteTask}
-        title="Delete task"
-      >
-        <DeleteForeverIcon />
-      </IconButton>
-    </ListItem>
+      <ListItem divider>
+        <Checkbox color="primary" checked={isDone} onChange={handleCompleted} />
+        <ListItemText onClick={handleToggleModal}>{description}</ListItemText>
+
+        <IconButton
+          aria-label="Update task"
+          type="button"
+          onClick={handleToggleModal}
+          title="Update task"
+        >
+          <Edit />
+        </IconButton>
+
+        <IconButton
+          aria-label="Delete"
+          type="button"
+          onClick={handleDeleteTask}
+          title="Delete task"
+        >
+          <DeleteForever />
+        </IconButton>
+      </ListItem>
+    </>
   );
 };
 
