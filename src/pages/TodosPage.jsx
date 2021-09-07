@@ -42,27 +42,74 @@ const TodosPage = () => {
   const dispatch = useDispatch();
 
   const countPages = Math.ceil(todosLength / ITEMS_ON_PAGE);
-  const renderPagination = todosLength > ITEMS_ON_PAGE;
+  // const renderPagination = todosLength > ITEMS_ON_PAGE;
   const renderTodoList = todosLength > 0;
 
+  const [renderPagination, setRenderPagination] = useState(false);
+  const [page, setPage] = useState(1);
+  const [skip, setSkip] = useState(0);
+  const [clickPage, setClickPage] = useState(false);
+
   useEffect(() => {
-    !renderPagination &&
-      (byStatus
-        ? dispatch(getTodosByStatus(ITEMS_ON_PAGE, 0, completed, sort))
-        : dispatch(getTodosByPage(ITEMS_ON_PAGE, 0, sort)));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ITEMS_ON_PAGE, dispatch, renderPagination, todosLength]);
+    todosLength > ITEMS_ON_PAGE
+      ? setRenderPagination(true)
+      : setRenderPagination(false);
+  }, [todosLength]);
 
   useEffect(() => {
     dispatch(getAllTodos());
-    renderPagination &&
-      (byStatus
-        ? dispatch(getTodosByStatus(ITEMS_ON_PAGE, 0, completed, sort))
-        : dispatch(getTodosByPage(ITEMS_ON_PAGE, 0, sort)));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, renderPagination]);
 
+  useEffect(() => {
+    if (page) {
+      const ifDeleteLastItemOnPage =
+        todosLength % ITEMS_ON_PAGE === 0 &&
+        todosLength / ITEMS_ON_PAGE < page &&
+        page !== 1 &&
+        !clickPage;
+
+      const ifAddFirstItemOnPage =
+        todosLength % ITEMS_ON_PAGE === 1 &&
+        Math.ceil(todosLength / ITEMS_ON_PAGE) === page + 1 &&
+        !clickPage;
+
+      if (ifDeleteLastItemOnPage) {
+        // setSkip(ITEMS_ON_PAGE * (page - 2));
+        // setPage(page - 1);
+        setSkip(0);
+        setPage(1);
+      } else if (ifAddFirstItemOnPage) {
+        setSkip(ITEMS_ON_PAGE * page);
+        setPage(page + 1);
+      } else {
+        setSkip(ITEMS_ON_PAGE * (page - 1));
+      }
+
+      byStatus
+        ? dispatch(getTodosByStatus(ITEMS_ON_PAGE, skip, completed, sort))
+        : dispatch(getTodosByPage(ITEMS_ON_PAGE, skip, sort));
+
+      setClickPage(false);
+      return;
+    } else {
+      byStatus
+        ? dispatch(getTodosByStatus(ITEMS_ON_PAGE, 0, completed, sort))
+        : dispatch(getTodosByPage(ITEMS_ON_PAGE, 0, sort));
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch, ITEMS_ON_PAGE, page, todosLength, renderPagination]);
+
+  const handleClickOnPage = (_, value) => {
+    setSkip(ITEMS_ON_PAGE * (value - 1));
+    setClickPage(true);
+    setPage(value);
+  };
+
   const handleClickSort = typeOfSort => {
+    setPage(1);
+    setSkip(0);
+
     byStatus
       ? dispatch(getTodosByStatus(ITEMS_ON_PAGE, 0, completed, typeOfSort))
       : dispatch(getTodosByPage(ITEMS_ON_PAGE, 0, typeOfSort));
@@ -72,11 +119,15 @@ const TodosPage = () => {
   const handleChooseCompleted = statusCompleted => {
     setCompleted(statusCompleted);
     setByStatus(true);
+    setPage(1);
+    setSkip(0);
     dispatch(getTodosByStatus(ITEMS_ON_PAGE, 0, statusCompleted, sort));
   };
 
   const handleClickAllTodos = () => {
     setByStatus(false);
+    setPage(1);
+    setSkip(0);
     dispatch(getTodosByPage(ITEMS_ON_PAGE, 0, sort));
   };
 
@@ -119,6 +170,14 @@ const TodosPage = () => {
 
       {renderPagination && filteredItems.length === 0 && (
         <PaginationTodos
+          page={page}
+          countPages={countPages}
+          onClickPage={handleClickOnPage}
+        />
+      )}
+
+      {/* {renderPagination && filteredItems.length === 0 && (
+        <PaginationTodos
           sort={sort}
           status={byStatus}
           completed={completed}
@@ -126,7 +185,7 @@ const TodosPage = () => {
           itemsOnPage={ITEMS_ON_PAGE}
           countPages={countPages}
         />
-      )}
+      )} */}
     </>
   );
 };
