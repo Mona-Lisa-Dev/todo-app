@@ -37,7 +37,12 @@ axios.interceptors.response.use(
     }
 
     if (error.response.status) {
-      dispatch(createErrorMessage(error.response.data.message || errorMessage));
+      if (error.response.data.message !== 'Not authorized') {
+        dispatch(
+          createErrorMessage(error.response.data.message || errorMessage),
+        );
+      }
+
       // console.log('Error!', error.response.data.message || errorMessage);
     } else {
       return new Promise((resolve, reject) => {
