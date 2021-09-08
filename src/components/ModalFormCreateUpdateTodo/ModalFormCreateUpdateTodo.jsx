@@ -4,17 +4,18 @@ import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { RHFInput } from 'react-hook-form-input';
 
-import { Checkbox, TextField, Button } from '@material-ui/core';
+import { Checkbox, TextField, Button, FormHelperText } from '@material-ui/core';
 import { SaveAltRounded } from '@material-ui/icons';
 
-import { updateTodo } from 'redux/todos/todos-operations';
+import { addTodo, updateTodo } from 'redux/todos/todos-operations';
 
 import styles from './ModalFormCreateUpdateTodo.module.scss';
 
-const ModalFormCreateUpdateTodo = ({ todo, onCloseModal }) => {
+const ModalFormCreateUpdateTodo = ({ todo = {}, onCloseModal, type }) => {
   const { _id: id, description, isDone } = todo;
-  const { handleSubmit, register, setValue, getValues } = useForm();
-  const [updatedIsDone, setUpdatedsDone] = useState(isDone);
+  const { handleSubmit, register, setValue, getValues, trigger, errors } =
+    useForm();
+  const [updatedIsDone, setUpdatedsDone] = useState(isDone || false);
 
   const dispatch = useDispatch();
 
@@ -27,12 +28,19 @@ const ModalFormCreateUpdateTodo = ({ todo, onCloseModal }) => {
       return;
     }
 
-    const updatedTodo = {
+    const todo = {
       description: values.description,
       isDone: updatedIsDone,
     };
 
-    dispatch(updateTodo(id, updatedTodo));
+    if (type === 'update') {
+      dispatch(updateTodo(id, todo));
+    }
+
+    if (type === 'add') {
+      dispatch(addTodo(todo));
+    }
+
     onCloseModal();
   };
 
@@ -43,15 +51,20 @@ const ModalFormCreateUpdateTodo = ({ todo, onCloseModal }) => {
         checked={updatedIsDone}
         onChange={handleCompleted}
       />
-
-      <RHFInput
-        as={<TextField type="text" label="Todo" variant="outlined" />}
-        name="description"
-        defaultValue={description}
-        register={register}
-        rules={{ required: true }}
-        setValue={setValue}
-      />
+      <div>
+        <RHFInput
+          as={<TextField type="text" label="Todo" variant="outlined" />}
+          name="description"
+          defaultValue={description}
+          register={register}
+          rules={{ required: 'Description of task is required' }}
+          setValue={setValue}
+          onChange={() => trigger('description')}
+        />
+        {errors.description && (
+          <FormHelperText>{errors.description?.message}</FormHelperText>
+        )}
+      </div>
 
       <Button
         type="submit"
@@ -70,7 +83,7 @@ ModalFormCreateUpdateTodo.propTypes = {
     _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     description: PropTypes.string.isRequired,
     isDone: PropTypes.bool.isRequired,
-  }).isRequired,
+  }),
   onCloseModal: PropTypes.func.isRequired,
 };
 

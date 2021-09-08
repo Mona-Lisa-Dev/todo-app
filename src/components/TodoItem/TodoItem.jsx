@@ -29,6 +29,7 @@ const TodoItem = ({ todo }) => {
           <ModalFormCreateUpdateTodo
             todo={todo}
             onCloseModal={handleToggleModal}
+            type="update"
           />
         </Modal>
       )}

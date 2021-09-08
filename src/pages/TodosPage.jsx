@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import AddTodoForm from 'components/AddTodoForm';
+import AddTodoBtn from 'components/AddTodoBtn';
 import TodoList from 'components/TodoList';
 import PaginationTodos from 'components/PaginationTodos';
 import Search from 'components/Search';
@@ -146,7 +146,7 @@ const TodosPage = () => {
   return (
     <>
       {isLoading && <Loader />}
-      {filteredItems.length === 0 && <AddTodoForm />}
+      {filteredItems.length === 0 && <AddTodoBtn />}
 
       {!!allItems.length && (
         <>
