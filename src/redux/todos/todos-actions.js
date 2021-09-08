@@ -20,4 +20,8 @@ export const getAllTodosRequest = createAction('todos/getAllTodosRequest');
 export const getAllTodosSuccess = createAction('todos/getAllTodosSuccess');
 export const getAllTodosError = createAction('todos/getAllTodosError');
 
+export const getByQueryRequest = createAction('todos/getByQueryRequest');
+export const getByQuerySuccess = createAction('todos/getByQuerySuccess');
+export const getByQueryError = createAction('todos/getByQueryError');
+
 export const changeFilter = createAction('todos/changeFilter');

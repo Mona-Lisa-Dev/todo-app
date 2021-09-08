@@ -2,13 +2,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 20px;
   text-align: center;
+
+  @media screen and (max-width: 600px) {
+    margin-bottom: 20px;
+  }
 
   input {
     width: 206px;
   }
-  button {
-    margin-right: 10px;
-  }
+  // button {
+  //   margin-right: 10px;
+  // }
 }

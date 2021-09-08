@@ -48,7 +48,7 @@ const DatePicker = ({ allItems }) => {
     <>
       {error && <AlertError error={error} onClose={onCloseAlert} />}
       <form className={styles.DatePicker} noValidate>
-        <IconButton
+        {/* <IconButton
           aria-label="Show all todos"
           type="reset"
           variant="contained"
@@ -57,7 +57,8 @@ const DatePicker = ({ allItems }) => {
           onClick={reset}
         >
           <ArrowBackIcon />
-        </IconButton>
+        </IconButton> */}
+
         <TextField
           label="Select todo by creation date"
           type="date"

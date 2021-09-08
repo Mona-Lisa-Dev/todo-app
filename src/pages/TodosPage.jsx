@@ -4,10 +4,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import AddTodoBtn from 'components/AddTodoBtn';
 import TodoList from 'components/TodoList';
 import PaginationTodos from 'components/PaginationTodos';
-import Search from 'components/Search';
 import Loader from 'components/Loader';
-import DatePicker from 'components/DatePicker';
+import Filters from 'components/Filters';
 import SortButtonsPanel from 'components/SortButtonsPanel';
+import AlertError from 'components/AlertError';
 
 import {
   getTodosByOnePage,
@@ -24,6 +24,8 @@ import {
   getAllTodos,
 } from 'redux/todos/todos-operations';
 
+import { getErrorMessage } from 'redux/auth/auth-selectors';
+
 const TodosPage = () => {
   const [byStatus, setByStatus] = useState(false);
   const [completed, setCompleted] = useState(false);
@@ -38,6 +40,7 @@ const TodosPage = () => {
   const notCompleteItems = useSelector(getNotCompleteItems);
   const filteredItems = useSelector(getFilter);
   const isLoading = useSelector(getLoadingTodos);
+  const error = useSelector(getErrorMessage);
 
   const dispatch = useDispatch();
 
@@ -145,13 +148,14 @@ const TodosPage = () => {
 
   return (
     <>
+      {error && <AlertError error={error} />}
       {isLoading && <Loader />}
       {filteredItems.length === 0 && <AddTodoBtn />}
 
       {!!allItems.length && (
         <>
-          <Search />
-          <DatePicker allItems={allItems} />
+          <Filters allItems={allItems} />
+
           {filteredItems.length === 0 && (
             <SortButtonsPanel
               items={groupOfItemsForButtons}

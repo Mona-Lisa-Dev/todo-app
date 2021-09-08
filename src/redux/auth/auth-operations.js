@@ -37,7 +37,10 @@ axios.interceptors.response.use(
     }
 
     if (error.response.status) {
-      if (error.response.data.message !== 'Not authorized') {
+      if (
+        error.response.data.message !== 'Not authorized' &&
+        error.response.status !== 500
+      ) {
         dispatch(
           createErrorMessage(error.response.data.message || errorMessage),
         );
