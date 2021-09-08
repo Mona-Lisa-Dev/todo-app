@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
+import { IconButton } from '@material-ui/core';
+import { Close } from '@material-ui/icons';
 
 import styles from './Modal.module.scss';
 
@@ -29,6 +31,15 @@ const Modal = ({ children, onClose }) => {
   return createPortal(
     <div className={styles.backdrop} onClick={handleOverlayClick}>
       <div className={styles.modal} onClick={e => e.stopPropagation()}>
+        <IconButton
+          className={styles.closeButton}
+          aria-label="Close modal"
+          type="button"
+          onClick={onClose}
+          title="Close modal"
+        >
+          <Close />
+        </IconButton>
         {children}
       </div>
     </div>,

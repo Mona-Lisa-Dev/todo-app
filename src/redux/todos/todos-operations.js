@@ -107,6 +107,7 @@ export const getTodosByQuery = query => async dispatch => {
   }
 };
 
+// todo поміняти екшини на гетБайСтатус і прописати для них редюсери
 export const getTodosByStatus =
   (limit, offset, status, sort) => async dispatch => {
     dispatch(getByPageRequest());
