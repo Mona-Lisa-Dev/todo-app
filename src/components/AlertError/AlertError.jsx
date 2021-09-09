@@ -1,11 +1,11 @@
 import { useDispatch } from 'react-redux';
 import Alert from '@material-ui/lab/Alert';
 
-import { clearError } from 'redux/auth/auth-actions';
+import { clearError } from 'redux/error/error-action';
 
 import styles from './AlertError.module.scss';
 
-const AlertError = ({ error, onClose = null }) => {
+const AlertError = ({ error }) => {
   const dispatch = useDispatch();
 
   return (
@@ -13,9 +13,7 @@ const AlertError = ({ error, onClose = null }) => {
       className={styles.alert}
       variant="filled"
       severity="error"
-      onClose={() => {
-        onClose ? onClose() : dispatch(clearError());
-      }}
+      onClose={() => dispatch(clearError())}
     >
       {error}
     </Alert>

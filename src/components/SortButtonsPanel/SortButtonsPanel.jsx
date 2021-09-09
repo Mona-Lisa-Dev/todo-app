@@ -1,13 +1,20 @@
 import { useState } from 'react';
-import { Button, ButtonGroup } from '@material-ui/core';
+// import { Button, ButtonGroup } from '@material-ui/core';
+// import {
+//   CheckBox,
+//   CheckBoxOutlineBlank,
+//   PlaylistAddCheck,
+//   ArrowDownward,
+//   ArrowUpward,
+//   History,
+// } from '@material-ui/icons';
+
 import {
-  CheckBox,
-  CheckBoxOutlineBlank,
-  PlaylistAddCheck,
-  ArrowDownward,
-  ArrowUpward,
-  History,
-} from '@material-ui/icons';
+  InputLabel,
+  FormControl,
+  Select,
+  FormHelperText,
+} from '@material-ui/core';
 
 import styles from './SortButtonsPanel.module.scss';
 
@@ -15,12 +22,99 @@ const SortButtonsPanel = ({ items, onClicks }) => {
   const { allItems, completeItems, notCompleteItems } = items;
   const { handleClickSort, handleChooseCompleted, handleClickAllTodos } =
     onClicks;
-  const [classCheckedSort, setClassCheckedSort] = useState('byDefault');
-  const [classCheckedCompleted, setClassCheckedCompleted] = useState('all');
+  // const [classCheckedSort, setClassCheckedSort] = useState('byDefault');
+  const [checkedCompleted, setCheckedCompleted] = useState(allItems);
+
+  const [status, setStatus] = useState('');
+  const [sort, setSort] = useState('');
+
+  const handleChangeStatus = e => {
+    const { value } = e.target;
+    setStatus(value);
+
+    switch (value) {
+      case 'all':
+        handleClickAllTodos();
+        setCheckedCompleted(allItems);
+        break;
+      case 'completed':
+        handleChooseCompleted(true);
+        setCheckedCompleted(completeItems);
+        break;
+      case 'not completed':
+        handleChooseCompleted(false);
+        setCheckedCompleted(notCompleteItems);
+        break;
+
+      default:
+        handleClickAllTodos();
+        break;
+    }
+  };
+
+  const handleChangeSort = e => {
+    const { value } = e.target;
+    setSort(value);
+
+    switch (value) {
+      case 'byDefault':
+        handleClickSort('');
+        break;
+      case 'sortBy':
+        handleClickSort('sortBy');
+        break;
+      case 'sortByDesc':
+        handleClickSort('sortByDesc');
+        break;
+
+      default:
+        handleClickAllTodos();
+        break;
+    }
+  };
 
   return (
     <div className={styles.buttonsWrapper}>
-      <ButtonGroup variant="text" color="primary" aria-label="button group">
+      <FormControl className={styles.selectWrapper} variant="outlined">
+        <InputLabel htmlFor="status">Status</InputLabel>
+        <Select
+          native
+          value={status}
+          onChange={handleChangeStatus}
+          label="Status"
+          inputProps={{
+            name: 'status',
+            id: 'status',
+          }}
+        >
+          <option value={'all'}>All</option>
+          <option value={'completed'}>Completed</option>
+          <option value={'not completed'}>Not completed</option>
+        </Select>
+        <FormHelperText>
+          {checkedCompleted.length} / {allItems.length}
+        </FormHelperText>
+      </FormControl>
+
+      <FormControl className={styles.selectWrapper} variant="outlined">
+        <InputLabel htmlFor="sort">Sort</InputLabel>
+        <Select
+          native
+          value={sort}
+          onChange={handleChangeSort}
+          label="Sort"
+          inputProps={{
+            name: 'sort',
+            id: 'sort',
+          }}
+        >
+          <option value={'byDefault'}>By default</option>
+          <option value={'sortBy'}>Alphabetical</option>
+          <option value={'sortByDesc'}>Alphabetical in reverse</option>
+        </Select>
+      </FormControl>
+
+      {/* <ButtonGroup variant="text" color="primary" aria-label="button group">
         <Button
           className={classCheckedCompleted === 'all' && styles.checked}
           type="button"
@@ -31,7 +125,7 @@ const SortButtonsPanel = ({ items, onClicks }) => {
           }}
           startIcon={<PlaylistAddCheck />}
         >
-          All: {allItems.length}
+          {allItems.length}
         </Button>
         <Button
           className={classCheckedCompleted === 'completed' && styles.checked}
@@ -43,7 +137,7 @@ const SortButtonsPanel = ({ items, onClicks }) => {
           }}
           startIcon={<CheckBox />}
         >
-          Completed: {completeItems.length}
+          {completeItems.length}
         </Button>
         <Button
           className={classCheckedCompleted === 'notCompleted' && styles.checked}
@@ -55,11 +149,11 @@ const SortButtonsPanel = ({ items, onClicks }) => {
           }}
           startIcon={<CheckBoxOutlineBlank />}
         >
-          Not completed: {notCompleteItems.length}
+          {notCompleteItems.length}
         </Button>
-      </ButtonGroup>
+      </ButtonGroup> */}
 
-      <ButtonGroup variant="text" color="primary" aria-label="button group">
+      {/* <ButtonGroup variant="text" color="primary" aria-label="button group">
         <Button
           className={classCheckedSort === 'sortBy' && styles.checked}
           type="button"
@@ -93,7 +187,7 @@ const SortButtonsPanel = ({ items, onClicks }) => {
         >
           <History />
         </Button>
-      </ButtonGroup>
+      </ButtonGroup> */}
     </div>
   );
 };

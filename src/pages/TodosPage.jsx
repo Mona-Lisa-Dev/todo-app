@@ -24,7 +24,7 @@ import {
   getAllTodos,
 } from 'redux/todos/todos-operations';
 
-import { getErrorMessage } from 'redux/auth/auth-selectors';
+import { getErrorMessage } from 'redux/error/error-selectors';
 
 const TodosPage = () => {
   const [byStatus, setByStatus] = useState(false);
@@ -154,7 +154,7 @@ const TodosPage = () => {
 
       {!!allItems.length && (
         <>
-          <Filters allItems={allItems} />
+          <Filters />
 
           {filteredItems.length === 0 && (
             <SortButtonsPanel

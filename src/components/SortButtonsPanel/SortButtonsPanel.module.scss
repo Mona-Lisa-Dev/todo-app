@@ -1,15 +1,19 @@
 .buttonsWrapper {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
 
-  .checked {
-    background-color: rgb(156, 163, 231);
-    color: #fff;
+  .selectWrapper {
+    width: 234px;
   }
 
-  button {
-    &:hover {
-      color: rgb(156, 163, 231);
-    }
-  }
+  // .checked {
+  //   background-color: rgb(156, 163, 231);
+  //   color: #fff;
+  // }
+
+  // button {
+  //   &:hover {
+  //     color: rgb(156, 163, 231);
+  //   }
+  // }
 }

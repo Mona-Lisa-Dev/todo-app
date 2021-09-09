@@ -12,8 +12,8 @@ import {
   getCurrentUserRequest,
   getCurrentUserSuccess,
   getCurrentUserError,
-  createErrorMessage,
 } from './auth-actions';
+import { createErrorMessage } from 'redux/error/error-action';
 
 import { store } from 'redux/store';
 const { dispatch } = store;

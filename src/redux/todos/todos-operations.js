@@ -107,6 +107,22 @@ export const getTodosByQuery = query => async dispatch => {
   }
 };
 
+export const getTodosByDate = date => async dispatch => {
+  dispatch(getByQueryRequest());
+
+  try {
+    const {
+      data: {
+        data: { tasks },
+      },
+    } = await axios.get(`/tasks/date=${date}`);
+    dispatch(getByQuerySuccess(tasks));
+    return tasks;
+  } catch (error) {
+    dispatch(getByQueryError(error.message));
+  }
+};
+
 // todo поміняти екшини на гетБайСтатус і прописати для них редюсери
 export const getTodosByStatus =
   (limit, offset, status, sort) => async dispatch => {

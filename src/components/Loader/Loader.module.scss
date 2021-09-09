@@ -1,7 +1,8 @@
 .Loader {
   position: absolute;
-  min-width: 300px;
-  top: 11%;
+
+  top: 50%;
   left: 50%;
-  transform: translate(-50%, 0);
+  // margin-right: -50%;
+  transform: translate(-50%, -50%);
 }

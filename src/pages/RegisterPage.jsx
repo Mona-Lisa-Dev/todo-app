@@ -5,8 +5,9 @@ import RegisterForm from 'components/RegisterForm';
 import Loader from 'components/Loader';
 import AlertError from 'components/AlertError';
 
-import { getErrorMessage, getLoadingUser } from 'redux/auth/auth-selectors';
-import { clearError } from 'redux/auth/auth-actions';
+import { getLoadingUser } from 'redux/auth/auth-selectors';
+import { getErrorMessage } from 'redux/error/error-selectors';
+import { clearError } from 'redux/error/error-action';
 
 const RegisterPage = () => {
   const error = useSelector(getErrorMessage);

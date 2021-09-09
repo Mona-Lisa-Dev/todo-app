@@ -1,0 +1,31 @@
+.listNames {
+  display: flex;
+
+  span {
+    padding: 0 10px;
+  }
+
+  .middle {
+    text-align: center;
+    flex-basis: 50%;
+    border: 1px solid rgb(212, 212, 212);
+  }
+
+  .first {
+    text-align: start;
+    flex-basis: 25%;
+    border-top: 1px solid rgb(212, 212, 212);
+    border-bottom: 1px solid rgb(212, 212, 212);
+    border-left: 1px solid rgb(212, 212, 212);
+    border-radius: 4px 0 0 4px;
+  }
+
+  .last {
+    text-align: end;
+    flex-basis: 25%;
+    border-top: 1px solid rgb(212, 212, 212);
+    border-bottom: 1px solid rgb(212, 212, 212);
+    border-right: 1px solid rgb(212, 212, 212);
+    border-radius: 0 4px 4px 0;
+  }
+}

@@ -1,0 +1,18 @@
+.todoItem {
+  display: flex;
+
+  .todoText {
+    text-align: center;
+    flex-basis: 50%;
+  }
+
+  .first {
+    text-align: start;
+    flex-basis: 25%;
+  }
+
+  .last {
+    text-align: end;
+    flex-basis: 25%;
+  }
+}

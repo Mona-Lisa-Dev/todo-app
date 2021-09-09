@@ -14,8 +14,6 @@ import {
   getCurrentUserRequest,
   getCurrentUserSuccess,
   getCurrentUserError,
-  clearError,
-  createErrorMessage,
 } from './auth-actions';
 
 const initialUserState = { name: null, email: null, age: null };
@@ -63,13 +61,6 @@ const isLoading = createReducer(false, {
 
 const setError = (_, { payload }) => payload;
 
-const isErrorMessage = createReducer('', {
-  [createErrorMessage]: setError,
-  [signupRequest]: () => null,
-  [loginRequest]: () => null,
-  [clearError]: () => null,
-});
-
 const error = createReducer(null, {
   [logoutError]: setError,
   [logoutRequest]: () => null,
@@ -83,5 +74,4 @@ export default combineReducers({
   isAuthorized,
   isLoading,
   error,
-  isErrorMessage,
 });

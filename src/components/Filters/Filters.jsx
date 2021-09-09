@@ -3,10 +3,10 @@ import DatePicker from 'components/DatePicker';
 
 import styles from './Filters.module.scss';
 
-const Filters = ({ allItems }) => {
+const Filters = () => {
   return (
     <div className={styles.Filters}>
-      <DatePicker allItems={allItems} />
+      <DatePicker />
       <Search />
     </div>
   );

@@ -24,4 +24,4 @@ export const getByQueryRequest = createAction('todos/getByQueryRequest');
 export const getByQuerySuccess = createAction('todos/getByQuerySuccess');
 export const getByQueryError = createAction('todos/getByQueryError');
 
-export const changeFilter = createAction('todos/changeFilter');
+export const clearFilter = createAction('todos/clearFilter');
