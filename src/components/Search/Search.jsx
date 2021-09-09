@@ -2,14 +2,16 @@ import { useState, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import _debouce from 'lodash/debounce';
 
-import { TextField } from '@material-ui/core';
+import { TextField, IconButton } from '@material-ui/core';
+import { Clear } from '@material-ui/icons';
+
 import { getTodosByQuery } from 'redux/todos/todos-operations';
+import { clearFilter } from 'redux/todos/todos-actions';
 
 import styles from './Search.module.scss';
 
 const Search = () => {
   const [value, setValue] = useState('');
-
   const dispatch = useDispatch();
 
   const fn = searchValue => dispatch(getTodosByQuery(searchValue));
@@ -24,16 +26,33 @@ const Search = () => {
     debouncedFilter(normalizedFilter);
   };
 
+  const reset = () => {
+    dispatch(clearFilter());
+    setValue('');
+  };
+
   return (
-    <div className={styles.Search}>
-      <TextField
-        type="text"
-        label="Search"
-        variant="outlined"
-        value={value}
-        onChange={onChangeFilter}
-      />
-    </div>
+    <>
+      <div className={styles.Search}>
+        <IconButton
+          aria-label="Clear search"
+          type="button"
+          variant="contained"
+          color="primary"
+          title="Clear search"
+          onClick={reset}
+        >
+          <Clear />
+        </IconButton>
+        <TextField
+          type="text"
+          label="Search"
+          variant="outlined"
+          value={value}
+          onChange={onChangeFilter}
+        />
+      </div>
+    </>
   );
 };
 

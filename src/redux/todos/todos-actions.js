@@ -16,6 +16,10 @@ export const getByPageRequest = createAction('todos/getByPageRequest');
 export const getByPageSuccess = createAction('todos/getByPageSuccess');
 export const getByPageError = createAction('todos/getByPageError');
 
+export const getByStatusRequest = createAction('todos/getByStatusRequest');
+export const getByStatusSuccess = createAction('todos/getByStatusSuccess');
+export const getByStatusError = createAction('todos/getByStatusError');
+
 export const getAllTodosRequest = createAction('todos/getAllTodosRequest');
 export const getAllTodosSuccess = createAction('todos/getAllTodosSuccess');
 export const getAllTodosError = createAction('todos/getAllTodosError');

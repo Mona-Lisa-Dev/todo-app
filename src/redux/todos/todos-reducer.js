@@ -20,12 +20,16 @@ import {
   getByQueryRequest,
   getByQuerySuccess,
   getByQueryError,
+  getByStatusRequest,
+  getByStatusSuccess,
+  getByStatusError,
   clearFilter,
 } from './todos-actions';
 import { logoutSuccess } from 'redux/auth/auth-actions';
 
 const items = createReducer([], {
   [getByPageSuccess]: (_, { payload }) => payload.tasks,
+  [getByStatusSuccess]: (_, { payload }) => payload.tasks,
 
   [addTodoSuccess]: (state, { payload }) => [...state, payload],
   [deleteTodoSuccess]: (state, { payload }) =>
@@ -47,7 +51,14 @@ const allItems = createReducer([], {
   [logoutSuccess]: () => [],
 });
 
-const itemsByPageLength = createReducer(null, {
+const itemsLength = createReducer(null, {
+  [getByPageSuccess]: (_, { payload }) => payload.total,
+  [addTodoSuccess]: (state, { payload }) => state + 1,
+  [deleteTodoSuccess]: (state, { payload }) => state - 1,
+});
+
+const itemsForPagination = createReducer(null, {
+  [getByStatusSuccess]: (_, { payload }) => payload.total,
   [getByPageSuccess]: (_, { payload }) => payload.total,
   [addTodoSuccess]: (state, { payload }) => state + 1,
   [deleteTodoSuccess]: (state, { payload }) => state - 1,
@@ -105,7 +116,8 @@ const error = createReducer(null, {
 export default combineReducers({
   items,
   allItems,
-  itemsByPageLength,
+  itemsLength,
+  itemsForPagination,
   filter,
   isLoading,
   error,

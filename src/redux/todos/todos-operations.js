@@ -19,6 +19,9 @@ import {
   getByQueryRequest,
   getByQuerySuccess,
   getByQueryError,
+  getByStatusRequest,
+  getByStatusSuccess,
+  getByStatusError,
 } from './todos-actions';
 
 export const addTodo = todo => async dispatch => {
@@ -126,7 +129,7 @@ export const getTodosByDate = date => async dispatch => {
 // todo поміняти екшини на гетБайСтатус і прописати для них редюсери
 export const getTodosByStatus =
   (limit, offset, status, sort) => async dispatch => {
-    dispatch(getByPageRequest());
+    dispatch(getByStatusRequest());
 
     try {
       const {
@@ -136,10 +139,10 @@ export const getTodosByStatus =
       } = await axios.get(
         `/tasks?limit=${limit}&offset=${offset}&isDone=${status}&${sort}=description`,
       );
-      dispatch(getByPageSuccess(tasks));
+      dispatch(getByStatusSuccess(tasks));
       return tasks;
     } catch (error) {
-      dispatch(getByPageError(error.message));
+      dispatch(getByStatusError(error.message));
     }
   };
 

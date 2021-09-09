@@ -19,11 +19,9 @@ import {
 import styles from './SortButtonsPanel.module.scss';
 
 const SortButtonsPanel = ({ items, onClicks }) => {
-  const { allItems, completeItems, notCompleteItems } = items;
+  const { todosLength, todosLengthForPagination } = items;
   const { handleClickSort, handleChooseCompleted, handleClickAllTodos } =
     onClicks;
-  // const [classCheckedSort, setClassCheckedSort] = useState('byDefault');
-  const [checkedCompleted, setCheckedCompleted] = useState(allItems);
 
   const [status, setStatus] = useState('');
   const [sort, setSort] = useState('');
@@ -35,15 +33,12 @@ const SortButtonsPanel = ({ items, onClicks }) => {
     switch (value) {
       case 'all':
         handleClickAllTodos();
-        setCheckedCompleted(allItems);
         break;
       case 'completed':
         handleChooseCompleted(true);
-        setCheckedCompleted(completeItems);
         break;
       case 'not completed':
         handleChooseCompleted(false);
-        setCheckedCompleted(notCompleteItems);
         break;
 
       default:
@@ -92,7 +87,7 @@ const SortButtonsPanel = ({ items, onClicks }) => {
           <option value={'not completed'}>Not completed</option>
         </Select>
         <FormHelperText>
-          {checkedCompleted.length} / {allItems.length}
+          {todosLengthForPagination} / {todosLength}
         </FormHelperText>
       </FormControl>
 

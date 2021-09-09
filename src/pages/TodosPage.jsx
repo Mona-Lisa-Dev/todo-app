@@ -17,6 +17,7 @@ import {
   getNotCompleteItems,
   getFilter,
   getLoadingTodos,
+  getLengthForPagination,
 } from 'redux/todos/todos-selectors';
 import {
   getTodosByPage,
@@ -33,9 +34,10 @@ const TodosPage = () => {
   const ITEMS_ON_PAGE = 4;
 
   const todosLength = useSelector(getTotalTodos);
+  const todosLengthForPagination = useSelector(getLengthForPagination);
   const todosToShow = useSelector(getTodosByOnePage);
 
-  const allItems = useSelector(getAllItems);
+  // const allItems = useSelector(getAllItems);
   const completeItems = useSelector(getCompleteItems);
   const notCompleteItems = useSelector(getNotCompleteItems);
   const filteredItems = useSelector(getFilter);
@@ -44,7 +46,7 @@ const TodosPage = () => {
 
   const dispatch = useDispatch();
 
-  const countPages = Math.ceil(todosLength / ITEMS_ON_PAGE);
+  const countPages = Math.ceil(todosLengthForPagination / ITEMS_ON_PAGE);
   // const renderPagination = todosLength > ITEMS_ON_PAGE;
   const renderTodoList = todosLength > 0;
 
@@ -135,9 +137,8 @@ const TodosPage = () => {
   };
 
   const groupOfItemsForButtons = {
-    allItems,
-    completeItems,
-    notCompleteItems,
+    todosLength,
+    todosLengthForPagination,
   };
 
   const groupOfFunctionsForButtons = {
@@ -152,7 +153,7 @@ const TodosPage = () => {
       {isLoading && <Loader />}
       {filteredItems.length === 0 && <AddTodoBtn />}
 
-      {!!allItems.length && (
+      {!!todosLength && (
         <>
           <Filters />
 
