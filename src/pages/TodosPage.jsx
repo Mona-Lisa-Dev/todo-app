@@ -8,6 +8,7 @@ import Loader from 'components/Loader';
 import Filters from 'components/Filters';
 import SortButtonsPanel from 'components/SortButtonsPanel';
 import AlertError from 'components/AlertError';
+import ButtonScrollTop from 'components/ButtonScrollTop';
 
 import {
   getTodosByOnePage,
@@ -28,6 +29,7 @@ const TodosPage = () => {
   const [skip, setSkip] = useState(0);
   const [clickPage, setClickPage] = useState(false);
   const ITEMS_ON_PAGE = 4;
+  const ITEMS_FOR_SCROLL_TOP = 7;
 
   const todosLength = useSelector(getTotalTodos);
   const todosLengthForPagination = useSelector(getLengthForPagination);
@@ -116,7 +118,6 @@ const TodosPage = () => {
       {error && <AlertError error={error} />}
       {isLoading && <Loader />}
       {filteredItems.length === 0 && <AddTodoBtn />}
-
       {!!todosLength && (
         <>
           <Filters />
@@ -131,14 +132,12 @@ const TodosPage = () => {
           )}
         </>
       )}
-
       {renderTodoList &&
         (filteredItems.length === 0 ? (
           <TodoList todosToShow={todosToShow} />
         ) : (
           <TodoList todosToShow={filteredItems} />
         ))}
-
       {renderPagination && filteredItems.length === 0 && (
         <PaginationTodos
           page={page}
@@ -146,6 +145,7 @@ const TodosPage = () => {
           onClickPage={handleClickOnPage}
         />
       )}
+      {filteredItems.length > ITEMS_FOR_SCROLL_TOP && <ButtonScrollTop />}
     </>
   );
 };

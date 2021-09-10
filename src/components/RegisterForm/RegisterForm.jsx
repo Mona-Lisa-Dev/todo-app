@@ -67,7 +67,11 @@ const RegisterForm = () => {
           onChange={() => trigger('name')}
           setValue={setValue}
         />
-        {errors.name && <FormHelperText>{errors.name?.message}</FormHelperText>}
+        {errors.name && (
+          <FormHelperText className={styles.helperText}>
+            {errors.name?.message}
+          </FormHelperText>
+        )}
       </div>
 
       <div className={styles.inputWrapper}>
@@ -95,7 +99,9 @@ const RegisterForm = () => {
           onChange={() => trigger('email')}
         />
         {errors.email && (
-          <FormHelperText>{errors.email?.message}</FormHelperText>
+          <FormHelperText className={styles.helperText}>
+            {errors.email?.message}
+          </FormHelperText>
         )}
       </div>
 
@@ -132,7 +138,9 @@ const RegisterForm = () => {
           onChange={() => trigger('password')}
         />
         {errors.password && (
-          <FormHelperText>{errors.password?.message}</FormHelperText>
+          <FormHelperText className={styles.helperText}>
+            {errors.password?.message}
+          </FormHelperText>
         )}
       </div>
 
@@ -163,7 +171,7 @@ const RegisterForm = () => {
         />
 
         {errors.passwordConfirmation && (
-          <FormHelperText>
+          <FormHelperText className={styles.helperText}>
             {errors.passwordConfirmation?.message}
           </FormHelperText>
         )}
@@ -195,7 +203,11 @@ const RegisterForm = () => {
           setValue={setValue}
           onChange={() => trigger('age')}
         />
-        {errors.age && <FormHelperText>{errors.age?.message}</FormHelperText>}
+        {errors.age && (
+          <FormHelperText className={styles.helperText}>
+            {errors.age?.message}
+          </FormHelperText>
+        )}
       </div>
 
       <div className={styles.checkbox}>

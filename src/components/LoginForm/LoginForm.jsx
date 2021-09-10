@@ -65,7 +65,9 @@ const LoginForm = () => {
           onChange={() => trigger('email')}
         />
         {errors.email && (
-          <FormHelperText>{errors.email?.message}</FormHelperText>
+          <FormHelperText className={styles.helperText}>
+            {errors.email?.message}
+          </FormHelperText>
         )}
       </div>
 
@@ -105,7 +107,9 @@ const LoginForm = () => {
           />
         </FormControl>
         {errors.password && (
-          <FormHelperText>{errors.password?.message}</FormHelperText>
+          <FormHelperText className={styles.helperText}>
+            {errors.password?.message}
+          </FormHelperText>
         )}
       </div>
 

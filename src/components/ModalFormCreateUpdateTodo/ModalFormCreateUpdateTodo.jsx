@@ -51,18 +51,30 @@ const ModalFormCreateUpdateTodo = ({ todo = {}, onCloseModal, type }) => {
         checked={updatedIsDone}
         onChange={handleCompleted}
       />
-      <div>
+      <div className={styles.inputWrapper}>
         <RHFInput
           as={<TextField type="text" label="Todo" variant="outlined" />}
           name="description"
           defaultValue={description}
           register={register}
-          rules={{ required: 'Description of task is required' }}
+          rules={{
+            required: 'Description of task is required',
+            minLength: {
+              value: 3,
+              message: 'Description must be at least 3 characters',
+            },
+            maxLength: {
+              value: 70,
+              message: 'Description must be at most 70 characters',
+            },
+          }}
           setValue={setValue}
           onChange={() => trigger('description')}
         />
         {errors.description && (
-          <FormHelperText>{errors.description?.message}</FormHelperText>
+          <FormHelperText className={styles.helperText}>
+            {errors.description?.message}
+          </FormHelperText>
         )}
       </div>
 

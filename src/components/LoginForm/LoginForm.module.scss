@@ -10,12 +10,21 @@
   box-shadow: 7px 7px 13px 0px rgba(0, 0, 0, 0.38);
 
   .formTitle {
-    margin: 0 auto 20px;
+    margin: 0 auto 30px;
   }
 
   .inputWrapper {
-    margin-bottom: 20px;
     display: flex;
     flex-direction: column;
+
+    position: relative;
+
+    margin-bottom: 30px;
+
+    .helperText {
+      position: absolute;
+      width: 100%;
+      top: 94%;
+    }
   }
 }

@@ -10,14 +10,30 @@
   box-shadow: 7px 7px 13px 0px rgba(0, 0, 0, 0.38);
 
   .formTitle {
-    margin: 0 auto 20px;
+    margin: 0 auto 15px;
   }
 
   .inputWrapper,
   .checkbox {
-    margin-bottom: 20px;
     display: flex;
     flex-direction: column;
+  }
+
+  .checkbox {
+    margin-bottom: 15px;
+  }
+
+  .inputWrapper {
+    position: relative;
+
+    margin-top: 15px;
+    margin-bottom: 15px;
+
+    .helperText {
+      position: absolute;
+      width: 100%;
+      top: 94%;
+    }
   }
 
   .checkbox span {
