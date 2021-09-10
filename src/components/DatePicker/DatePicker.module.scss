@@ -1,14 +1,25 @@
 .DatePicker {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
 
   @media screen and (max-width: 600px) {
+    position: static;
     margin-bottom: 20px;
   }
 
   input {
     width: 206px;
+  }
+
+  button {
+    position: absolute;
+    left: -20%;
+
+    @media screen and (max-width: 600px) {
+      position: static;
+    }
   }
 }

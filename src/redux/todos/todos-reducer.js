@@ -14,9 +14,6 @@ import {
   getByPageRequest,
   getByPageSuccess,
   getByPageError,
-  getAllTodosRequest,
-  getAllTodosSuccess,
-  getAllTodosError,
   getByQueryRequest,
   getByQuerySuccess,
   getByQueryError,
@@ -31,17 +28,6 @@ const items = createReducer([], {
   [getByPageSuccess]: (_, { payload }) => payload.tasks,
   [getByStatusSuccess]: (_, { payload }) => payload.tasks,
 
-  [addTodoSuccess]: (state, { payload }) => [...state, payload],
-  [deleteTodoSuccess]: (state, { payload }) =>
-    state.filter(({ _id }) => _id !== payload),
-  [updateTodoSuccess]: (state, { payload }) =>
-    state.map(item => (item._id === payload._id ? payload : item)),
-
-  [logoutSuccess]: () => [],
-});
-
-const allItems = createReducer([], {
-  [getAllTodosSuccess]: (_, { payload }) => payload,
   [addTodoSuccess]: (state, { payload }) => [...state, payload],
   [deleteTodoSuccess]: (state, { payload }) =>
     state.filter(({ _id }) => _id !== payload),
@@ -94,9 +80,13 @@ const isLoading = createReducer(false, {
   [getByPageSuccess]: () => false,
   [getByPageError]: () => false,
 
-  [getAllTodosRequest]: () => true,
-  [getAllTodosSuccess]: () => false,
-  [getAllTodosError]: () => false,
+  [getByQueryRequest]: () => true,
+  [getByQuerySuccess]: () => false,
+  [getByQueryError]: () => false,
+
+  [getByStatusRequest]: () => true,
+  [getByStatusSuccess]: () => false,
+  [getByStatusError]: () => false,
 });
 
 const setError = (_, { payload }) => payload;
@@ -109,13 +99,10 @@ const error = createReducer(null, {
   [updateTodoRequest]: () => null,
   [getByPageError]: setError,
   [getByPageRequest]: () => null,
-  [getAllTodosError]: setError,
-  [getAllTodosRequest]: () => null,
 });
 
 export default combineReducers({
   items,
-  allItems,
   itemsLength,
   itemsForPagination,
   filter,

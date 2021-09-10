@@ -18,12 +18,14 @@ import {
 
 import styles from './SortButtonsPanel.module.scss';
 
-const SortButtonsPanel = ({ items, onClicks }) => {
+const SortButtonsPanel = ({ byStatus, completed, items, onClicks }) => {
   const { todosLength, todosLengthForPagination } = items;
   const { handleClickSort, handleChooseCompleted, handleClickAllTodos } =
     onClicks;
 
-  const [status, setStatus] = useState('');
+  const [status, setStatus] = useState(
+    byStatus ? (completed ? 'completed' : 'not completed') : '',
+  );
   const [sort, setSort] = useState('');
 
   const handleChangeStatus = e => {

@@ -13,9 +13,6 @@ import {
   getByPageRequest,
   getByPageSuccess,
   getByPageError,
-  getAllTodosRequest,
-  getAllTodosSuccess,
-  getAllTodosError,
   getByQueryRequest,
   getByQuerySuccess,
   getByQueryError,
@@ -126,7 +123,6 @@ export const getTodosByDate = date => async dispatch => {
   }
 };
 
-// todo поміняти екшини на гетБайСтатус і прописати для них редюсери
 export const getTodosByStatus =
   (limit, offset, status, sort) => async dispatch => {
     dispatch(getByStatusRequest());
@@ -145,19 +141,3 @@ export const getTodosByStatus =
       dispatch(getByStatusError(error.message));
     }
   };
-
-export const getAllTodos = () => async dispatch => {
-  dispatch(getAllTodosRequest());
-
-  try {
-    const {
-      data: {
-        data: { tasks },
-      },
-    } = await axios.get(`/tasks/all`);
-    dispatch(getAllTodosSuccess(tasks));
-    return tasks;
-  } catch (error) {
-    dispatch(getAllTodosError(error.message));
-  }
-};
