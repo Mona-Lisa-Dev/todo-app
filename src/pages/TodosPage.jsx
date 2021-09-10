@@ -124,6 +124,7 @@ const TodosPage = () => {
 
           {filteredItems.length === 0 && (
             <SortButtonsPanel
+              sortBy={sort}
               byStatus={byStatus}
               completed={completed}
               items={groupOfItemsForButtons}

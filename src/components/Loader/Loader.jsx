@@ -4,8 +4,10 @@ import styles from './Loader.module.scss';
 
 const Loader = () => {
   return (
-    <div className={styles.Loader}>
-      <CircularProgress />
+    <div className={styles.backdrop}>
+      <div className={styles.Loader}>
+        <CircularProgress />
+      </div>
     </div>
   );
 };

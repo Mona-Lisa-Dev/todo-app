@@ -18,7 +18,7 @@ import {
 
 import styles from './SortButtonsPanel.module.scss';
 
-const SortButtonsPanel = ({ byStatus, completed, items, onClicks }) => {
+const SortButtonsPanel = ({ sortBy, byStatus, completed, items, onClicks }) => {
   const { todosLength, todosLengthForPagination } = items;
   const { handleClickSort, handleChooseCompleted, handleClickAllTodos } =
     onClicks;
@@ -26,7 +26,7 @@ const SortButtonsPanel = ({ byStatus, completed, items, onClicks }) => {
   const [status, setStatus] = useState(
     byStatus ? (completed ? 'completed' : 'not completed') : '',
   );
-  const [sort, setSort] = useState('');
+  const [sort, setSort] = useState(sortBy ? sortBy : 'byDefault');
 
   const handleChangeStatus = e => {
     const { value } = e.target;
