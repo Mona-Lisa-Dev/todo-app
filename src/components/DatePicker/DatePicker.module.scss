@@ -5,13 +5,13 @@
   align-items: center;
   text-align: center;
 
+  input {
+    width: 206px;
+  }
+
   @media screen and (max-width: 600px) {
     position: static;
     margin-bottom: 20px;
-  }
-
-  input {
-    width: 206px;
   }
 
   button {

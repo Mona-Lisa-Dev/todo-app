@@ -123,7 +123,9 @@ export const getCurrentUser = () => async (dispatch, getState) => {
   dispatch(getCurrentUserRequest());
 
   try {
-    const { data } = await axios.get('/users/current');
+    const {
+      data: { data },
+    } = await axios.get('/users/current');
 
     dispatch(getCurrentUserSuccess(data));
     return data;

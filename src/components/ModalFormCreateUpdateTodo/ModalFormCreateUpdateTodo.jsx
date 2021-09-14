@@ -4,7 +4,14 @@ import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { RHFInput } from 'react-hook-form-input';
 
-import { Checkbox, TextField, Button, FormHelperText } from '@material-ui/core';
+import {
+  Checkbox,
+  TextField,
+  Button,
+  IconButton,
+  FormHelperText,
+  useMediaQuery,
+} from '@material-ui/core';
 import { SaveAltRounded } from '@material-ui/icons';
 
 import { addTodo, updateTodo } from 'redux/todos/todos-operations';
@@ -50,6 +57,11 @@ const ModalFormCreateUpdateTodo = ({
     onCloseModal();
   };
 
+  const handleMaxWidth = width => {
+    return `(max-width:${width}px) `;
+  };
+  const mobile = useMediaQuery(handleMaxWidth(600));
+
   return (
     <form className={styles.todoForm} onSubmit={handleSubmit(handleSubmitForm)}>
       <Checkbox
@@ -84,14 +96,25 @@ const ModalFormCreateUpdateTodo = ({
         )}
       </div>
 
-      <Button
-        type="submit"
-        variant="contained"
-        color="primary"
-        endIcon={<SaveAltRounded>Save</SaveAltRounded>}
-      >
-        Save
-      </Button>
+      {mobile ? (
+        <IconButton
+          aria-label="Save todo"
+          type="submit"
+          color="primary"
+          title="Save"
+        >
+          <SaveAltRounded />
+        </IconButton>
+      ) : (
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          endIcon={<SaveAltRounded>Save</SaveAltRounded>}
+        >
+          Save
+        </Button>
+      )}
     </form>
   );
 };

@@ -1,11 +1,13 @@
-.todoForm {
+.userMenu {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  margin: 40px 20px;
+  width: 100%;
+  max-width: 767px;
+  padding: 0 30px;
 
   @media screen and (max-width: 600px) {
-    margin: 40px 5px;
+    padding: 0 10px;
 
     button {
       background-color: #3f51b5;
@@ -14,18 +16,6 @@
       &:hover {
         background-color: #303f9f;
       }
-    }
-  }
-
-  button {
-    margin-left: 10px;
-  }
-
-  .inputWrapper {
-    position: relative;
-
-    .helperText {
-      position: absolute;
     }
   }
 }

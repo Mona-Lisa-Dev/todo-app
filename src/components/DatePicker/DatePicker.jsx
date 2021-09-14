@@ -30,7 +30,6 @@ const DatePicker = () => {
       <IconButton
         aria-label="Show all todos"
         type="reset"
-        variant="contained"
         color="primary"
         title="Show all todos"
         onClick={reset}
