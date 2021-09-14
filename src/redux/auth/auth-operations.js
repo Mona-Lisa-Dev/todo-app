@@ -18,7 +18,6 @@ import { createErrorMessage } from 'redux/error/error-action';
 import { store } from 'redux/store';
 const { dispatch } = store;
 
-// axios.defaults.baseURL = 'https://api-nodejs-todolist.herokuapp.com';
 axios.defaults.baseURL = 'https://restapi-todos.herokuapp.com/api';
 
 axios.interceptors.response.use(
@@ -30,7 +29,6 @@ axios.interceptors.response.use(
     const errorMessage = 'Something is wrong. Try again!';
     if (!error.response) {
       return new Promise((resolve, reject) => {
-        // console.log('Error!', error || errorMessage);
         dispatch(createErrorMessage(error) || errorMessage);
         reject(error);
       });
@@ -39,21 +37,18 @@ axios.interceptors.response.use(
     if (error.response.status) {
       if (
         error.response.data.message !== 'Not authorized' &&
-        error.response.status !== 500
+        error.response.status !== 500 &&
+        error.response.data.message !== 'Id Is Not Valid'
       ) {
         dispatch(
           createErrorMessage(error.response.data.message || errorMessage),
         );
       }
-
-      // console.log('Error!', error.response.data.message || errorMessage);
     } else {
       return new Promise((resolve, reject) => {
         dispatch(
           createErrorMessage(error.response.data.message || errorMessage),
         );
-        // console.log('Error!', error.response.data.message || errorMessage);
-
         reject(error);
       });
     }
@@ -73,11 +68,9 @@ export const signup = payload => async dispatch => {
   dispatch(signupRequest());
 
   try {
-    // const { data } = await axios.post('/user/register', payload);
     const {
       data: { data },
     } = await axios.post('/users/signup', payload);
-    // console.log('sign up', data);
     dispatch(signupSuccess(data));
 
     const { email, password } = payload;
@@ -94,15 +87,12 @@ export const login = payload => async dispatch => {
   dispatch(loginRequest());
 
   try {
-    // const { data } = await axios.post('/user/login', payload);
     const {
       data: { data },
     } = await axios.post('/users/login', payload);
 
     token.set(data.token);
     dispatch(loginSuccess(data));
-
-    // console.log('log in', data);
     return data;
   } catch (error) {
     dispatch(loginError(error.message));
@@ -113,7 +103,6 @@ export const logout = () => async dispatch => {
   dispatch(logoutRequest());
 
   try {
-    // await axios.post(`/user/logout`);
     await axios.post(`/users/logout`);
 
     dispatch(logoutSuccess());
@@ -134,11 +123,9 @@ export const getCurrentUser = () => async (dispatch, getState) => {
   dispatch(getCurrentUserRequest());
 
   try {
-    // const { data } = await axios.get('/user/me');
     const { data } = await axios.get('/users/current');
 
     dispatch(getCurrentUserSuccess(data));
-
     return data;
   } catch (error) {
     dispatch(getCurrentUserError(error.message));

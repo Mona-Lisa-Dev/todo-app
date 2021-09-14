@@ -25,9 +25,6 @@ export const addTodo = todo => async dispatch => {
   dispatch(addTodoRequest());
 
   try {
-    // const {
-    //   data: { data },
-    // } = await axios.post('/task', todo);
     const {
       data: { data },
     } = await axios.post('/tasks', todo);
@@ -43,9 +40,7 @@ export const deleteTodo = todoId => async dispatch => {
   dispatch(deleteTodoRequest());
 
   try {
-    // await axios.delete(`/task/${todoId}`);
     await axios.delete(`/tasks/${todoId}`);
-
     dispatch(deleteTodoSuccess(todoId));
   } catch (error) {
     dispatch(deleteTodoError(error.message));
@@ -56,13 +51,9 @@ export const updateTodo = (id, updatedTodo) => async dispatch => {
   dispatch(updateTodoRequest());
 
   try {
-    // const {
-    //   data: { data },
-    // } = await axios.put(`/task/${id}`, updatedTodo);
     const {
       data: { data },
     } = await axios.put(`/tasks/${id}`, updatedTodo);
-    // console.log(data);
     dispatch(updateTodoSuccess(data.task));
     return data.task;
   } catch (error) {
@@ -74,9 +65,6 @@ export const getTodosByPage = (limit, offset, sort) => async dispatch => {
   dispatch(getByPageRequest());
 
   try {
-    // const {
-    //   data: { data },
-    // } = await axios.get(`/task?limit=${limit}&skip=${skip}`);
     const {
       data: {
         data: { tasks },
