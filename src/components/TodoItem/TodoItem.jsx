@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import {
   ListItem,
@@ -16,7 +17,7 @@ import { deleteTodo, updateTodo } from 'redux/todos/todos-operations';
 
 import styles from './TodoItem.module.scss';
 
-const TodoItem = ({ todo }) => {
+const TodoItem = ({ todo, action }) => {
   const { _id: id, description, isDone } = todo;
   const [showModal, setShowModal] = useState(false);
   const [openConfirmation, setOpenConfirmation] = useState(false);
@@ -25,7 +26,10 @@ const TodoItem = ({ todo }) => {
   const handleToggleModal = () => setShowModal(!showModal);
   const handleToggleConfirmation = () => setOpenConfirmation(!openConfirmation);
   const handleCompleted = () => dispatch(updateTodo(id, { isDone: !isDone }));
-  const handleDeleteTask = () => dispatch(deleteTodo(id));
+  const handleDeleteTask = async () => {
+    await dispatch(deleteTodo(id));
+    action(true);
+  };
 
   return (
     <>
@@ -79,6 +83,15 @@ const TodoItem = ({ todo }) => {
       </ListItem>
     </>
   );
+};
+
+TodoItem.propTypes = {
+  todo: PropTypes.shape({
+    _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    description: PropTypes.string.isRequired,
+    isDone: PropTypes.bool.isRequired,
+  }).isRequired,
+  action: PropTypes.func.isRequired,
 };
 
 export default TodoItem;

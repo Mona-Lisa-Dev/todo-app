@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 // import { Button, ButtonGroup } from '@material-ui/core';
 // import {
 //   CheckBox,
@@ -187,6 +188,21 @@ const SortButtonsPanel = ({ sortBy, byStatus, completed, items, onClicks }) => {
       </ButtonGroup> */}
     </div>
   );
+};
+
+SortButtonsPanel.propTypes = {
+  sortBy: PropTypes.string.isRequired,
+  byStatus: PropTypes.bool.isRequired,
+  completed: PropTypes.bool.isRequired,
+  items: PropTypes.shape({
+    todosLength: PropTypes.number.isRequired,
+    todosLengthForPagination: PropTypes.number.isRequired,
+  }).isRequired,
+  onClicks: PropTypes.shape({
+    handleClickSort: PropTypes.func.isRequired,
+    handleChooseCompleted: PropTypes.func.isRequired,
+    handleClickAllTodos: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 export default SortButtonsPanel;

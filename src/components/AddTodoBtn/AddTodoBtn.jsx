@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 import { Button } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 
@@ -7,7 +8,7 @@ import ModalFormCreateUpdateTodo from 'components/ModalFormCreateUpdateTodo';
 
 import styles from './AddTodoBtn.module.scss';
 
-const AddTodoBtn = () => {
+const AddTodoBtn = ({ createTodo }) => {
   const [showModal, setShowModal] = useState(false);
 
   const handleToggleModal = () => setShowModal(!showModal);
@@ -17,6 +18,7 @@ const AddTodoBtn = () => {
       {showModal && (
         <Modal onClose={handleToggleModal}>
           <ModalFormCreateUpdateTodo
+            action={createTodo}
             onCloseModal={handleToggleModal}
             type="add"
           />
@@ -33,6 +35,10 @@ const AddTodoBtn = () => {
       </Button>
     </div>
   );
+};
+
+AddTodoBtn.propTypes = {
+  createTodo: PropTypes.func.isRequired,
 };
 
 export default AddTodoBtn;

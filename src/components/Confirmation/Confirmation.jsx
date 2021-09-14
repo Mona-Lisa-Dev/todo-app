@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import {
   Button,
   Dialog,
@@ -48,6 +49,12 @@ const Confirmation = ({ open, onClose, onDelete }) => {
       </div>
     </Dialog>
   );
+};
+
+Confirmation.propTypes = {
+  open: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
 };
 
 export default Confirmation;

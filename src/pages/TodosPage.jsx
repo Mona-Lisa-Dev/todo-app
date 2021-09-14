@@ -26,10 +26,11 @@ const TodosPage = () => {
   const [sort, setSort] = useState('');
   const [renderPagination, setRenderPagination] = useState(false);
   const [page, setPage] = useState(1);
-  const [skip, setSkip] = useState(0);
-  const [clickPage, setClickPage] = useState(false);
+  const [isCreatedTodo, setIsCreatedTodo] = useState(false);
+  const [isDeletedTodo, setIsDeletedTodo] = useState(false);
+
   const ITEMS_ON_PAGE = 4;
-  const ITEMS_FOR_SCROLL_TOP = 7;
+  const ITEMS_FOR_SCROLL_TOP = 6;
 
   const todosLength = useSelector(getTotalTodos);
   const todosLengthForPagination = useSelector(getLengthForPagination);
@@ -44,7 +45,6 @@ const TodosPage = () => {
   const renderTodoList = todosLength > 0;
   const resetPage = () => {
     setPage(1);
-    setSkip(0);
   };
 
   useEffect(() => {
@@ -52,32 +52,61 @@ const TodosPage = () => {
   }, [countPages]);
 
   useEffect(() => {
-    const ifDeleteLastItemOnPage =
-      todosLengthForPagination % ITEMS_ON_PAGE === 0 &&
-      todosLengthForPagination / ITEMS_ON_PAGE < page &&
-      page !== 1 &&
-      !clickPage;
+    byStatus
+      ? dispatch(getTodosByStatus(ITEMS_ON_PAGE, 0, completed, sort))
+      : dispatch(getTodosByPage(ITEMS_ON_PAGE, 0, sort));
 
-    if (ifDeleteLastItemOnPage) {
-      setSkip(ITEMS_ON_PAGE * (page - 2));
-      setPage(page - 1);
-      // resetPage()
-    } else {
-      setSkip(ITEMS_ON_PAGE * (page - 1));
-    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch]);
+
+  useEffect(() => {
+    (async function () {
+      if (isCreatedTodo) {
+        const skipPage = ITEMS_ON_PAGE * (page - 1);
+
+        byStatus
+          ? dispatch(getTodosByStatus(ITEMS_ON_PAGE, skipPage, completed, sort))
+          : dispatch(getTodosByPage(ITEMS_ON_PAGE, skipPage, sort));
+
+        setIsCreatedTodo(false);
+      }
+
+      if (isDeletedTodo) {
+        const ifDeleteLastItemOnPage =
+          todosLengthForPagination % ITEMS_ON_PAGE === 0 &&
+          todosLengthForPagination / ITEMS_ON_PAGE < page &&
+          page !== 1;
+
+        let skipPage;
+
+        if (ifDeleteLastItemOnPage) {
+          setPage(page - 1);
+          skipPage = ITEMS_ON_PAGE * (page - 2);
+        } else {
+          skipPage = ITEMS_ON_PAGE * (page - 1);
+        }
+
+        byStatus
+          ? dispatch(getTodosByStatus(ITEMS_ON_PAGE, skipPage, completed, sort))
+          : dispatch(getTodosByPage(ITEMS_ON_PAGE, skipPage, sort));
+
+        setIsDeletedTodo(false);
+      }
+    })();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch, isCreatedTodo, isDeletedTodo]);
+
+  const createTodo = isCreated => setIsCreatedTodo(isCreated);
+  const deleteTodo = isDeleted => setIsDeletedTodo(isDeleted);
+
+  const handleClickOnPage = async (_, value) => {
+    setPage(value);
+    const skipPage = ITEMS_ON_PAGE * (value - 1);
 
     byStatus
-      ? dispatch(getTodosByStatus(ITEMS_ON_PAGE, skip, completed, sort))
-      : dispatch(getTodosByPage(ITEMS_ON_PAGE, skip, sort));
-
-    setClickPage(false);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, todosLengthForPagination, page]);
-
-  const handleClickOnPage = (_, value) => {
-    setSkip(ITEMS_ON_PAGE * (value - 1));
-    setClickPage(true);
-    setPage(value);
+      ? dispatch(getTodosByStatus(ITEMS_ON_PAGE, skipPage, completed, sort))
+      : dispatch(getTodosByPage(ITEMS_ON_PAGE, skipPage, sort));
   };
 
   const handleClickSort = typeOfSort => {
@@ -117,7 +146,7 @@ const TodosPage = () => {
     <>
       {error && <AlertError error={error} />}
       {isLoading && <Loader />}
-      {filteredItems.length === 0 && <AddTodoBtn />}
+      {filteredItems.length === 0 && <AddTodoBtn createTodo={createTodo} />}
       {!!todosLength && (
         <>
           <Filters />
@@ -135,9 +164,9 @@ const TodosPage = () => {
       )}
       {renderTodoList &&
         (filteredItems.length === 0 ? (
-          <TodoList todosToShow={todosToShow} />
+          <TodoList todosToShow={todosToShow} deleteTodo={deleteTodo} />
         ) : (
-          <TodoList todosToShow={filteredItems} />
+          <TodoList todosToShow={filteredItems} deleteTodo={deleteTodo} />
         ))}
       {renderPagination && filteredItems.length === 0 && (
         <PaginationTodos

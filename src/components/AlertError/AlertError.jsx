@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import Alert from '@material-ui/lab/Alert';
 
@@ -18,6 +19,10 @@ const AlertError = ({ error }) => {
       {error}
     </Alert>
   );
+};
+
+AlertError.propTypes = {
+  error: PropTypes.string.isRequired,
 };
 
 export default AlertError;

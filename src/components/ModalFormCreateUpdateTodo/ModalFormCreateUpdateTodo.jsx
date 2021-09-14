@@ -11,7 +11,12 @@ import { addTodo, updateTodo } from 'redux/todos/todos-operations';
 
 import styles from './ModalFormCreateUpdateTodo.module.scss';
 
-const ModalFormCreateUpdateTodo = ({ todo = {}, onCloseModal, type }) => {
+const ModalFormCreateUpdateTodo = ({
+  action = null,
+  todo = {},
+  onCloseModal,
+  type,
+}) => {
   const { _id: id, description, isDone } = todo;
   const { handleSubmit, register, setValue, getValues, trigger, errors } =
     useForm();
@@ -20,7 +25,7 @@ const ModalFormCreateUpdateTodo = ({ todo = {}, onCloseModal, type }) => {
   const dispatch = useDispatch();
 
   const handleCompleted = () => setUpdatedsDone(!updatedIsDone);
-  const handleSubmitForm = () => {
+  const handleSubmitForm = async () => {
     const values = getValues();
 
     if (values.description === description && isDone === updatedIsDone) {
@@ -38,7 +43,8 @@ const ModalFormCreateUpdateTodo = ({ todo = {}, onCloseModal, type }) => {
     }
 
     if (type === 'add') {
-      dispatch(addTodo(todo));
+      await dispatch(addTodo(todo));
+      action(true);
     }
 
     onCloseModal();
@@ -91,12 +97,14 @@ const ModalFormCreateUpdateTodo = ({ todo = {}, onCloseModal, type }) => {
 };
 
 ModalFormCreateUpdateTodo.propTypes = {
+  action: PropTypes.func,
   todo: PropTypes.shape({
     _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     description: PropTypes.string.isRequired,
     isDone: PropTypes.bool.isRequired,
   }),
   onCloseModal: PropTypes.func.isRequired,
+  type: PropTypes.string.isRequired,
 };
 
 export default ModalFormCreateUpdateTodo;
