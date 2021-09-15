@@ -6,6 +6,7 @@ import {
   ListItemText,
   IconButton,
   Checkbox,
+  useMediaQuery,
 } from '@material-ui/core';
 import { Edit, DeleteForever } from '@material-ui/icons';
 
@@ -30,6 +31,11 @@ const TodoItem = ({ todo, action }) => {
     await dispatch(deleteTodo(id));
     action(true);
   };
+
+  const handleMaxWidth = width => {
+    return `(max-width:${width}px) `;
+  };
+  const mobile = useMediaQuery(handleMaxWidth(600));
 
   return (
     <>
@@ -63,6 +69,7 @@ const TodoItem = ({ todo, action }) => {
         </ListItemText>
         <div className={styles.last}>
           <IconButton
+            size={mobile ? 'small' : 'medium'}
             aria-label="Update task"
             type="button"
             onClick={handleToggleModal}
@@ -72,6 +79,7 @@ const TodoItem = ({ todo, action }) => {
           </IconButton>
 
           <IconButton
+            size={mobile ? 'small' : 'medium'}
             aria-label="Delete"
             type="button"
             onClick={handleToggleConfirmation}

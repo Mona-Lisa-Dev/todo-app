@@ -7,4 +7,8 @@
   height: max-content;
 
   border-bottom: 1px solid rgb(179, 176, 194);
+
+  @media screen and (max-width: 600px) {
+    padding: 10px 20px;
+  }
 }
