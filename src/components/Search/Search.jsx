@@ -32,16 +32,23 @@ const Search = () => {
     debouncedFilter(normalizedFilter);
   };
 
-  const onChangeOnMobile = e => setValue(e.currentTarget.value);
+  const onChangeOnMobile = e => {
+    setValue(e.currentTarget.value);
+    if (e.currentTarget.value === '') {
+      setClearSearch(false);
+    }
+  };
   const onSubmitOnMobile = () => {
-    dispatch(getTodosByQuery(value));
     handleToggleModal();
+    if (value === '') return;
+    dispatch(getTodosByQuery(value));
     setClearSearch(true);
   };
 
   const reset = () => {
     dispatch(clearFilter());
     setValue('');
+    setClearSearch(false);
   };
 
   const handleMaxWidth = width => {
@@ -61,34 +68,49 @@ const Search = () => {
               value={value}
               onChange={onChangeOnMobile}
             />
+            <IconButton
+              className={styles.btnSearch}
+              aria-label="Search"
+              type="submit"
+              color="primary"
+              title="Search"
+            >
+              <SearchIcon />
+            </IconButton>
           </form>
         </Modal>
       )}
       <div className={styles.Search}>
         {mobile ? (
           <>
-            <IconButton
-              aria-label="Open search"
-              type="button"
-              color="primary"
-              title="Search"
-              onClick={handleToggleModal}
-            >
-              <SearchIcon />
-            </IconButton>
-            <IconButton
-              aria-label="Clear search"
-              type="button"
-              color="primary"
-              title="Clear search"
-              onClick={reset}
-            >
-              <Clear />
-            </IconButton>
+            {clearSearch ? (
+              <IconButton
+                className={styles.btnClearSearch}
+                aria-label="Clear search"
+                type="button"
+                color="primary"
+                title="Clear search"
+                onClick={reset}
+              >
+                <Clear />
+              </IconButton>
+            ) : (
+              <IconButton
+                className={styles.btnOpenSearch}
+                aria-label="Open search"
+                type="button"
+                color="primary"
+                title="Search"
+                onClick={handleToggleModal}
+              >
+                <SearchIcon />
+              </IconButton>
+            )}
           </>
         ) : (
           <>
             <IconButton
+              className={styles.btnClearSearchDesc}
               aria-label="Clear search"
               type="button"
               color="primary"

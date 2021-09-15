@@ -2,8 +2,4 @@
   display: flex;
   justify-content: space-evenly;
   margin-bottom: 20px;
-
-  @media screen and (max-width: 600px) {
-    flex-direction: column;
-  }
 }

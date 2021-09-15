@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { TextField, IconButton } from '@material-ui/core';
+import { TextField, IconButton, useMediaQuery } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 import { getTodosByDate } from 'redux/todos/todos-operations';
@@ -25,26 +25,33 @@ const DatePicker = () => {
     dispatch(getTodosByDate(value));
   };
 
-  return (
-    <form className={styles.DatePicker} noValidate>
-      <IconButton
-        aria-label="Show all todos"
-        type="reset"
-        color="primary"
-        title="Show all todos"
-        onClick={reset}
-      >
-        <ArrowBackIcon />
-      </IconButton>
+  const handleMinWidth = width => {
+    return `(min-width:${width}px) `;
+  };
+  const desc = useMediaQuery(handleMinWidth(601));
 
-      <TextField
-        label="Select todo by creation date"
-        type="date"
-        value={date}
-        onChange={handleChange}
-        variant="outlined"
-      />
-    </form>
+  return (
+    desc && (
+      <form className={styles.DatePicker} noValidate>
+        <IconButton
+          aria-label="Show all todos"
+          type="reset"
+          color="primary"
+          title="Show all todos"
+          onClick={reset}
+        >
+          <ArrowBackIcon />
+        </IconButton>
+
+        <TextField
+          label="Select todo by creation date"
+          type="date"
+          value={date}
+          onChange={handleChange}
+          variant="outlined"
+        />
+      </form>
+    )
   );
 };
 

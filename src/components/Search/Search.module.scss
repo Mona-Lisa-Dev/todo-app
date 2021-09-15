@@ -8,20 +8,35 @@
     width: 206px;
   }
 
-  @media screen and (max-width: 600px) {
-    position: static;
-  }
-
-  button {
+  .btnClearSearchDesc {
     position: absolute;
     right: -20%;
+  }
 
-    @media screen and (max-width: 600px) {
+  @media screen and (max-width: 600px) {
+    position: static;
+
+    .btnClearSearch {
       position: static;
+    }
+
+    .btnOpenSearch {
+      position: absolute;
+      top: 2%;
+      right: 2%;
     }
   }
 }
+@media screen and (max-width: 600px) {
+  .searchForm {
+    padding: 40px 10px;
 
-.searchForm {
-  padding: 40px 20px;
+    input {
+      width: 156px;
+    }
+
+    .btnSearch {
+      margin-left: 10px;
+    }
+  }
 }
