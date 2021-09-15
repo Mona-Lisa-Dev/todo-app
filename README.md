@@ -12,6 +12,11 @@ there is a search by name (also near the search there is a search clear button).
 
 Used libraries and technologies: React | React Hooks | React Hook Form | React
 Router | Code Splitting | Redux | Redux persist | Redux Toolkit | SCSS modules |
-Axios | Material UI | Debounce
+Axios | Material UI | Debounce | Chart.js
 
-[backend](https://github.com/OlenaTsemko/todo-rest-api)
+---
+1. Clone the repository - `git clone https://github.com/OlenaTsemko/some-new-repo.git`
+2. Open the repository directory and execute the command - `npm i` to set all dependencies
+3. To open a page on localhost:3000 enter the command - `npm start`
+
+The [backend](https://github.com/OlenaTsemko/todo-rest-api) repository used 
