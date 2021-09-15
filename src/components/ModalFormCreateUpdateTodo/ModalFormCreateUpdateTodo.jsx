@@ -6,6 +6,7 @@ import { RHFInput } from 'react-hook-form-input';
 
 import {
   Checkbox,
+  FormControlLabel,
   TextField,
   Button,
   IconButton,
@@ -64,14 +65,29 @@ const ModalFormCreateUpdateTodo = ({
 
   return (
     <form className={styles.todoForm} onSubmit={handleSubmit(handleSubmitForm)}>
-      <Checkbox
-        color="primary"
-        checked={updatedIsDone}
-        onChange={handleCompleted}
-      />
+      {mobile ? (
+        <Checkbox
+          color="primary"
+          checked={updatedIsDone}
+          onChange={handleCompleted}
+        />
+      ) : (
+        <FormControlLabel
+          control={
+            <Checkbox
+              color="primary"
+              checked={updatedIsDone}
+              onChange={handleCompleted}
+            />
+          }
+          label={updatedIsDone ? 'Done' : 'Not done'}
+        />
+      )}
+
       <div className={styles.inputWrapper}>
         <RHFInput
           as={<TextField type="text" label="Todo" variant="outlined" />}
+          autoFocus
           name="description"
           defaultValue={description}
           register={register}
@@ -95,7 +111,6 @@ const ModalFormCreateUpdateTodo = ({
           </FormHelperText>
         )}
       </div>
-
       {mobile ? (
         <IconButton
           aria-label="Save todo"
