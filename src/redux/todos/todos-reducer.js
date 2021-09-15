@@ -21,6 +21,9 @@ import {
   getByStatusSuccess,
   getByStatusError,
   clearFilter,
+  getForChartRequest,
+  getForChartSuccess,
+  getForChartError,
 } from './todos-actions';
 import { logoutSuccess } from 'redux/auth/auth-actions';
 
@@ -48,6 +51,10 @@ const itemsForPagination = createReducer(null, {
   [getByPageSuccess]: (_, { payload }) => payload.total,
   [addTodoSuccess]: (state, { payload }) => state + 1,
   [deleteTodoSuccess]: (state, { payload }) => state - 1,
+});
+
+const completeItems = createReducer(null, {
+  [getForChartSuccess]: (_, { payload }) => payload.total,
 });
 
 const filter = createReducer([], {
@@ -87,6 +94,10 @@ const isLoading = createReducer(false, {
   [getByStatusRequest]: () => true,
   [getByStatusSuccess]: () => false,
   [getByStatusError]: () => false,
+
+  [getForChartRequest]: () => true,
+  [getForChartSuccess]: () => false,
+  [getForChartError]: () => false,
 });
 
 const setError = (_, { payload }) => payload;
@@ -105,6 +116,7 @@ export default combineReducers({
   items,
   itemsLength,
   itemsForPagination,
+  completeItems,
   filter,
   isLoading,
   error,

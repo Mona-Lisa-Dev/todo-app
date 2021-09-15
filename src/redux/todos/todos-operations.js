@@ -19,6 +19,9 @@ import {
   getByStatusRequest,
   getByStatusSuccess,
   getByStatusError,
+  getForChartRequest,
+  getForChartSuccess,
+  getForChartError,
 } from './todos-actions';
 
 export const addTodo = todo => async dispatch => {
@@ -129,3 +132,21 @@ export const getTodosByStatus =
       dispatch(getByStatusError(error.message));
     }
   };
+
+export const getForChart = (limit, offset, status) => async dispatch => {
+  dispatch(getForChartRequest());
+
+  try {
+    const {
+      data: {
+        data: { tasks },
+      },
+    } = await axios.get(
+      `/tasks?limit=${limit}&offset=${offset}&isDone=${status}`,
+    );
+    dispatch(getForChartSuccess(tasks));
+    return tasks;
+  } catch (error) {
+    dispatch(getForChartError(error.message));
+  }
+};

@@ -1,0 +1,15 @@
+.chart {
+  padding: 10px;
+}
+
+.chartBtn {
+  position: absolute;
+  top: 2%;
+  left: 2%;
+  background-color: #3f51b5;
+  color: #fff;
+
+  &:hover {
+    background-color: #303f9f;
+  }
+}

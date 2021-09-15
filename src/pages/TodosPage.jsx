@@ -9,6 +9,7 @@ import Filters from 'components/Filters';
 import SortButtonsPanel from 'components/SortButtonsPanel';
 import AlertError from 'components/AlertError';
 import ButtonScrollTop from 'components/ButtonScrollTop';
+import ChartBtn from 'components/ChartBtn';
 
 import {
   getTodosByOnePage,
@@ -147,6 +148,7 @@ const TodosPage = () => {
       {error && <AlertError error={error} />}
       {isLoading && <Loader />}
       {filteredItems.length === 0 && <AddTodoBtn createTodo={createTodo} />}
+      {!!todosLength && <ChartBtn todos={todosLength} />}
       {!!todosLength && (
         <>
           <Filters />
@@ -175,6 +177,7 @@ const TodosPage = () => {
           onClickPage={handleClickOnPage}
         />
       )}
+
       {filteredItems.length > ITEMS_FOR_SCROLL_TOP && <ButtonScrollTop />}
     </>
   );
