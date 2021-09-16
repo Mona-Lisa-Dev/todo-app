@@ -1,0 +1,36 @@
+.sliderItem {
+  position: relative;
+  margin: 10px;
+
+  .imageWrapper {
+    width: 100%;
+    margin-bottom: 20px;
+
+    .image {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+      border-radius: 8px;
+
+      height: 300px;
+    }
+  }
+
+  .infoWrapper {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    margin: 10px;
+    padding: 10px;
+    border-radius: 12px;
+    border: 1px solid #b3b0c2;
+
+    color: #b3b0c2;
+    background-color: rgba(0, 0, 0, 0.7);
+
+    .text {
+      font-size: 12px;
+    }
+  }
+}

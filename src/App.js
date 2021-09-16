@@ -22,6 +22,9 @@ const RegisterPage = lazy(() =>
 const TodosPage = lazy(() =>
   import('./pages/TodosPage' /* webpackChunkName: "TodosPage" */),
 );
+const SliderPage = lazy(() =>
+  import('./pages/SliderPage' /* webpackChunkName: "SliderPage" */),
+);
 
 const App = () => {
   const isAuthorized = useSelector(getIsAuthorized);
@@ -39,6 +42,12 @@ const App = () => {
               redirectTo={routes.login}
               component={TodosPage}
             />
+            <PrivateRoute
+              path={routes.slider}
+              component={SliderPage}
+              redirectTo={routes.login}
+            />
+
             <PublicRoute
               path={routes.signup}
               redirectTo={routes.todos}

@@ -6,7 +6,7 @@ import styles from './TodoList.module.scss';
 
 const TodoList = ({ todosToShow, deleteTodo }) => {
   return (
-    <>
+    <div className={styles.listContainer}>
       <List className={styles.listNames}>
         <ListItem className={styles.first}>
           <ListItemText>Status</ListItemText>
@@ -23,7 +23,7 @@ const TodoList = ({ todosToShow, deleteTodo }) => {
           <TodoItem key={todo._id} todo={todo} action={deleteTodo} />
         ))}
       </List>
-    </>
+    </div>
   );
 };
 

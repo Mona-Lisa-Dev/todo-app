@@ -5,7 +5,13 @@
 .chartBtn {
   position: absolute;
   top: 2%;
-  left: 2%;
+  left: 10%;
+
+  @media screen and (max-width: 600px) {
+    top: 2%;
+    left: 2%;
+  }
+
   background-color: #3f51b5;
   color: #fff;
 
