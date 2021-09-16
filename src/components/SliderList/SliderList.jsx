@@ -5,7 +5,6 @@ import sliders from './slider.json';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-
 import styles from './SliderList.module.scss';
 
 function SampleNextArrow(props) {
@@ -56,7 +55,6 @@ const SliderList = () => {
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
-          dots: false,
         },
       },
     ],

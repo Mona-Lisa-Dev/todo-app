@@ -2,8 +2,8 @@ import { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import Chart from 'chart.js/auto';
-import { IconButton } from '@material-ui/core';
-import { Equalizer } from '@material-ui/icons';
+import { IconButton, Button } from '@material-ui/core';
+import { Equalizer, PieChart } from '@material-ui/icons';
 
 import { getCompleteTodos } from 'redux/todos/todos-selectors';
 import { getForChart } from 'redux/todos/todos-operations';
@@ -13,24 +13,41 @@ import Modal from 'components/Modal';
 import styles from './ChartBtn.module.scss';
 
 const ChartBtn = ({ todos }) => {
-  const [showModal, setShowModal] = useState(false);
+  const [showModalPie, setShowModalPie] = useState(false);
+  const [showModalBar, setShowModalBar] = useState(false);
+  const [openBtns, setOpenBtns] = useState(false);
   const canvasRef = useRef(null);
   const dispatch = useDispatch();
 
   const complete = useSelector(getCompleteTodos);
   const notComplete = todos - complete;
 
-  const handleToggleModal = () => setShowModal(!showModal);
-  const handleClickBtn = async () => {
+  const handleToggleOpenBtns = () => setOpenBtns(!openBtns);
+
+  const handleToggleModal = type => {
+    switch (type) {
+      case 'pie':
+        setShowModalPie(!showModalPie);
+        break;
+      case 'bar':
+        setShowModalBar(!showModalBar);
+        break;
+
+      default:
+        break;
+    }
+  };
+
+  const handleClickBtn = async type => {
     await dispatch(getForChart(4, 0, true));
-    handleToggleModal();
+    handleToggleModal(type);
+    handleToggleOpenBtns();
   };
 
   useEffect(() => {
-    if (!showModal) return;
+    if (!showModalPie) return;
 
     const canvas = canvasRef.current;
-
     const myChart = new Chart(canvas, {
       type: 'pie',
       data: {
@@ -50,28 +67,85 @@ const ChartBtn = ({ todos }) => {
 
     return () => myChart.destroy();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [showModal]);
+  }, [showModalPie]);
+
+  useEffect(() => {
+    if (!showModalBar) return;
+
+    const canvas = canvasRef.current;
+    const myChart = new Chart(canvas, {
+      type: 'bar',
+      data: {
+        labels: ['Completed', 'Not completed'],
+        datasets: [
+          {
+            label: 'Completed and not completed todos',
+            data: [complete, notComplete],
+            backgroundColor: [
+              'rgba(255, 205, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+            ],
+            borderColor: ['rgb(255, 205, 86)', 'rgb(75, 192, 192)'],
+            borderWidth: 1,
+          },
+        ],
+      },
+    });
+
+    return () => myChart.destroy();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [showModalBar]);
 
   return (
     <>
-      {showModal && (
-        <Modal onClose={handleToggleModal}>
+      {showModalPie && (
+        <Modal onClose={() => handleToggleModal('pie')}>
           <div className={styles.chart}>
             <canvas ref={canvasRef} />
           </div>
         </Modal>
       )}
 
-      <IconButton
+      {showModalBar && (
+        <Modal onClose={() => handleToggleModal('bar')}>
+          <div className={styles.chart}>
+            <canvas ref={canvasRef} />
+          </div>
+        </Modal>
+      )}
+
+      <Button
         className={styles.chartBtn}
-        aria-label="Open chart"
         type="button"
-        onClick={handleClickBtn}
-        title="Open chart"
+        variant="contained"
         color="primary"
+        onClick={handleToggleOpenBtns}
       >
-        <Equalizer />
-      </IconButton>
+        Charts
+      </Button>
+      {openBtns && (
+        <div className={styles.btnsWrapper}>
+          <IconButton
+            aria-label="Open chart"
+            type="button"
+            onClick={() => handleClickBtn('pie')}
+            title="Open chart"
+            color="primary"
+          >
+            <PieChart />
+          </IconButton>
+
+          <IconButton
+            aria-label="Open chart"
+            type="button"
+            onClick={() => handleClickBtn('bar')}
+            title="Open chart"
+            color="primary"
+          >
+            <Equalizer />
+          </IconButton>
+        </div>
+      )}
     </>
   );
 };
