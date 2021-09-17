@@ -23,13 +23,39 @@
     padding: 5px;
   }
 
-  background-color: rgb(255, 255, 255);
-
   border-radius: 4px;
 
   .closeButton {
     position: absolute;
     top: 0%;
     right: 0%;
+  }
+}
+
+.lightModal {
+  background-color: rgb(255, 255, 255);
+
+  background-image: radial-gradient(
+    circle farthest-corner at center,
+    rgba(255, 255, 255, 0.7) 0%,
+    rgba(136, 143, 165, 0.7) 100%
+  );
+
+  color: black;
+}
+
+.darkModal {
+  background-color: rgb(120, 119, 128);
+
+  background-image: radial-gradient(
+    circle farthest-corner at center,
+    rgba(174, 185, 218, 0.7) 0%,
+    rgba(27, 30, 39, 0.7) 100%
+  );
+
+  color: rgb(240, 231, 231);
+
+  svg {
+    fill: rgb(240, 231, 231);
   }
 }

@@ -1,37 +1,33 @@
 import { useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
 
+import ThemeButton from 'components/ThemeButton';
 import AuthNav from 'components/AuthNav';
 import UserMenu from 'components/UserMenu';
+import Navigation from 'components/Navigation';
 
 import { getIsAuthorized } from 'redux/auth/auth-selectors';
-import routes from 'routes';
 import styles from './AppBar.module.scss';
 
-const AppBar = () => {
+const AppBar = ({ themeToggler }) => {
   const isAuthorized = useSelector(getIsAuthorized);
+
+  const classNameWrapper = isAuthorized
+    ? styles.appBarWrapperAuth
+    : styles.appBarWrapper;
+
+  const classAuthNavWrapper = isAuthorized
+    ? styles.authNavWrapperAuth
+    : styles.authNavWrapper;
 
   return (
     <div className={styles.AppBar}>
-      {isAuthorized && (
-        <>
-          <NavLink
-            to={routes.slider}
-            className={styles.NavLink}
-            activeClassName={styles.NavLinkActive}
-          >
-            Slider
-          </NavLink>
-          <NavLink
-            to={routes.todos}
-            className={styles.NavLink}
-            activeClassName={styles.NavLinkActive}
-          >
-            Todos
-          </NavLink>
-        </>
-      )}
-      {isAuthorized ? <UserMenu /> : <AuthNav />}
+      <div className={classNameWrapper}>
+        {isAuthorized && <Navigation />}
+        <div className={classAuthNavWrapper}>
+          {isAuthorized ? <UserMenu /> : <AuthNav />}
+          <ThemeButton themeToggler={themeToggler} />
+        </div>
+      </div>
     </div>
   );
 };

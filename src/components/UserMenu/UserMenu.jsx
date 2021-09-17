@@ -19,34 +19,33 @@ const UserMenu = () => {
 
   return (
     <div className={styles.userMenu}>
-      <p>
-        {name ? name.charAt(0).toUpperCase() + name.slice(1) : 'Guest'}!
-        Welcome!
-      </p>
-
       <div>
-        {mobile ? (
-          <IconButton
-            aria-label="Exit"
-            type="button"
-            color="primary"
-            title="Exit"
-            onClick={logoutHandler}
-          >
-            <ExitToAppIcon />
-          </IconButton>
-        ) : (
-          <Button
-            type="button"
-            variant="contained"
-            color="primary"
-            endIcon={<ExitToAppIcon>exit</ExitToAppIcon>}
-            onClick={logoutHandler}
-          >
-            Logout
-          </Button>
-        )}
+        <p>{name ? name.charAt(0).toUpperCase() + name.slice(1) : 'Guest'}!</p>
+        <p>Welcome!</p>
       </div>
+
+      {mobile ? (
+        <IconButton
+          aria-label="Exit"
+          type="button"
+          color="primary"
+          title="Exit"
+          onClick={logoutHandler}
+        >
+          <ExitToAppIcon />
+        </IconButton>
+      ) : (
+        <Button
+          className={styles.exitBtn}
+          type="button"
+          variant="contained"
+          color="primary"
+          endIcon={<ExitToAppIcon>exit</ExitToAppIcon>}
+          onClick={logoutHandler}
+        >
+          Logout
+        </Button>
+      )}
     </div>
   );
 };

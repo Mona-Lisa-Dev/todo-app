@@ -148,7 +148,9 @@ const TodosPage = () => {
       {error && <AlertError error={error} />}
       {isLoading && <Loader />}
       {filteredItems.length === 0 && <AddTodoBtn createTodo={createTodo} />}
-      {!!todosLength && <ChartBtn todos={todosLength} />}
+      {!!todosLength && filteredItems.length === 0 && (
+        <ChartBtn todos={todosLength} />
+      )}
       {!!todosLength && (
         <>
           <Filters />
