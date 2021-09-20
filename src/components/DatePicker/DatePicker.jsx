@@ -5,6 +5,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 import { getTodosByDate } from 'redux/todos/todos-operations';
 import { clearFilter } from 'redux/todos/todos-actions';
+import { translate } from 'i18n';
 
 import styles from './DatePicker.module.scss';
 
@@ -44,7 +45,8 @@ const DatePicker = () => {
         </IconButton>
 
         <TextField
-          label="Select todo by creation date"
+          // label="Select todo by creation date"
+          label={translate('date_picker_label')}
           type="date"
           value={date}
           onChange={handleChange}

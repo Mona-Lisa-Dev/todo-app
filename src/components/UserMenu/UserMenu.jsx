@@ -5,6 +5,7 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 import { logout } from 'redux/auth/auth-operations';
 import { getUserName } from 'redux/auth/auth-selectors';
+import { translate } from 'i18n';
 import styles from './UserMenu.module.scss';
 
 const UserMenu = () => {
@@ -20,8 +21,13 @@ const UserMenu = () => {
   return (
     <div className={styles.userMenu}>
       <div>
-        <p>{name ? name.charAt(0).toUpperCase() + name.slice(1) : 'Guest'}!</p>
-        <p>Welcome!</p>
+        <p>
+          {name
+            ? name.charAt(0).toUpperCase() + name.slice(1)
+            : translate('guest')}
+          !
+        </p>
+        <p>{translate('welcome')}!</p>
       </div>
 
       {mobile ? (
@@ -43,7 +49,8 @@ const UserMenu = () => {
           endIcon={<ExitToAppIcon>exit</ExitToAppIcon>}
           onClick={logoutHandler}
         >
-          Logout
+          {/* Logout */}
+          {translate('logout')}
         </Button>
       )}
     </div>

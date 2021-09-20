@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { List, ListItem, ListItemText } from '@material-ui/core';
 import TodoItem from 'components/TodoItem';
+import { translate } from 'i18n';
 
 import styles from './TodoList.module.scss';
 
@@ -9,13 +10,13 @@ const TodoList = ({ todosToShow, deleteTodo }) => {
     <div className={styles.listContainer}>
       <List className={styles.listNames}>
         <ListItem className={styles.first}>
-          <ListItemText>Status</ListItemText>
+          <ListItemText>{translate('status')}</ListItemText>
         </ListItem>
         <ListItem className={styles.middle}>
-          <ListItemText>Name</ListItemText>
+          <ListItemText>{translate('description')}</ListItemText>
         </ListItem>
         <ListItem className={styles.last}>
-          <ListItemText>Actions</ListItemText>
+          <ListItemText>{translate('actions')}</ListItemText>
         </ListItem>
       </List>
       <List>

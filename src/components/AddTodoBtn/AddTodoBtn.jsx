@@ -5,6 +5,7 @@ import AddIcon from '@material-ui/icons/Add';
 
 import Modal from 'components/Modal';
 import ModalFormCreateUpdateTodo from 'components/ModalFormCreateUpdateTodo';
+import { translate } from 'i18n';
 
 import styles from './AddTodoBtn.module.scss';
 
@@ -31,7 +32,8 @@ const AddTodoBtn = ({ createTodo }) => {
         onClick={handleToggleModal}
         endIcon={<AddIcon>add</AddIcon>}
       >
-        Add todo
+        {/* Add todo */}
+        {translate('add')}
       </Button>
     </div>
   );

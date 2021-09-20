@@ -17,6 +17,7 @@ import {
   FormHelperText,
 } from '@material-ui/core';
 
+import { translate } from 'i18n';
 import styles from './SortButtonsPanel.module.scss';
 
 const SortButtonsPanel = ({ sortBy, byStatus, completed, items, onClicks }) => {
@@ -74,12 +75,13 @@ const SortButtonsPanel = ({ sortBy, byStatus, completed, items, onClicks }) => {
   return (
     <div className={styles.buttonsWrapper}>
       <FormControl className={styles.selectWrapper} variant="outlined">
-        <InputLabel htmlFor="status">Status</InputLabel>
+        <InputLabel htmlFor="status">{translate('status')}</InputLabel>
         <Select
           native
           value={status}
           onChange={handleChangeStatus}
-          label="Status"
+          // label="Status"
+          label={translate('status')}
           inputProps={{
             name: 'status',
             id: 'status',
@@ -95,12 +97,13 @@ const SortButtonsPanel = ({ sortBy, byStatus, completed, items, onClicks }) => {
       </FormControl>
 
       <FormControl className={styles.selectWrapper} variant="outlined">
-        <InputLabel htmlFor="sort">Sort</InputLabel>
+        <InputLabel htmlFor="sort">{translate('sort')}</InputLabel>
         <Select
           native
           value={sort}
           onChange={handleChangeSort}
-          label="Sort"
+          // label="Sort"
+          label={translate('sort')}
           inputProps={{
             name: 'sort',
             id: 'sort',

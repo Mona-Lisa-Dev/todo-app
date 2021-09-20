@@ -7,9 +7,11 @@ import Container from 'components/Container';
 import PrivateRoute from 'components/PrivateRoute';
 import PublicRoute from 'components/PublicRoute';
 import { ThemeContext } from 'Context';
+import LanguageSwitcher from 'components/LanguageSwitcher';
 
 import { getCurrentUser } from 'redux/auth/auth-operations';
 import { getIsAuthorized } from 'redux/auth/auth-selectors';
+import { I18nProvider, LOCALES } from 'i18n';
 
 import routes from 'routes';
 import './scss/_main.scss';
@@ -29,10 +31,9 @@ const SliderPage = lazy(() =>
 
 const App = () => {
   const [theme, setTheme] = useState('light');
+  const [locale, setLocal] = useState(LOCALES.ENGLISH);
 
-  // const classNameApp = theme === 'light' ? styles.lightTheme : styles.darkTheme;
   const classNameApp = theme === 'light' ? 'lightTheme' : 'darkTheme';
-
   const themeToggler = () => {
     if (theme === 'light') {
       setTheme('dark');
@@ -42,16 +43,23 @@ const App = () => {
       window.localStorage.setItem('theme', 'light');
     }
   };
-
   useEffect(() => {
     const localTheme = window.localStorage.getItem('theme');
+    const localeLanguage = window.localStorage.getItem('locale');
 
-    if (localTheme) {
-      setTheme(localTheme);
-    } else {
-      window.localStorage.setItem('theme', 'light');
-    }
+    localTheme
+      ? setTheme(localTheme)
+      : window.localStorage.setItem('theme', 'light');
+
+    localeLanguage
+      ? setLocal(localeLanguage)
+      : window.localStorage.setItem('locale', LOCALES.ENGLISH);
   }, []);
+
+  const handleChangeLocale = code => {
+    setLocal(code);
+    window.localStorage.setItem('locale', code);
+  };
 
   const isAuthorized = useSelector(getIsAuthorized);
   const dispatch = useDispatch();
@@ -59,52 +67,55 @@ const App = () => {
 
   return (
     <ThemeContext.Provider value={theme}>
-      <div className={classNameApp}>
-        <AppBar themeToggler={themeToggler} />
+      <I18nProvider locale={locale}>
+        <div className={classNameApp}>
+          <LanguageSwitcher locale={locale} onChange={handleChangeLocale} />
+          <AppBar themeToggler={themeToggler} />
 
-        <Container>
-          <Suspense fallback={null}>
-            <Switch>
-              <PrivateRoute
-                path={routes.todos}
-                redirectTo={routes.login}
-                component={TodosPage}
-              />
-              <PrivateRoute
-                path={routes.slider}
-                component={SliderPage}
-                redirectTo={routes.login}
-              />
+          <Container>
+            <Suspense fallback={null}>
+              <Switch>
+                <PrivateRoute
+                  path={routes.todos}
+                  redirectTo={routes.login}
+                  component={TodosPage}
+                />
+                <PrivateRoute
+                  path={routes.slider}
+                  component={SliderPage}
+                  redirectTo={routes.login}
+                />
 
-              <PublicRoute
-                path={routes.signup}
-                redirectTo={routes.todos}
-                restricted
-                component={RegisterPage}
-              />
-              <PublicRoute
-                path={routes.login}
-                redirectTo={routes.todos}
-                restricted
-                component={LoginPage}
-              />
+                <PublicRoute
+                  path={routes.signup}
+                  redirectTo={routes.todos}
+                  restricted
+                  component={RegisterPage}
+                />
+                <PublicRoute
+                  path={routes.login}
+                  redirectTo={routes.todos}
+                  restricted
+                  component={LoginPage}
+                />
 
-              <Route
-                path={routes.home}
-                render={props =>
-                  isAuthorized ? (
-                    <Redirect to={routes.todos} />
-                  ) : (
-                    <Redirect to={routes.login} />
-                  )
-                }
-              />
+                <Route
+                  path={routes.home}
+                  render={props =>
+                    isAuthorized ? (
+                      <Redirect to={routes.todos} />
+                    ) : (
+                      <Redirect to={routes.login} />
+                    )
+                  }
+                />
 
-              <Redirect to={routes.home} />
-            </Switch>
-          </Suspense>
-        </Container>
-      </div>
+                <Redirect to={routes.home} />
+              </Switch>
+            </Suspense>
+          </Container>
+        </div>
+      </I18nProvider>
     </ThemeContext.Provider>
   );
 };

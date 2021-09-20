@@ -9,6 +9,7 @@ import { getCompleteTodos } from 'redux/todos/todos-selectors';
 import { getForChart } from 'redux/todos/todos-operations';
 
 import Modal from 'components/Modal';
+import { translate } from 'i18n';
 
 import styles from './ChartBtn.module.scss';
 
@@ -52,9 +53,11 @@ const ChartBtn = ({ todos }) => {
       type: 'pie',
       data: {
         labels: ['Completed', 'Not completed'],
+        // labels: [translate('completed'), translate('not_completed')],
         datasets: [
           {
             label: 'Completed and not completed todos',
+            // label: translate('chart_title'),
             data: [complete, notComplete],
             backgroundColor: [
               'rgba(255, 99, 132, 0.2)',
@@ -77,9 +80,11 @@ const ChartBtn = ({ todos }) => {
       type: 'bar',
       data: {
         labels: ['Completed', 'Not completed'],
+        // labels: [translate('completed'), translate('not_completed')],
         datasets: [
           {
             label: 'Completed and not completed todos',
+            // label: translate('chart_title'),
             data: [complete, notComplete],
             backgroundColor: [
               'rgba(255, 205, 86, 0.2)',
@@ -121,7 +126,8 @@ const ChartBtn = ({ todos }) => {
         color="primary"
         onClick={handleToggleOpenBtns}
       >
-        Charts
+        {/* Charts */}
+        {translate('charts')}
       </Button>
       {openBtns && (
         <div className={styles.btnsWrapper}>

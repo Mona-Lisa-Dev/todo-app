@@ -9,6 +9,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import Modal from 'components/Modal';
 import { getTodosByQuery } from 'redux/todos/todos-operations';
 import { clearFilter } from 'redux/todos/todos-actions';
+import { translate } from 'i18n';
 
 import styles from './Search.module.scss';
 
@@ -63,7 +64,8 @@ const Search = () => {
           <form className={styles.searchForm} onSubmit={onSubmitOnMobile}>
             <TextField
               type="text"
-              label="Search"
+              // label="Search"
+              label={translate('search')}
               variant="outlined"
               value={value}
               onChange={onChangeOnMobile}
@@ -121,7 +123,8 @@ const Search = () => {
             </IconButton>
             <TextField
               type="text"
-              label="Search"
+              // label="Search"
+              label={translate('search')}
               variant="outlined"
               value={value}
               onChange={onChangeFilter}

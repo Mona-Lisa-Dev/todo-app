@@ -16,6 +16,7 @@ import {
 import { SaveAltRounded } from '@material-ui/icons';
 
 import { addTodo, updateTodo } from 'redux/todos/todos-operations';
+import { translate } from 'i18n';
 
 import styles from './ModalFormCreateUpdateTodo.module.scss';
 
@@ -63,6 +64,11 @@ const ModalFormCreateUpdateTodo = ({
   };
   const mobile = useMediaQuery(handleMaxWidth(600));
 
+  const label_todo = translate('label_todo');
+  const todo_required = translate('todo_required');
+  const todo_short_msg = translate('todo_short_msg');
+  const todo_long_msg = translate('todo_long_msg');
+
   return (
     <form className={styles.todoForm} onSubmit={handleSubmit(handleSubmitForm)}>
       {mobile ? (
@@ -80,26 +86,37 @@ const ModalFormCreateUpdateTodo = ({
               onChange={handleCompleted}
             />
           }
-          label={updatedIsDone ? 'Done' : 'Not done'}
+          // label={updatedIsDone ? 'Done' : 'Not done'}
+          label={updatedIsDone ? translate('done') : translate('not_done')}
         />
       )}
 
       <div className={styles.inputWrapper}>
         <RHFInput
-          as={<TextField type="text" label="Todo" variant="outlined" />}
+          as={
+            <TextField
+              type="text"
+              // label="Todo"
+              label={label_todo}
+              variant="outlined"
+            />
+          }
           autoFocus
           name="description"
           defaultValue={description}
           register={register}
           rules={{
-            required: 'Description of task is required',
+            // required: 'Description of task is required',
+            required: todo_required,
             minLength: {
               value: 3,
-              message: 'Description must be at least 3 characters',
+              // message: 'Description must be at least 3 characters',
+              message: todo_short_msg,
             },
             maxLength: {
               value: 70,
-              message: 'Description must be at most 70 characters',
+              // message: 'Description must be at most 70 characters',
+              message: todo_long_msg,
             },
           }}
           setValue={setValue}
@@ -127,7 +144,8 @@ const ModalFormCreateUpdateTodo = ({
           color="primary"
           endIcon={<SaveAltRounded>Save</SaveAltRounded>}
         >
-          Save
+          {/* Save */}
+          {translate('save')}
         </Button>
       )}
     </form>
