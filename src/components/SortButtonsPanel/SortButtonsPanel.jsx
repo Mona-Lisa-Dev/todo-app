@@ -1,22 +1,12 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-// import { Button, ButtonGroup } from '@material-ui/core';
-// import {
-//   CheckBox,
-//   CheckBoxOutlineBlank,
-//   PlaylistAddCheck,
-//   ArrowDownward,
-//   ArrowUpward,
-//   History,
-// } from '@material-ui/icons';
-
 import {
   InputLabel,
   FormControl,
   Select,
   FormHelperText,
 } from '@material-ui/core';
-
+import { useIntl } from 'react-intl';
 import { translate } from 'i18n';
 import styles from './SortButtonsPanel.module.scss';
 
@@ -29,6 +19,8 @@ const SortButtonsPanel = ({ sortBy, byStatus, completed, items, onClicks }) => {
     byStatus ? (completed ? 'completed' : 'not completed') : '',
   );
   const [sort, setSort] = useState(sortBy ? sortBy : 'byDefault');
+
+  const intl = useIntl();
 
   const handleChangeStatus = e => {
     const { value } = e.target;
@@ -80,16 +72,19 @@ const SortButtonsPanel = ({ sortBy, byStatus, completed, items, onClicks }) => {
           native
           value={status}
           onChange={handleChangeStatus}
-          // label="Status"
           label={translate('status')}
           inputProps={{
             name: 'status',
             id: 'status',
           }}
         >
-          <option value={'all'}>All</option>
-          <option value={'completed'}>Completed</option>
-          <option value={'not completed'}>Not completed</option>
+          <option value={'all'}>{intl.formatMessage({ id: 'all' })}</option>
+          <option value={'completed'}>
+            {intl.formatMessage({ id: 'completed' })}
+          </option>
+          <option value={'not completed'}>
+            {intl.formatMessage({ id: 'not_completed' })}
+          </option>
         </Select>
         <FormHelperText>
           {todosLengthForPagination} / {todosLength}
@@ -102,93 +97,23 @@ const SortButtonsPanel = ({ sortBy, byStatus, completed, items, onClicks }) => {
           native
           value={sort}
           onChange={handleChangeSort}
-          // label="Sort"
           label={translate('sort')}
           inputProps={{
             name: 'sort',
             id: 'sort',
           }}
         >
-          <option value={'byDefault'}>By default</option>
-          <option value={'sortBy'}>Alphabetical</option>
-          <option value={'sortByDesc'}>Alphabetical in reverse</option>
+          <option value={'byDefault'}>
+            {intl.formatMessage({ id: 'by_default' })}
+          </option>
+          <option value={'sortBy'}>
+            {intl.formatMessage({ id: 'alphabetical' })}
+          </option>
+          <option value={'sortByDesc'}>
+            {intl.formatMessage({ id: 'in_reverse' })}
+          </option>
         </Select>
       </FormControl>
-
-      {/* <ButtonGroup variant="text" color="primary" aria-label="button group">
-        <Button
-          className={classCheckedCompleted === 'all' && styles.checked}
-          type="button"
-          title="All todos"
-          onClick={() => {
-            handleClickAllTodos();
-            setClassCheckedCompleted('all');
-          }}
-          startIcon={<PlaylistAddCheck />}
-        >
-          {allItems.length}
-        </Button>
-        <Button
-          className={classCheckedCompleted === 'completed' && styles.checked}
-          type="button"
-          title="Completed todos"
-          onClick={() => {
-            handleChooseCompleted(true);
-            setClassCheckedCompleted('completed');
-          }}
-          startIcon={<CheckBox />}
-        >
-          {completeItems.length}
-        </Button>
-        <Button
-          className={classCheckedCompleted === 'notCompleted' && styles.checked}
-          type="button"
-          title="Not completed todos"
-          onClick={() => {
-            handleChooseCompleted(false);
-            setClassCheckedCompleted('notCompleted');
-          }}
-          startIcon={<CheckBoxOutlineBlank />}
-        >
-          {notCompleteItems.length}
-        </Button>
-      </ButtonGroup> */}
-
-      {/* <ButtonGroup variant="text" color="primary" aria-label="button group">
-        <Button
-          className={classCheckedSort === 'sortBy' && styles.checked}
-          type="button"
-          title="Alphabetical sorting"
-          onClick={() => {
-            handleClickSort('sortBy');
-            setClassCheckedSort('sortBy');
-          }}
-        >
-          <ArrowUpward />
-        </Button>
-        <Button
-          className={classCheckedSort === 'sortByDesc' && styles.checked}
-          type="button"
-          title="Alphabetical sorting in reverse"
-          onClick={() => {
-            handleClickSort('sortByDesc');
-            setClassCheckedSort('sortByDesc');
-          }}
-        >
-          <ArrowDownward />
-        </Button>
-        <Button
-          className={classCheckedSort === 'byDefault' && styles.checked}
-          type="button"
-          title="Sort by default"
-          onClick={() => {
-            handleClickSort('');
-            setClassCheckedSort('byDefault');
-          }}
-        >
-          <History />
-        </Button>
-      </ButtonGroup> */}
     </div>
   );
 };

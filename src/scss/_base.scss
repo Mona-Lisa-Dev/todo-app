@@ -1,11 +1,14 @@
+body {
+  font-size: 14px;
+
+  @media screen and (max-width: 600px) {
+    font-size: 12px;
+  }
+}
+
 .lightTheme {
   min-height: 100vh;
   background-color: rgb(255, 255, 255);
-  // background-image: linear-gradient(
-  //   120deg,
-  //   rgba(136, 143, 165, 0.7) 0%,
-  //   rgba(255, 255, 255, 0.7) 100%
-  // );
 
   background-image: radial-gradient(
     circle farthest-corner at center,
@@ -19,11 +22,6 @@
 .darkTheme {
   min-height: 100vh;
   background-color: rgb(120, 119, 128);
-  // background-image: linear-gradient(
-  //   120deg,
-  //   rgba(27, 30, 39, 0.7) 0%,
-  //   rgba(174, 185, 218, 0.7) 100%
-  // );
 
   background-image: radial-gradient(
     circle farthest-corner at center,

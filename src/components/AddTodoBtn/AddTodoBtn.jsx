@@ -32,7 +32,6 @@ const AddTodoBtn = ({ createTodo }) => {
         onClick={handleToggleModal}
         endIcon={<AddIcon>add</AddIcon>}
       >
-        {/* Add todo */}
         {translate('add')}
       </Button>
     </div>

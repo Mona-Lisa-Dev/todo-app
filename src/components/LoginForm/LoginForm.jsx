@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { RHFInput } from 'react-hook-form-input';
-
+import { useIntl } from 'react-intl';
 import {
   IconButton,
   OutlinedInput,
@@ -28,6 +28,7 @@ const LoginForm = () => {
 
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
+  const intl = useIntl();
 
   const handleClickShowPassword = () => setShowPassword(!showPassword);
   const handleMouseDownPassword = event => event.preventDefault();
@@ -39,8 +40,6 @@ const LoginForm = () => {
     if (isValid) dispatch(login(user)); // lena@mail.ua 12345678
   };
 
-  const email_required = translate('email_required');
-  const password_required = translate('password_required');
   const loginText = translate('login');
 
   return (
@@ -49,10 +48,7 @@ const LoginForm = () => {
       onSubmit={handleSubmit(handleSubmitForm)}
       autoComplete="off"
     >
-      <h2 className={styles.formTitle}>
-        {/* Log in */}
-        {loginText}
-      </h2>
+      <h2 className={styles.formTitle}>{loginText}</h2>
 
       <div className={styles.inputWrapper}>
         <RHFInput
@@ -60,7 +56,6 @@ const LoginForm = () => {
             <TextField
               required
               type="email"
-              // label="E-mail"
               label={translate('email')}
               variant="outlined"
             />
@@ -68,8 +63,7 @@ const LoginForm = () => {
           name="email"
           register={register}
           rules={{
-            // required: 'E-mail is required',
-            required: email_required,
+            required: translate('email_required'),
           }}
           setValue={setValue}
           onChange={() => trigger('email')}
@@ -84,7 +78,6 @@ const LoginForm = () => {
       <div className={styles.inputWrapper}>
         <FormControl variant="outlined">
           <InputLabel htmlFor="outlined-adornment-password">
-            {/* Password */}
             {translate('password')}
           </InputLabel>
           <RHFInput
@@ -96,7 +89,7 @@ const LoginForm = () => {
                 endAdornment={
                   <InputAdornment position="end">
                     <IconButton
-                      title="Password visibility"
+                      title={intl.formatMessage({ id: 'password_visibility' })}
                       aria-label="toggle password visibility"
                       onClick={handleClickShowPassword}
                       onMouseDown={handleMouseDownPassword}
@@ -112,8 +105,7 @@ const LoginForm = () => {
             name="password"
             register={register}
             rules={{
-              // required: 'Password is required',
-              required: password_required,
+              required: translate('password_required'),
             }}
             setValue={setValue}
             onChange={() => trigger('password')}
@@ -127,7 +119,6 @@ const LoginForm = () => {
       </div>
 
       <Button type="submit" variant="contained" color="primary">
-        {/* Log in */}
         {loginText}
       </Button>
     </form>

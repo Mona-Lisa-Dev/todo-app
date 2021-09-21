@@ -19,7 +19,7 @@ export default {
 
     password: 'Password',
     password_required: 'Password is required',
-    // password_visibility: 'Password visibility',
+    password_visibility: 'Password visibility',
     password_err_msg:
       'Password can contain letters, numbers, hyphens and underscores',
     password_short_err: 'Password must be at least 7 characters',
@@ -35,15 +35,14 @@ export default {
     // page todos
     add: 'Add todo',
     charts: 'Charts',
-    // todo назви в графіках, виконані і не виконані, селекти [object object]
-    // chart_title: 'Completed and not completed todos',
+    chart_title: 'Completed and not completed todos',
     confirm_delete_title: 'Are you sure you want to delete this task?',
     confirm_delete_text:
       "You'll not be able to restore this task if you delete it.",
     cancel: 'Cancel',
     delete: 'Delete',
     date_picker_label: 'Select todo by creation date',
-    languages: 'Languages',
+    languages: 'Search language',
     save: 'Save',
     done: 'Done',
     not_done: 'Not done',
@@ -55,17 +54,58 @@ export default {
     todos: 'Todos',
     search: 'Search',
     status: 'Status',
-    // all: 'All',
-    // completed: 'Completed',
-    // not_completed: 'Not completed',
+    all: 'All',
+    completed: 'Completed',
+    not_completed: 'Not completed',
     sort: 'Sort',
-    // by_default: 'By default',
-    // alphabetical: 'Alphabetical',
-    // in_reverse: 'Alphabetical in reverse',
+    by_default: 'By default',
+    alphabetical: 'Alphabetical',
+    in_reverse: 'Alphabetical in reverse',
     description: 'Name',
     actions: 'Actions',
     welcome: 'Welcome',
     guest: 'Guest',
     logout: 'Logout',
+
+    // slider
+    title_1slider: 'Tabby cat',
+    title_2slider: ' Black and white cat',
+    title_3slider: 'Gray cat',
+    title_4slider: 'Fluffy cat',
+    title_5slider: 'Blue-eyed cat',
+    title_6slider: 'Siamese cat',
+    title_7slider: 'Animals',
+    title_8slider: 'Persian cat',
+    title_9slider: 'Colored cat',
+    title_10slider: 'Yellow-eyed cat',
+    title_11slider: 'Red cat',
+    title_12slider: 'Shorthair cat',
+    title_13slider: 'Black cat',
+
+    text_1slider: 'The cat is a domestic species of small carnivorous mammal.',
+    text_2slider:
+      'A cat can either be a house cat, a farm cat or a feral cat; the latter ranges freely and avoids human contact.',
+    text_3slider:
+      'Domestic cats are valued by humans for companionship and their ability to hunt rodents. About 60 cat breeds are recognized by various cat registries.',
+    text_4slider:
+      'The cat is similar in anatomy to the other felid species: it has a strong flexible body, quick reflexes, sharp teeth and retractable claws adapted to killing small prey.',
+    text_5slider:
+      'Cat communication includes vocalizations like meowing, purring, trilling, hissing, growling and grunting as well as cat-specific body language.',
+    text_6slider:
+      'A predator that is most active at dawn and dusk (crepuscular), the cat is a solitary hunter but a social species.',
+    text_7slider:
+      'It can hear sounds too faint or too high in frequency for human ears, such as those made by mice and other small mammals.',
+    text_8slider:
+      'Female domestic cats can have kittens from spring to late autumn, with litter sizes often ranging from two to five kittens.',
+    text_9slider:
+      'Domestic cats are bred and shown at events as registered pedigreed cats, a hobby known as cat fancy.',
+    text_10slider:
+      'Population control of cats may be effected by spaying and neutering, but their proliferation and the abandonment of pets has resulted in large numbers of feral cats worldwide.',
+    text_11slider:
+      'Cats were first domesticated in the Near East around 7500 BC.',
+    text_12slider:
+      'It was long thought that cat domestication began in ancient Egypt, where cats were venerated from around 3100 BC.',
+    text_13slider:
+      'As of 2021, there are an estimated 220 million owned and 480 million stray cats in the world.',
   },
 };

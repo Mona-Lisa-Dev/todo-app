@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-
+import PropTypes from 'prop-types';
+import { useIntl } from 'react-intl';
 import Chart from 'chart.js/auto';
 import { IconButton, Button } from '@material-ui/core';
 import { Equalizer, PieChart } from '@material-ui/icons';
@@ -19,6 +20,7 @@ const ChartBtn = ({ todos }) => {
   const [openBtns, setOpenBtns] = useState(false);
   const canvasRef = useRef(null);
   const dispatch = useDispatch();
+  const intl = useIntl();
 
   const complete = useSelector(getCompleteTodos);
   const notComplete = todos - complete;
@@ -52,12 +54,13 @@ const ChartBtn = ({ todos }) => {
     const myChart = new Chart(canvas, {
       type: 'pie',
       data: {
-        labels: ['Completed', 'Not completed'],
-        // labels: [translate('completed'), translate('not_completed')],
+        labels: [
+          intl.formatMessage({ id: 'completed' }),
+          intl.formatMessage({ id: 'not_completed' }),
+        ],
         datasets: [
           {
-            label: 'Completed and not completed todos',
-            // label: translate('chart_title'),
+            label: intl.formatMessage({ id: 'chart_title' }),
             data: [complete, notComplete],
             backgroundColor: [
               'rgba(255, 99, 132, 0.2)',
@@ -79,12 +82,13 @@ const ChartBtn = ({ todos }) => {
     const myChart = new Chart(canvas, {
       type: 'bar',
       data: {
-        labels: ['Completed', 'Not completed'],
-        // labels: [translate('completed'), translate('not_completed')],
+        labels: [
+          intl.formatMessage({ id: 'completed' }),
+          intl.formatMessage({ id: 'not_completed' }),
+        ],
         datasets: [
           {
-            label: 'Completed and not completed todos',
-            // label: translate('chart_title'),
+            label: intl.formatMessage({ id: 'chart_title' }),
             data: [complete, notComplete],
             backgroundColor: [
               'rgba(255, 205, 86, 0.2)',
@@ -154,6 +158,10 @@ const ChartBtn = ({ todos }) => {
       )}
     </>
   );
+};
+
+ChartBtn.propTypes = {
+  todos: PropTypes.number.isRequired,
 };
 
 export default ChartBtn;

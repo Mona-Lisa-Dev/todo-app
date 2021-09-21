@@ -7,32 +7,26 @@
     padding: 10px 20px;
   }
 
-  .appBarWrapperAuth {
+  .switcherWrapper {
     display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
+    justify-content: flex-end;
+    align-items: flex-start;
+
     max-width: 1024px;
     margin: 0 auto;
+    margin-bottom: 5px;
+
+    button {
+      height: 36px;
+    }
   }
 
   .appBarWrapper {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: flex-end;
+
     max-width: 1024px;
     margin: 0 auto;
-  }
-
-  .authNavWrapperAuth {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: flex-end;
-  }
-
-  .authNavWrapper {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: flex-end;
-    width: 100%;
   }
 }

@@ -6,5 +6,5 @@ export const LOCALES = {
   ITALIAN: 'it-IT',
   FRENCH: 'fr-FR',
   GERMAN: 'de-DE',
-  JAPANESE: 'ja-JA',
+  JAPANESE: 'ja-JP',
 };

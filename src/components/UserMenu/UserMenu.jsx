@@ -49,7 +49,6 @@ const UserMenu = () => {
           endIcon={<ExitToAppIcon>exit</ExitToAppIcon>}
           onClick={logoutHandler}
         >
-          {/* Logout */}
           {translate('logout')}
         </Button>
       )}

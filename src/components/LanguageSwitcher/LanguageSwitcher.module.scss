@@ -2,5 +2,38 @@
   display: flex;
   justify-content: center;
 
-  padding: 10px 0;
+  .btn_flag {
+    width: 150px;
+  }
+
+  .darkBtnFlags {
+    color: #fff;
+  }
+
+  .lightBtnFlags {
+    color: black;
+  }
+
+  .menu_flags {
+    color: black;
+
+    ul {
+      background-color: rgb(121, 134, 209);
+      box-shadow: 7px 7px 13px 0px rgba(0, 0, 0, 0.38);
+
+      div,
+      input {
+        background-color: inherit;
+        border: none;
+        outline: none;
+      }
+
+      input::-webkit-input-placeholder {
+        color: #ccc;
+      }
+      input::-moz-placeholder {
+        color: #ccc;
+      }
+    }
+  }
 }

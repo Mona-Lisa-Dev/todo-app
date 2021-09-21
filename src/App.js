@@ -7,7 +7,6 @@ import Container from 'components/Container';
 import PrivateRoute from 'components/PrivateRoute';
 import PublicRoute from 'components/PublicRoute';
 import { ThemeContext } from 'Context';
-import LanguageSwitcher from 'components/LanguageSwitcher';
 
 import { getCurrentUser } from 'redux/auth/auth-operations';
 import { getIsAuthorized } from 'redux/auth/auth-selectors';
@@ -69,8 +68,11 @@ const App = () => {
     <ThemeContext.Provider value={theme}>
       <I18nProvider locale={locale}>
         <div className={classNameApp}>
-          <LanguageSwitcher locale={locale} onChange={handleChangeLocale} />
-          <AppBar themeToggler={themeToggler} />
+          <AppBar
+            themeToggler={themeToggler}
+            locale={locale}
+            onChange={handleChangeLocale}
+          />
 
           <Container>
             <Suspense fallback={null}>

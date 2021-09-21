@@ -19,7 +19,7 @@ export default {
 
     password: 'Mot de passe',
     password_required: 'Mot de passe requis',
-    // password_visibility: 'Visibilité du mot de passe',
+    password_visibility: 'Visibilité du mot de passe',
     password_err_msg:
       "Le mot de passe peut contenir des lettres, des chiffres, des traits d'union et des traits de soulignement",
     password_short_err: 'Le mot de passe doit comporter au moins 7 caractères',
@@ -35,15 +35,14 @@ export default {
     // page todos
     add: 'Ajouter une tâche',
     charts: 'Graphiques',
-    // todo назви в графіках, виконані і не виконані, селекти [object object]
-    // chart_title: 'Tâches terminées et non terminées',
+    chart_title: 'Tâches terminées et non terminées',
     confirm_delete_title: 'Voulez-vous vraiment supprimer cette tâche?',
     confirm_delete_text:
       'Vous ne pourrez pas restaurer cette tâche si vous la supprimez.',
     cancel: 'Annuler',
     delete: 'Supprimer',
     date_picker_label: 'Sélectionner la tâche par date de création',
-    languages: 'Langues',
+    languages: 'Recherche de langue',
     save: 'Enregistrer',
     done: 'Fait',
     not_done: 'Pas fait',
@@ -55,17 +54,59 @@ export default {
     todos: 'Tâches',
     search: 'Chercher',
     status: 'Statut',
-    // all: 'Tous',
-    // completed: 'Terminé',
-    // not_completed: 'Non terminé',
+    all: 'Tous',
+    completed: 'Terminé',
+    not_completed: 'Non terminé',
     sort: 'Trier',
-    // by_default: 'Par défaut',
-    // alphabetical: 'Alphabétique',
-    // in_reverse: 'Alphabétique à l'envers',
+    by_default: 'Par défaut',
+    alphabetical: 'Alphabétique',
+    in_reverse: "Alphabétique à l'envers",
     description: 'Description',
     actions: 'Actions',
     welcome: 'Bienvenue',
     guest: 'Invité',
     logout: 'Déconnexion',
+
+    // slider
+    title_1slider: 'Chat tigré',
+    title_2slider: 'Chat noir et blanc',
+    title_3slider: 'Chat gris',
+    title_4slider: 'Chat duveteux',
+    title_5slider: 'Chat aux yeux bleus',
+    title_6slider: 'Chat siamois',
+    title_7slider: 'Animaux',
+    title_8slider: 'Chat persan',
+    title_9slider: 'Chat coloré',
+    title_10slider: 'Chat aux yeux jaunes',
+    title_11slider: 'Chat roux',
+    title_12slider: 'Chat à poil court',
+    title_13slider: 'Chat noir',
+
+    text_1slider:
+      'Le chat est une espèce domestique de petit mammifère carnivore.',
+    text_2slider:
+      'Un chat peut être un chat domestique, un chat de ferme ou un chat sauvage ; ce dernier se déplace librement et évite le contact humain.',
+    text_3slider:
+      'Les chats domestiques sont appréciés des humains pour leur compagnie et leur capacité à chasser les rongeurs. Environ 60 races de chats sont reconnues par divers registres félins.',
+    text_4slider:
+      'Le chat a une anatomie similaire aux autres espèces de félidés : il a un corps fort et flexible, des réflexes rapides, des dents acérées et des griffes rétractables adaptées pour tuer de petites proies.',
+    text_5slider:
+      'La communication avec les chats comprend des vocalisations telles que les miaulements, les ronronnements, les trilles, les sifflements, les grognements et les grognements ainsi que le langage corporel spécifique au chat.',
+    text_6slider:
+      "Prédateur le plus actif à l'aube et au crépuscule (crépusculaire), le chat est un chasseur solitaire mais une espèce sociale.",
+    text_7slider:
+      'Il peut entendre des sons trop faibles ou trop élevés pour les oreilles humaines, tels que ceux produits par les souris et autres petits mammifères.',
+    text_8slider:
+      "Les chattes domestiques peuvent avoir des chatons du printemps à la fin de l'automne, avec des portées allant souvent de deux à cinq chatons.",
+    text_9slider:
+      "Les chats domestiques sont élevés et présentés lors d'événements en tant que chats de race enregistrés, un passe-temps connu sous le nom de fantaisie de chat.",
+    text_10slider:
+      "Le contrôle de la population de chats peut être effectué par la stérilisation et la stérilisation, mais leur prolifération et l'abandon des animaux de compagnie ont entraîné un grand nombre de chats sauvages dans le monde entier.",
+    text_11slider:
+      'Les chats ont été domestiqués pour la première fois au Proche-Orient vers 7500 avant JC.',
+    text_12slider:
+      "On a longtemps pensé que la domestication des chats avait commencé dans l'Egypte ancienne, où les chats étaient vénérés à partir de 3100 av.",
+    text_13slider:
+      'En 2021, il y a environ 220 millions de chats possédés et 480 millions de chats errants dans le monde.',
   },
 };

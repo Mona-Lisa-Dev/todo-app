@@ -3,6 +3,22 @@
   justify-content: center;
   margin-bottom: 20px;
 
+  button {
+    height: 36px;
+    font-size: 14px;
+
+    @media screen and (max-width: 600px) {
+      height: max-content;
+      width: 150px;
+      font-size: 12px;
+    }
+
+    @media screen and (max-width: 400px) {
+      width: 90px;
+      font-size: 8px;
+    }
+  }
+
   @media screen and (max-width: 600px) {
     margin-bottom: 0;
   }

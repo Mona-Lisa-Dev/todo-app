@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import PropTypes from 'prop-types';
+import { translate } from 'i18n';
 import styles from './SliderItem.module.scss';
 
 const SliderItem = ({ slider }) => {
@@ -27,13 +29,22 @@ const SliderItem = ({ slider }) => {
             />
           </div>
           <div className={styles.infoWrapper}>
-            <h3>{slider.title}</h3>
-            <p className={styles.text}>{slider.text}</p>
+            <h3>{translate(slider.title)}</h3>
+            <p className={styles.text}>{translate(slider.text)}</p>
           </div>
         </>
       )}
     </div>
   );
+};
+
+SliderItem.propTypes = {
+  slider: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    image: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    text: PropTypes.string,
+  }).isRequired,
 };
 
 export default SliderItem;

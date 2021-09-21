@@ -38,17 +38,6 @@ const RegisterForm = () => {
     if (isValid) dispatch(signup(user));
   };
 
-  const name_required = translate('name_required');
-  const name_err_msg = translate('name_err_msg');
-  const email_required = translate('email_required');
-  const email_err_msg = translate('email_err_msg');
-  const password_required = translate('password_required');
-  const password_err_msg = translate('password_err_msg');
-  const password_short_err = translate('password_short_err');
-  const password_long_err = translate('password_long_err');
-  const passwords_should_match = translate('passwords_should_match');
-  const age_required = translate('age_required');
-  const age_err_msg = translate('age_err_msg');
   const signupText = translate('signup');
 
   return (
@@ -57,10 +46,7 @@ const RegisterForm = () => {
       onSubmit={handleSubmit(handleSubmitForm)}
       autoComplete="off"
     >
-      <h2 className={styles.formTitle}>
-        {/* Sign up */}
-        {signupText}
-      </h2>
+      <h2 className={styles.formTitle}>{signupText}</h2>
       <div className={styles.inputWrapper}>
         <RHFInput
           as={
@@ -68,7 +54,6 @@ const RegisterForm = () => {
               required
               // error={!!errors.name}
               type="text"
-              // label="Name"
               label={translate('name')}
               variant="outlined"
             />
@@ -76,12 +61,10 @@ const RegisterForm = () => {
           name="name"
           register={register}
           rules={{
-            // required: 'Name is required',
-            required: name_required,
+            required: translate('name_required'),
             minLength: {
               value: 3,
-              // message: 'Name must be at least 3 characters',
-              message: name_err_msg,
+              message: translate('name_err_msg'),
             },
           }}
           onChange={() => trigger('name')}
@@ -101,7 +84,6 @@ const RegisterForm = () => {
               required
               type="email"
               // error={!!errors.email}
-              // label="E-mail"
               label={translate('email')}
               variant="outlined"
             />
@@ -109,13 +91,11 @@ const RegisterForm = () => {
           name="email"
           register={register}
           rules={{
-            // required: 'E-mail is required',
-            required: email_required,
+            required: translate('email_required'),
             pattern: {
               value:
                 /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-              // message: 'E-mail is not valid',
-              message: email_err_msg,
+              message: translate('email_err_msg'),
             },
           }}
           setValue={setValue}
@@ -135,7 +115,6 @@ const RegisterForm = () => {
               required
               type="password"
               // error={!!errors.password}
-              // label="Password"
               label={translate('password')}
               variant="outlined"
             />
@@ -143,23 +122,18 @@ const RegisterForm = () => {
           name="password"
           register={register}
           rules={{
-            // required: 'Password is required',
-            required: password_required,
+            required: translate('password_required'),
             pattern: {
               value: /^[a-z0-9_-]{7,18}$/,
-              // message:
-              //   'Password can contain letters, numbers, hyphens and underscores',
-              message: password_err_msg,
+              message: translate('password_err_msg'),
             },
             minLength: {
               value: 7,
-              // message: 'Password must be at least 7 characters',
-              message: password_short_err,
+              message: translate('password_short_err'),
             },
             maxLength: {
               value: 18,
-              // message: 'Password must be at most 18 characters',
-              message: password_long_err,
+              message: translate('password_long_err'),
             },
           }}
           setValue={setValue}
@@ -179,7 +153,6 @@ const RegisterForm = () => {
               required
               type="password"
               // error={!!errors.passwordConfirmation}
-              // label="Repeat password"
               label={translate('repeat_password')}
               variant="outlined"
             />
@@ -187,13 +160,13 @@ const RegisterForm = () => {
           name="passwordConfirmation"
           register={register}
           rules={{
-            // required: 'Password is required',
-            required: password_required,
+            required: translate('password_required'),
             validate: {
               matchesPreviousPassword: value => {
                 const { password } = getValues();
-                // return password === value || 'Passwords should match!';
-                return password === value || passwords_should_match;
+                return (
+                  password === value || translate('passwords_should_match')
+                );
               },
             },
           }}
@@ -216,7 +189,6 @@ const RegisterForm = () => {
               type="number"
               InputProps={{ inputProps: { min: 1, max: 99 } }}
               // error={!!errors.age}
-              // label="Age"
               label={translate('age')}
               variant="outlined"
             />
@@ -225,13 +197,11 @@ const RegisterForm = () => {
           register={register}
           mode="onChange"
           rules={{
-            // required: 'Age is required',
-            required: age_required,
+            required: translate('age_required'),
             valueAsNumber: true,
             validate: {
               positiveNumber: value =>
-                // parseFloat(value) > 0 || 'Value must be greater than 1',
-                parseFloat(value) > 0 || age_err_msg,
+                parseFloat(value) > 0 || translate('age_err_msg'),
             },
           }}
           setValue={setValue}
@@ -260,7 +230,6 @@ const RegisterForm = () => {
                   checked={props.value}
                 />
               }
-              // label="I accept the terms of the User Agreement"
               label={translate('accept')}
             />
           )}
@@ -268,7 +237,6 @@ const RegisterForm = () => {
       </div>
 
       <Button type="submit" variant="contained" color="primary">
-        {/* Sign up */}
         {signupText}
       </Button>
     </form>

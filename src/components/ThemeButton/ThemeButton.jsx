@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import PropTypes from 'prop-types';
 import { WbSunny, NightsStay } from '@material-ui/icons';
 
 import { ThemeContext } from 'Context';
@@ -14,6 +15,10 @@ const ThemeButton = ({ themeToggler }) => {
       <NightsStay className={classNameApp} />
     </button>
   );
+};
+
+ThemeButton.propTypes = {
+  themeToggler: PropTypes.func.isRequired,
 };
 
 export default ThemeButton;
