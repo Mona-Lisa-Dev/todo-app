@@ -1,3 +1,6 @@
+@import 'scss/vars';
+@import 'scss/breakpoints';
+
 .backdrop {
   position: fixed;
   z-index: 1;
@@ -19,7 +22,7 @@
   max-height: calc(100vh - 24px);
   padding: 20px;
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: $mobile-max) {
     padding: 5px;
   }
 
@@ -41,7 +44,7 @@
     rgba(136, 143, 165, 0.7) 100%
   );
 
-  color: black;
+  color: $dark-text;
 }
 
 .darkModal {
@@ -53,9 +56,9 @@
     rgba(27, 30, 39, 0.7) 100%
   );
 
-  color: rgb(240, 231, 231);
+  color: $text-dark-theme;
 
   svg {
-    fill: rgb(240, 231, 231);
+    fill: $text-dark-theme;
   }
 }

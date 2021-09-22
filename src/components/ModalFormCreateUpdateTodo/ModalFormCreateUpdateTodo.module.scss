@@ -1,3 +1,6 @@
+@import 'scss/vars';
+@import 'scss/breakpoints';
+
 .todoForm {
   display: flex;
   justify-content: center;
@@ -7,16 +10,16 @@
 
   background-color: rgba(255, 255, 255, 0.3);
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: $mobile-max) {
     padding: 40px 5px;
     margin: 0;
 
     button {
-      background-color: #3f51b5;
-      color: #fff;
+      background-color: $accent;
+      color: $white-text;
 
       &:hover {
-        background-color: #303f9f;
+        background-color: $accent-hover;
       }
     }
   }
@@ -30,7 +33,7 @@
 
     .helperText {
       position: absolute;
-      color: red;
+      color: #ff0000;
     }
   }
 }

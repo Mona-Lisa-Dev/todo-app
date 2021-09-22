@@ -1,3 +1,5 @@
+@import 'scss/vars';
+
 .ThemeButton {
   display: flex;
   justify-content: center;
@@ -12,22 +14,22 @@
   outline: none;
 
   border-radius: 4px;
-  background-color: #3f51b5;
+  background-color: $accent;
 
-  box-shadow: 7px 7px 13px 0px rgba(0, 0, 0, 0.38);
+  box-shadow: $main-shadow;
 
   overflow: hidden;
   cursor: pointer;
 
   &:hover {
-    background-color: #303f9f;
+    background-color: $accent-hover;
   }
 
   svg {
     max-width: 30px;
     height: auto;
     transition: all 0.3s linear;
-    fill: white;
+    fill: $white-text;
 
     &.lightTheme:first-child {
       transform: translateY(0);

@@ -1,12 +1,15 @@
+@import './vars';
+@import './breakpoints';
+
 body {
-  font-size: 14px;
+  font-size: $main-font-size-desc;
   line-height: 1.22;
 
-  @media screen and (max-width: 600px) {
-    font-size: 12px;
+  @media screen and (max-width: $mobile-max) {
+    font-size: $main-font-size-mobile;
   }
 
-  @media screen and (max-width: 400px) {
+  @media screen and (max-width: $mobile) {
     font-size: 10px;
   }
 }
@@ -15,21 +18,21 @@ body {
   min-height: 100vh;
   background-color: rgb(255, 255, 255);
 
-  background-image: radial-gradient(
-    circle farthest-corner at center,
-    rgba(255, 255, 255, 0.7) 0%,
-    rgba(136, 143, 165, 0.7) 100%
-  );
+  // background-image: radial-gradient(
+  //   circle farthest-corner at center,
+  //   rgba(255, 255, 255, 0.7) 0%,
+  //   rgba(136, 143, 165, 0.7) 100%
+  // );
 
-  color: black;
+  color: $dark-text;
 
   input,
   select {
-    font-size: 14px;
+    font-size: $main-font-size-desc;
     line-height: 1.22;
 
-    @media screen and (max-width: 600px) {
-      font-size: 12px;
+    @media screen and (max-width: $mobile-max) {
+      font-size: $main-font-size-mobile;
     }
   }
 }
@@ -44,32 +47,32 @@ body {
     rgba(27, 30, 39, 0.7) 100%
   );
 
-  color: rgb(240, 231, 231);
+  color: $text-dark-theme;
 
   svg {
-    fill: rgb(240, 231, 231);
+    fill: $text-dark-theme;
   }
 
   input,
   select,
   button {
-    color: rgb(240, 231, 231);
+    color: $text-dark-theme;
   }
 
   input,
   select {
-    font-size: 14px;
+    font-size: $main-font-size-desc;
     line-height: 1.22;
 
-    @media screen and (max-width: 600px) {
-      font-size: 12px;
+    @media screen and (max-width: $mobile-max) {
+      font-size: $main-font-size-mobile;
     }
   }
 
   button {
     &:hover {
       svg {
-        fill: #3f51b5;
+        fill: $accent;
         stroke: rgba(240, 231, 231, 0.8);
       }
     }
@@ -78,6 +81,6 @@ body {
   button,
   a,
   select {
-    box-shadow: 7px 7px 13px 0px rgba(240, 231, 231, 0.1);
+    box-shadow: $light-shadow;
   }
 }

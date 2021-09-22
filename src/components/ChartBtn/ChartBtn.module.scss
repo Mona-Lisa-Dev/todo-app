@@ -1,13 +1,16 @@
+@import 'scss/vars';
+@import 'scss/breakpoints';
+
 .chart {
   padding: 10px;
   margin: 20px;
   background-color: rgba(255, 255, 255, 0.3);
 
-  @media screen and (min-width: 480px) {
+  @media screen and (min-width: $mobile-middle) {
     width: 400px;
   }
 
-  @media screen and (min-width: 601px) {
+  @media screen and (min-width: $tablet-min) {
     width: 500px;
   }
 }
@@ -18,7 +21,7 @@
   top: 60px;
   left: 20px;
 
-  @media screen and (max-width: 400px) {
+  @media screen and (max-width: $mobile) {
     left: 10px;
   }
 
@@ -33,14 +36,14 @@
   border-radius: 4px;
 
   button {
-    color: #fff;
-    transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    color: $white-text;
+    transition: $main-transition;
     width: 48px;
     height: 48px;
 
     &:hover {
-      color: #3f51b5;
-      box-shadow: 7px 7px 13px 0px rgba(0, 0, 0, 0.38);
+      color: $accent-hover;
+      box-shadow: $main-shadow;
 
       svg {
         stroke: rgba(240, 231, 231, 0.8);
@@ -56,23 +59,23 @@
 
   width: 100px;
   height: 36px;
-  font-size: 14px;
+  font-size: $main-font-size-desc;
 
-  @media screen and (max-width: 600px) {
-    font-size: 12px;
+  @media screen and (max-width: $mobile-max) {
+    font-size: $main-font-size-mobile;
   }
 
-  @media screen and (max-width: 400px) {
+  @media screen and (max-width: $mobile) {
     width: 80px;
     left: 10px;
     font-size: 10px;
     text-transform: capitalize;
   }
 
-  background-color: #3f51b5;
-  color: #fff;
+  background-color: $accent;
+  color: $white-text;
 
   &:hover {
-    background-color: #303f9f;
+    background-color: $accent-hover;
   }
 }

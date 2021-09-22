@@ -1,3 +1,6 @@
+@import 'scss/vars';
+@import 'scss/breakpoints';
+
 .addTodoBtnWrapper {
   display: flex;
   justify-content: center;
@@ -5,22 +8,22 @@
 
   button {
     height: 36px;
-    font-size: 14px;
+    font-size: $main-font-size-desc;
 
-    @media screen and (max-width: 600px) {
+    @media screen and (max-width: $mobile-max) {
       height: max-content;
       width: 150px;
-      font-size: 12px;
+      font-size: $main-font-size-mobile;
     }
 
-    @media screen and (max-width: 400px) {
+    @media screen and (max-width: $mobile) {
       width: 90px;
       font-size: 10px;
       text-transform: capitalize;
     }
   }
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: $mobile-max) {
     margin-bottom: 0;
   }
 }
