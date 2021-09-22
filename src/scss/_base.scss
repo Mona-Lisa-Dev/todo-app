@@ -1,8 +1,13 @@
 body {
   font-size: 14px;
+  line-height: 1.22;
 
   @media screen and (max-width: 600px) {
     font-size: 12px;
+  }
+
+  @media screen and (max-width: 400px) {
+    font-size: 10px;
   }
 }
 
@@ -17,6 +22,16 @@ body {
   );
 
   color: black;
+
+  input,
+  select {
+    font-size: 14px;
+    line-height: 1.22;
+
+    @media screen and (max-width: 600px) {
+      font-size: 12px;
+    }
+  }
 }
 
 .darkTheme {
@@ -33,6 +48,22 @@ body {
 
   svg {
     fill: rgb(240, 231, 231);
+  }
+
+  input,
+  select,
+  button {
+    color: rgb(240, 231, 231);
+  }
+
+  input,
+  select {
+    font-size: 14px;
+    line-height: 1.22;
+
+    @media screen and (max-width: 600px) {
+      font-size: 12px;
+    }
   }
 
   button {

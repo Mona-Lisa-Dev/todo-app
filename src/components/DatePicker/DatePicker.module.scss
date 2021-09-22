@@ -6,7 +6,22 @@
   text-align: center;
 
   input {
+    display: flex;
+    align-items: flex-start;
     width: 206px;
+
+    &[type='date'] {
+      background-image: url(https://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/calendar_2.png);
+      background-position: 90% 50%;
+      background-repeat: no-repeat;
+    }
+    &[type='date']::-webkit-inner-spin-button {
+      display: none;
+    }
+    &[type='date']::-webkit-calendar-picker-indicator {
+      opacity: 0;
+      cursor: pointer;
+    }
   }
 
   @media screen and (max-width: 600px) {

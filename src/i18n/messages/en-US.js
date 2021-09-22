@@ -83,12 +83,11 @@ export default {
     title_13slider: 'Black cat',
 
     text_1slider: 'The cat is a domestic species of small carnivorous mammal.',
-    text_2slider:
-      'A cat can either be a house cat, a farm cat or a feral cat; the latter ranges freely and avoids human contact.',
+    text_2slider: 'A cat can either be a house cat, a farm cat or a feral cat.',
     text_3slider:
-      'Domestic cats are valued by humans for companionship and their ability to hunt rodents. About 60 cat breeds are recognized by various cat registries.',
+      'Domestic cats are valued by humans for companionship and their ability to hunt rodents.',
     text_4slider:
-      'The cat is similar in anatomy to the other felid species: it has a strong flexible body, quick reflexes, sharp teeth and retractable claws adapted to killing small prey.',
+      'About 60 cat breeds are recognized by various cat registries.',
     text_5slider:
       'Cat communication includes vocalizations like meowing, purring, trilling, hissing, growling and grunting as well as cat-specific body language.',
     text_6slider:

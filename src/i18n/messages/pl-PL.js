@@ -41,7 +41,7 @@ export default {
       'Nie będziesz w stanie przywrócić tego zadania, jeśli je usuniesz.',
     cancel: 'Anuluj',
     delete: 'Usuń',
-    date_picker_label: 'Wybierz zadanie według daty utworzenia',
+    date_picker_label: 'Zadanie według daty utworzenia',
     languages: 'Wyszukiwanie języka',
     save: 'Zapisz',
     done: 'Gotowe',
@@ -84,11 +84,11 @@ export default {
 
     text_1slider: 'Kot to udomowiony gatunek małego mięsożernego ssaka.',
     text_2slider:
-      'Kot może być kotem domowym, kotem hodowlanym lub kotem zdziczałym; ta ostatnia porusza się swobodnie i unika kontaktu z ludźmi.',
+      'Kot może być kotem domowym, kotem hodowlanym lub kotem zdziczałym.',
     text_3slider:
-      'Koty domowe są cenione przez ludzi za towarzystwo i umiejętność polowania na gryzonie. W różnych rejestrach kotów rozpoznawanych jest około 60 ras kotów.',
+      'Koty domowe są cenione przez ludzi za towarzystwo i umiejętność polowania na gryzonie.',
     text_4slider:
-      'Kot jest podobny w anatomii do innych gatunków kotowatych: ma silne, elastyczne ciało, szybki refleks, ostre zęby i chowane pazury przystosowane do zabijania małych ofiar.',
+      'W różnych rejestrach kotów rozpoznawanych jest około 60 ras kotów.',
     text_5slider:
       'Komunikacja kota obejmuje odgłosy, takie jak miauczenie, mruczenie, trele, syczenie, warczenie i chrząkanie, a także specyficzny dla kota język ciała.',
     text_6slider:

@@ -1,5 +1,11 @@
 .sliderListWrapper {
   padding: 20px;
+  text-align: center;
+
+  .sliderTitle {
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
 }
 
 .arrow:before {

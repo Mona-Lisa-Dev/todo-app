@@ -86,11 +86,11 @@ export default {
     text_1slider:
       'Die Katze ist eine domestizierte Art von kleinen fleischfressenden Säugetieren.',
     text_2slider:
-      'Eine Katze kann entweder eine Hauskatze, eine Hofkatze oder eine Wildkatze sein; Letzteres ist frei und vermeidet menschlichen Kontakt.',
+      'Eine Katze kann entweder eine Hauskatze, eine Hofkatze oder eine Wildkatze sein.',
     text_3slider:
-      'Hauskatzen werden von Menschen wegen ihrer Kameradschaft und ihrer Fähigkeit, Nagetiere zu jagen, geschätzt. Etwa 60 Katzenrassen werden von verschiedenen Katzenregistern anerkannt.',
+      'Hauskatzen werden von Menschen wegen ihrer Kameradschaft und ihrer Fähigkeit, Nagetiere zu jagen, geschätzt.',
     text_4slider:
-      'Die Katze ähnelt in ihrer Anatomie den anderen Katzenarten: Sie hat einen starken flexiblen Körper, schnelle Reflexe, scharfe Zähne und einziehbare Krallen, die zum Töten kleiner Beute geeignet sind.',
+      'Etwa 60 Katzenrassen werden von verschiedenen Katzenregistern anerkannt.',
     text_5slider:
       'Katzenkommunikation umfasst Lautäußerungen wie Miauen, Schnurren, Trillern, Zischen, Knurren und Grunzen sowie katzenspezifische Körpersprache.',
     text_6slider:

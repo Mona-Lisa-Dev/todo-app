@@ -41,7 +41,7 @@ export default {
       'Non potrai ripristinare questa attività se la elimini.',
     cancel: 'Annulla',
     delete: 'Elimina',
-    date_picker_label: 'Seleziona attività per data di creazione',
+    date_picker_label: 'Attività per data di creazione',
     languages: 'Ricerca lingua',
     save: 'Salva',
     done: 'Fatto',
@@ -85,11 +85,11 @@ export default {
     text_1slider:
       'Il gatto è una specie domestica di piccoli mammiferi carnivori.',
     text_2slider:
-      "Un gatto può essere un gatto domestico, un gatto della fattoria o un gatto selvatico; quest'ultimo spazia liberamente ed evita il contatto umano.",
+      'Un gatto può essere un gatto domestico, un gatto della fattoria o un gatto selvatico.',
     text_3slider:
-      'I gatti domestici sono apprezzati dagli umani per la compagnia e la loro capacità di cacciare i roditori. Circa 60 razze di gatti sono riconosciute da vari registri di gatti.',
+      'I gatti domestici sono apprezzati dagli umani per la compagnia e la loro capacità di cacciare i roditori.',
     text_4slider:
-      "Il gatto è simile nell'anatomia alle altre specie di felidi: ha un corpo forte e flessibile, riflessi rapidi, denti affilati e artigli retrattili adatti a uccidere piccole prede.",
+      'Circa 60 razze di gatti sono riconosciute da vari registri di gatti.',
     text_5slider:
       'La comunicazione tra gatti include vocalizzazioni come miagolii, fusa, trilli, sibili, ringhi e grugniti, nonché il linguaggio del corpo specifico del gatto.',
     text_6slider:

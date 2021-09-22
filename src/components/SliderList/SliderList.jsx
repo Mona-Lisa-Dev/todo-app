@@ -1,6 +1,7 @@
 import Slider from 'react-slick';
 
 import SliderItem from 'components/SliderItem';
+import { translate } from 'i18n';
 import sliders from './slider.json';
 
 import 'slick-carousel/slick/slick.css';
@@ -61,6 +62,7 @@ const SliderList = () => {
   };
   return (
     <div className={styles.sliderListWrapper}>
+      <h2 className={styles.sliderTitle}>{translate('slider_title')}</h2>
       <Slider {...settings}>
         {sliders.map(slider => (
           <div key={slider.id}>

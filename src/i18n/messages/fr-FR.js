@@ -41,7 +41,7 @@ export default {
       'Vous ne pourrez pas restaurer cette tâche si vous la supprimez.',
     cancel: 'Annuler',
     delete: 'Supprimer',
-    date_picker_label: 'Sélectionner la tâche par date de création',
+    date_picker_label: 'La tâche par date de création',
     languages: 'Recherche de langue',
     save: 'Enregistrer',
     done: 'Fait',
@@ -85,11 +85,11 @@ export default {
     text_1slider:
       'Le chat est une espèce domestique de petit mammifère carnivore.',
     text_2slider:
-      'Un chat peut être un chat domestique, un chat de ferme ou un chat sauvage ; ce dernier se déplace librement et évite le contact humain.',
+      'Un chat peut être un chat domestique, un chat de ferme ou un chat sauvage.',
     text_3slider:
-      'Les chats domestiques sont appréciés des humains pour leur compagnie et leur capacité à chasser les rongeurs. Environ 60 races de chats sont reconnues par divers registres félins.',
+      'Les chats domestiques sont appréciés des humains pour leur compagnie et leur capacité à chasser les rongeurs.',
     text_4slider:
-      'Le chat a une anatomie similaire aux autres espèces de félidés : il a un corps fort et flexible, des réflexes rapides, des dents acérées et des griffes rétractables adaptées pour tuer de petites proies.',
+      'Environ 60 races de chats sont reconnues par divers registres félins.',
     text_5slider:
       'La communication avec les chats comprend des vocalisations telles que les miaulements, les ronronnements, les trilles, les sifflements, les grognements et les grognements ainsi que le langage corporel spécifique au chat.',
     text_6slider:

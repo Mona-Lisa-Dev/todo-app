@@ -45,7 +45,6 @@ const DatePicker = () => {
         </IconButton>
 
         <TextField
-          // label="Select todo by creation date"
           label={translate('date_picker_label')}
           type="date"
           value={date}
