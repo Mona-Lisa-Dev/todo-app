@@ -4,6 +4,11 @@
 .listContainer {
   margin: 0 auto;
   max-width: 767px;
+  min-height: 340px;
+
+  @media screen and (max-width: $mobile-max) {
+    min-height: 315px;
+  }
 }
 
 .listNames {

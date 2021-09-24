@@ -5,3 +5,4 @@ export const getFilter = state => state.todos.filter;
 export const getLoadingTodos = state => state.todos.isLoading;
 
 export const getCompleteTodos = state => state.todos.completeItems;
+export const getNotCompleteTodos = state => state.todos.notCompleteItems;

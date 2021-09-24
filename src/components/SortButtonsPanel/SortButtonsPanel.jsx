@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useHistory, useLocation } from 'react-router';
 import {
   InputLabel,
   FormControl,
@@ -8,6 +9,7 @@ import {
 } from '@material-ui/core';
 import { useIntl } from 'react-intl';
 import { translate } from 'i18n';
+import routes from 'routes';
 import styles from './SortButtonsPanel.module.scss';
 
 const SortButtonsPanel = ({ sortBy, byStatus, completed, items, onClicks }) => {
@@ -22,6 +24,9 @@ const SortButtonsPanel = ({ sortBy, byStatus, completed, items, onClicks }) => {
 
   const intl = useIntl();
 
+  const history = useHistory();
+  const location = useLocation();
+
   const handleChangeStatus = e => {
     const { value } = e.target;
     setStatus(value);
@@ -29,12 +34,51 @@ const SortButtonsPanel = ({ sortBy, byStatus, completed, items, onClicks }) => {
     switch (value) {
       case 'all':
         handleClickAllTodos();
+
+        if (sortBy) {
+          history.push({
+            ...location,
+            pathname: `${routes.todos}/${sortBy}`,
+          });
+        } else {
+          history.push({
+            ...location,
+            pathname: routes.todos,
+          });
+        }
+
         break;
       case 'completed':
         handleChooseCompleted(true);
+
+        if (sortBy) {
+          history.push({
+            ...location,
+            pathname: `${routes.todos}/completed/${sortBy}`,
+          });
+        } else {
+          history.push({
+            ...location,
+            pathname: `${routes.todos}/completed`,
+          });
+        }
+
         break;
       case 'not completed':
         handleChooseCompleted(false);
+
+        if (sortBy) {
+          history.push({
+            ...location,
+            pathname: `${routes.todos}/not_completed/${sortBy}`,
+          });
+        } else {
+          history.push({
+            ...location,
+            pathname: `${routes.todos}/not_completed`,
+          });
+        }
+
         break;
 
       default:
@@ -50,12 +94,57 @@ const SortButtonsPanel = ({ sortBy, byStatus, completed, items, onClicks }) => {
     switch (value) {
       case 'byDefault':
         handleClickSort('');
+
+        if (byStatus) {
+          history.push({
+            ...location,
+            pathname: `${routes.todos}/${
+              completed ? 'completed' : 'not_completed'
+            }`,
+          });
+        } else {
+          history.push({
+            ...location,
+            pathname: routes.todos,
+          });
+        }
+
         break;
       case 'sortBy':
         handleClickSort('sortBy');
+
+        if (byStatus) {
+          history.push({
+            ...location,
+            pathname: `${routes.todos}/${
+              completed ? 'completed' : 'not_completed'
+            }/sortBy`,
+          });
+        } else {
+          history.push({
+            ...location,
+            pathname: `${routes.todos}/sortBy`,
+          });
+        }
+
         break;
       case 'sortByDesc':
         handleClickSort('sortByDesc');
+
+        if (byStatus) {
+          history.push({
+            ...location,
+            pathname: `${routes.todos}/${
+              completed ? 'completed' : 'not_completed'
+            }/sortByDesc`,
+          });
+        } else {
+          history.push({
+            ...location,
+            pathname: `${routes.todos}/sortByDesc`,
+          });
+        }
+
         break;
 
       default:

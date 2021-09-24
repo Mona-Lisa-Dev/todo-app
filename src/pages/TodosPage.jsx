@@ -9,7 +9,8 @@ import Filters from 'components/Filters';
 import SortButtonsPanel from 'components/SortButtonsPanel';
 import AlertError from 'components/AlertError';
 import ButtonScrollTop from 'components/ButtonScrollTop';
-import ChartBtn from 'components/ChartBtn';
+import Charts from 'components/Charts';
+import TodosContentWrapper from 'components/TodosContentWrapper';
 
 import {
   getTodosByOnePage,
@@ -17,14 +18,26 @@ import {
   getFilter,
   getLoadingTodos,
   getLengthForPagination,
+  getCompleteTodos,
+  getNotCompleteTodos,
 } from 'redux/todos/todos-selectors';
 import { getErrorMessage } from 'redux/error/error-selectors';
 import { getTodosByPage, getTodosByStatus } from 'redux/todos/todos-operations';
 
-const TodosPage = () => {
-  const [byStatus, setByStatus] = useState(false);
-  const [completed, setCompleted] = useState(false);
-  const [sort, setSort] = useState('');
+// const TodosPage = () => {
+const TodosPage = ({
+  chooseStatus = false,
+  chooseCompleted = false,
+  chooseSort = '',
+}) => {
+  const [byStatus, setByStatus] = useState(chooseStatus);
+  const [completed, setCompleted] = useState(chooseCompleted);
+  const [sort, setSort] = useState(chooseSort);
+
+  // const [byStatus, setByStatus] = useState(false);
+  // const [completed, setCompleted] = useState(false);
+  // const [sort, setSort] = useState('');
+
   const [renderPagination, setRenderPagination] = useState(false);
   const [page, setPage] = useState(1);
   const [isCreatedTodo, setIsCreatedTodo] = useState(false);
@@ -39,6 +52,9 @@ const TodosPage = () => {
   const filteredItems = useSelector(getFilter);
   const isLoading = useSelector(getLoadingTodos);
   const error = useSelector(getErrorMessage);
+
+  const complete = useSelector(getCompleteTodos);
+  const notComplete = useSelector(getNotCompleteTodos);
 
   const dispatch = useDispatch();
 
@@ -147,40 +163,46 @@ const TodosPage = () => {
     <>
       {error && <AlertError error={error} />}
       {isLoading && <Loader />}
-      {filteredItems.length === 0 && <AddTodoBtn createTodo={createTodo} />}
-      {!!todosLength && filteredItems.length === 0 && (
-        <ChartBtn todos={todosLength} />
-      )}
-      {!!todosLength && (
-        <>
-          <Filters />
 
-          {filteredItems.length === 0 && (
-            <SortButtonsPanel
-              sortBy={sort}
-              byStatus={byStatus}
-              completed={completed}
-              items={groupOfItemsForButtons}
-              onClicks={groupOfFunctionsForButtons}
+      <TodosContentWrapper>
+        {!!todosLength && filteredItems.length === 0 && (
+          <Charts complete={complete} notComplete={notComplete} />
+        )}
+
+        <div style={{ width: '100%' }}>
+          {filteredItems.length === 0 && <AddTodoBtn createTodo={createTodo} />}
+          {(!!todosLength || !!todosLengthForPagination) && (
+            <>
+              <Filters />
+
+              {filteredItems.length === 0 && (
+                <SortButtonsPanel
+                  sortBy={sort}
+                  byStatus={byStatus}
+                  completed={completed}
+                  items={groupOfItemsForButtons}
+                  onClicks={groupOfFunctionsForButtons}
+                />
+              )}
+            </>
+          )}
+          {(renderTodoList || !!todosLengthForPagination) &&
+            (filteredItems.length === 0 ? (
+              <TodoList todosToShow={todosToShow} deleteTodo={deleteTodo} />
+            ) : (
+              <TodoList todosToShow={filteredItems} deleteTodo={deleteTodo} />
+            ))}
+          {renderPagination && filteredItems.length === 0 && (
+            <PaginationTodos
+              page={page}
+              countPages={countPages}
+              onClickPage={handleClickOnPage}
             />
           )}
-        </>
-      )}
-      {renderTodoList &&
-        (filteredItems.length === 0 ? (
-          <TodoList todosToShow={todosToShow} deleteTodo={deleteTodo} />
-        ) : (
-          <TodoList todosToShow={filteredItems} deleteTodo={deleteTodo} />
-        ))}
-      {renderPagination && filteredItems.length === 0 && (
-        <PaginationTodos
-          page={page}
-          countPages={countPages}
-          onClickPage={handleClickOnPage}
-        />
-      )}
 
-      {filteredItems.length > ITEMS_FOR_SCROLL_TOP && <ButtonScrollTop />}
+          {filteredItems.length > ITEMS_FOR_SCROLL_TOP && <ButtonScrollTop />}
+        </div>
+      </TodosContentWrapper>
     </>
   );
 };

@@ -21,9 +21,6 @@ import {
   getByStatusSuccess,
   getByStatusError,
   clearFilter,
-  getForChartRequest,
-  getForChartSuccess,
-  getForChartError,
 } from './todos-actions';
 import { logoutSuccess } from 'redux/auth/auth-actions';
 
@@ -42,19 +39,31 @@ const items = createReducer([], {
 
 const itemsLength = createReducer(null, {
   [getByPageSuccess]: (_, { payload }) => payload.total,
-  [addTodoSuccess]: (state, { payload }) => state + 1,
-  [deleteTodoSuccess]: (state, { payload }) => state - 1,
+  [addTodoSuccess]: (state, _) => state + 1,
+  [deleteTodoSuccess]: (state, _) => state - 1,
 });
 
 const itemsForPagination = createReducer(null, {
   [getByStatusSuccess]: (_, { payload }) => payload.total,
   [getByPageSuccess]: (_, { payload }) => payload.total,
-  [addTodoSuccess]: (state, { payload }) => state + 1,
-  [deleteTodoSuccess]: (state, { payload }) => state - 1,
+  [addTodoSuccess]: (state, _) => state + 1,
+  [deleteTodoSuccess]: (state, _) => state - 1,
 });
 
 const completeItems = createReducer(null, {
-  [getForChartSuccess]: (_, { payload }) => payload.total,
+  [getByPageSuccess]: (_, { payload }) => payload.totalCompleted,
+  [addTodoSuccess]: (state, { payload }) =>
+    payload.isDone ? state + 1 : state,
+  [updateTodoSuccess]: (state, { payload }) =>
+    payload.isDone ? state + 1 : state - 1,
+});
+
+const notCompleteItems = createReducer(null, {
+  [getByPageSuccess]: (_, { payload }) => payload.totalNotCompleted,
+  [addTodoSuccess]: (state, { payload }) =>
+    payload.isDone ? state : state + 1,
+  [updateTodoSuccess]: (state, { payload }) =>
+    payload.isDone ? state - 1 : state + 1,
 });
 
 const filter = createReducer([], {
@@ -94,10 +103,6 @@ const isLoading = createReducer(false, {
   [getByStatusRequest]: () => true,
   [getByStatusSuccess]: () => false,
   [getByStatusError]: () => false,
-
-  [getForChartRequest]: () => true,
-  [getForChartSuccess]: () => false,
-  [getForChartError]: () => false,
 });
 
 const setError = (_, { payload }) => payload;
@@ -117,6 +122,7 @@ export default combineReducers({
   itemsLength,
   itemsForPagination,
   completeItems,
+  notCompleteItems,
   filter,
   isLoading,
   error,
