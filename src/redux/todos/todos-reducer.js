@@ -38,20 +38,22 @@ const items = createReducer([], {
 });
 
 const itemsLength = createReducer(null, {
-  [getByPageSuccess]: (_, { payload }) => payload.total,
+  [getByPageSuccess]: (_, { payload }) => payload.totalTodos,
+  [getByStatusSuccess]: (_, { payload }) => payload.totalTodos,
   [addTodoSuccess]: (state, _) => state + 1,
   [deleteTodoSuccess]: (state, _) => state - 1,
 });
 
 const itemsForPagination = createReducer(null, {
-  [getByStatusSuccess]: (_, { payload }) => payload.total,
-  [getByPageSuccess]: (_, { payload }) => payload.total,
+  [getByStatusSuccess]: (_, { payload }) => payload.totalByStatus,
+  [getByPageSuccess]: (_, { payload }) => payload.totalByStatus,
   [addTodoSuccess]: (state, _) => state + 1,
   [deleteTodoSuccess]: (state, _) => state - 1,
 });
 
 const completeItems = createReducer(null, {
   [getByPageSuccess]: (_, { payload }) => payload.totalCompleted,
+  [getByStatusSuccess]: (_, { payload }) => payload.totalCompleted,
   [addTodoSuccess]: (state, { payload }) =>
     payload.isDone ? state + 1 : state,
   [updateTodoSuccess]: (state, { payload }) =>
@@ -60,6 +62,7 @@ const completeItems = createReducer(null, {
 
 const notCompleteItems = createReducer(null, {
   [getByPageSuccess]: (_, { payload }) => payload.totalNotCompleted,
+  [getByStatusSuccess]: (_, { payload }) => payload.totalNotCompleted,
   [addTodoSuccess]: (state, { payload }) =>
     payload.isDone ? state : state + 1,
   [updateTodoSuccess]: (state, { payload }) =>

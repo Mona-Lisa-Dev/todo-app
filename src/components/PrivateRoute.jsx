@@ -10,7 +10,16 @@ const PrivateRoute = ({ component: Component, redirectTo, ...routeProps }) => {
     <Route
       {...routeProps}
       render={props =>
-        isAuthorized ? <Component {...props} /> : <Redirect to={redirectTo} />
+        isAuthorized ? (
+          <Component {...props} />
+        ) : (
+          <Redirect
+            to={{
+              pathname: redirectTo,
+              state: { from: props.location },
+            }}
+          />
+        )
       }
     />
   );

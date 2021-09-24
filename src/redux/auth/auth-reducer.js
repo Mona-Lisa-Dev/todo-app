@@ -14,6 +14,7 @@ import {
   getCurrentUserRequest,
   getCurrentUserSuccess,
   getCurrentUserError,
+  noToken,
 } from './auth-actions';
 
 const initialUserState = { name: null, email: null, age: null };
@@ -39,6 +40,14 @@ const isAuthorized = createReducer(false, {
   [loginError]: () => false,
   [logoutRequest]: () => false,
   [getCurrentUserError]: () => false,
+});
+
+const isLoadingUser = createReducer(true, {
+  [noToken]: () => false,
+
+  [getCurrentUserSuccess]: () => false,
+  [getCurrentUserError]: () => false,
+  [getCurrentUserRequest]: () => true,
 });
 
 const isLoading = createReducer(false, {
@@ -72,6 +81,7 @@ export default combineReducers({
   user,
   token,
   isAuthorized,
+  isLoadingUser,
   isLoading,
   error,
 });

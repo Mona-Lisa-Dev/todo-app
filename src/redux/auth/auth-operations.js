@@ -12,6 +12,7 @@ import {
   getCurrentUserRequest,
   getCurrentUserSuccess,
   getCurrentUserError,
+  noToken,
 } from './auth-actions';
 import { createErrorMessage } from 'redux/error/error-action';
 
@@ -117,7 +118,10 @@ export const getCurrentUser = () => async (dispatch, getState) => {
     auth: { token: persistedToken },
   } = getState();
 
-  if (!persistedToken) return;
+  if (!persistedToken) {
+    dispatch(noToken());
+    return;
+  }
 
   token.set(persistedToken);
   dispatch(getCurrentUserRequest());
