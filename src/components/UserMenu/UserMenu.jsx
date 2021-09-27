@@ -1,4 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
+import { useIntl } from 'react-intl';
 
 import { Button, IconButton, useMediaQuery } from '@material-ui/core';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
@@ -9,6 +10,7 @@ import { translate } from 'i18n';
 import styles from './UserMenu.module.scss';
 
 const UserMenu = () => {
+  const intl = useIntl();
   const name = useSelector(getUserName);
   const dispatch = useDispatch();
   const logoutHandler = () => dispatch(logout());
@@ -35,7 +37,7 @@ const UserMenu = () => {
           aria-label="Exit"
           type="button"
           color="primary"
-          title="Exit"
+          title={intl.formatMessage({ id: 'exit' })}
           onClick={logoutHandler}
         >
           <ExitToAppIcon />

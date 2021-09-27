@@ -80,6 +80,12 @@ export default {
     title_11slider: '赤い猫',
     title_12slider: 'ショートヘアの猫',
     title_13slider: '黒猫',
+    close_modal: 'モーダルを閉じる',
+    clear_search: '明確な検索',
+    show_all_todos: 'すべてのタスクを表示',
+    delete_task: 'タスクを削除する',
+    update_task: 'タスクの更新',
+    exit: '出口',
 
     text_1slider: '猫は小さな肉食性哺乳類の家畜種です。',
     text_2slider:

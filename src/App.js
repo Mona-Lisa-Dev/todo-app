@@ -2,7 +2,7 @@ import { lazy, Suspense, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Route, Redirect, Switch } from 'react-router-dom';
 
-import { useHistory, useLocation, useRouteMatch } from 'react-router';
+import { useLocation } from 'react-router';
 
 import AppBar from 'components/AppBar';
 import Container from 'components/Container';
@@ -37,7 +37,7 @@ const App = () => {
   const [theme, setTheme] = useState('light');
   const [locale, setLocal] = useState(LOCALES.ENGLISH);
 
-  const history = useHistory();
+  // const history = useHistory();
   const location = useLocation();
 
   const classNameApp = theme === 'light' ? 'lightTheme' : 'darkTheme';

@@ -67,6 +67,12 @@ export default {
     welcome: 'Wilkommen',
     guest: 'Gast',
     logout: 'Abmelden',
+    close_modal: 'Modal schließen',
+    clear_search: 'Saubere Suche',
+    show_all_todos: 'Alle Aufgaben anzeigen',
+    delete_task: 'Aufgabe löschen',
+    update_task: 'Aufgabe aktualisieren',
+    exit: 'Ausgang',
 
     // slider
     title_1slider: 'Tabby-Katze',

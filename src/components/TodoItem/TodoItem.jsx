@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
+import { useIntl } from 'react-intl';
 import {
   ListItem,
   ListItemText,
@@ -23,6 +24,7 @@ const TodoItem = ({ todo, action }) => {
   const [showModal, setShowModal] = useState(false);
   const [openConfirmation, setOpenConfirmation] = useState(false);
   const dispatch = useDispatch();
+  const intl = useIntl();
 
   const handleToggleModal = () => setShowModal(!showModal);
   const handleToggleConfirmation = () => setOpenConfirmation(!openConfirmation);
@@ -73,7 +75,7 @@ const TodoItem = ({ todo, action }) => {
             aria-label="Update task"
             type="button"
             onClick={handleToggleModal}
-            title="Update task"
+            title={intl.formatMessage({ id: 'update_task' })}
           >
             <Edit />
           </IconButton>
@@ -83,7 +85,7 @@ const TodoItem = ({ todo, action }) => {
             aria-label="Delete"
             type="button"
             onClick={handleToggleConfirmation}
-            title="Delete task"
+            title={intl.formatMessage({ id: 'delete_task' })}
           >
             <DeleteForever />
           </IconButton>

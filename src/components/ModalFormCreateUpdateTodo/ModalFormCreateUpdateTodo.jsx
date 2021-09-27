@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { RHFInput } from 'react-hook-form-input';
+import { useIntl } from 'react-intl';
 
 import {
   Checkbox,
@@ -32,6 +33,7 @@ const ModalFormCreateUpdateTodo = ({
   const [updatedIsDone, setUpdatedsDone] = useState(isDone || false);
 
   const dispatch = useDispatch();
+  const intl = useIntl();
 
   const handleCompleted = () => setUpdatedsDone(!updatedIsDone);
   const handleSubmitForm = async () => {
@@ -64,11 +66,6 @@ const ModalFormCreateUpdateTodo = ({
   };
   const mobile = useMediaQuery(handleMaxWidth(600));
 
-  const label_todo = translate('label_todo');
-  const todo_required = translate('todo_required');
-  const todo_short_msg = translate('todo_short_msg');
-  const todo_long_msg = translate('todo_long_msg');
-
   return (
     <form className={styles.todoForm} onSubmit={handleSubmit(handleSubmitForm)}>
       {mobile ? (
@@ -86,7 +83,6 @@ const ModalFormCreateUpdateTodo = ({
               onChange={handleCompleted}
             />
           }
-          // label={updatedIsDone ? 'Done' : 'Not done'}
           label={updatedIsDone ? translate('done') : translate('not_done')}
         />
       )}
@@ -96,8 +92,7 @@ const ModalFormCreateUpdateTodo = ({
           as={
             <TextField
               type="text"
-              // label="Todo"
-              label={label_todo}
+              label={translate('label_todo')}
               variant="outlined"
             />
           }
@@ -106,17 +101,14 @@ const ModalFormCreateUpdateTodo = ({
           defaultValue={description}
           register={register}
           rules={{
-            // required: 'Description of task is required',
-            required: todo_required,
+            required: translate('todo_required'),
             minLength: {
               value: 3,
-              // message: 'Description must be at least 3 characters',
-              message: todo_short_msg,
+              message: translate('todo_short_msg'),
             },
             maxLength: {
               value: 70,
-              // message: 'Description must be at most 70 characters',
-              message: todo_long_msg,
+              message: translate('todo_long_msg'),
             },
           }}
           setValue={setValue}
@@ -133,7 +125,7 @@ const ModalFormCreateUpdateTodo = ({
           aria-label="Save todo"
           type="submit"
           color="primary"
-          title="Save"
+          title={intl.formatMessage({ id: 'save' })}
         >
           <SaveAltRounded />
         </IconButton>
@@ -144,7 +136,6 @@ const ModalFormCreateUpdateTodo = ({
           color="primary"
           endIcon={<SaveAltRounded>Save</SaveAltRounded>}
         >
-          {/* Save */}
           {translate('save')}
         </Button>
       )}

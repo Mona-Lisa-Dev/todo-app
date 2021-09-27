@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
+import { useIntl } from 'react-intl';
 import _debouce from 'lodash/debounce';
 
 import { TextField, IconButton, useMediaQuery } from '@material-ui/core';
@@ -18,6 +19,7 @@ const Search = () => {
   const [showModal, setShowModal] = useState(false);
   const [clearSearch, setClearSearch] = useState(false);
   const dispatch = useDispatch();
+  const intl = useIntl();
 
   const handleToggleModal = () => setShowModal(!showModal);
 
@@ -64,7 +66,6 @@ const Search = () => {
           <form className={styles.searchForm} onSubmit={onSubmitOnMobile}>
             <TextField
               type="text"
-              // label="Search"
               label={translate('search')}
               variant="outlined"
               value={value}
@@ -75,7 +76,7 @@ const Search = () => {
               aria-label="Search"
               type="submit"
               color="primary"
-              title="Search"
+              title={intl.formatMessage({ id: 'search' })}
             >
               <SearchIcon />
             </IconButton>
@@ -91,7 +92,7 @@ const Search = () => {
                 aria-label="Clear search"
                 type="button"
                 color="primary"
-                title="Clear search"
+                title={intl.formatMessage({ id: 'clear_search' })}
                 onClick={reset}
               >
                 <Clear />
@@ -102,7 +103,7 @@ const Search = () => {
                 aria-label="Open search"
                 type="button"
                 color="primary"
-                title="Search"
+                title={intl.formatMessage({ id: 'search' })}
                 onClick={handleToggleModal}
               >
                 <SearchIcon />
@@ -116,14 +117,13 @@ const Search = () => {
               aria-label="Clear search"
               type="button"
               color="primary"
-              title="Clear search"
+              title={intl.formatMessage({ id: 'clear_search' })}
               onClick={reset}
             >
               <Clear />
             </IconButton>
             <TextField
               type="text"
-              // label="Search"
               label={translate('search')}
               variant="outlined"
               value={value}

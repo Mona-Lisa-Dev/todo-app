@@ -66,6 +66,12 @@ export default {
     welcome: 'Добро пожаловать',
     guest: 'Гость',
     logout: 'Выйти',
+    close_modal: 'Закрыть модальное окно',
+    clear_search: 'Очистить поиск',
+    show_all_todos: 'Показать все задачи',
+    delete_task: 'Удалить задачу',
+    update_task: 'Обновить задачу',
+    exit: 'Выход',
 
     // slider
     title_1slider: 'Полосатый кот',

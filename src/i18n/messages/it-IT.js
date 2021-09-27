@@ -66,6 +66,12 @@ export default {
     welcome: 'Benvenuto',
     guest: 'Ospite',
     logout: 'Esci',
+    close_modal: 'Chiudi modale',
+    clear_search: 'Cancella ricerca',
+    show_all_todos: 'Mostra tutte le attività',
+    delete_task: 'Elimina attività',
+    update_task: 'Attività di aggiornamento',
+    exit: 'Uscita',
 
     // slider
     title_1slider: 'Gatto soriano',

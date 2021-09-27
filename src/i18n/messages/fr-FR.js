@@ -66,6 +66,12 @@ export default {
     welcome: 'Bienvenue',
     guest: 'Invité',
     logout: 'Déconnexion',
+    close_modal: 'Fermer le modal',
+    clear_search: 'Effacer la recherche',
+    show_all_todos: 'Afficher toutes les tâches',
+    delete_task: 'Supprimer la tâche',
+    update_task: 'Tâche de mise à jour',
+    exit: 'Sortir',
 
     // slider
     title_1slider: 'Chat tigré',

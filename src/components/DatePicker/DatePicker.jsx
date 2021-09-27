@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useIntl } from 'react-intl';
 import { TextField, IconButton, useMediaQuery } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
@@ -12,6 +13,7 @@ import styles from './DatePicker.module.scss';
 const DatePicker = () => {
   const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
   const dispatch = useDispatch();
+  const intl = useIntl();
 
   const reset = () => {
     const today = new Date().toISOString().slice(0, 10);
@@ -38,7 +40,7 @@ const DatePicker = () => {
           aria-label="Show all todos"
           type="reset"
           color="primary"
-          title="Show all todos"
+          title={intl.formatMessage({ id: 'show_all_todos' })}
           onClick={reset}
         >
           <ArrowBackIcon />

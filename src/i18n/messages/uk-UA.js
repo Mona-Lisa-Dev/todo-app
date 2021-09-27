@@ -66,6 +66,12 @@ export default {
     welcome: 'Ласкаво просимо',
     guest: 'Гість',
     logout: 'Вихід',
+    close_modal: 'Закрити модальне вікно',
+    clear_search: 'Очистити пошук',
+    show_all_todos: 'Показати всі завдання',
+    delete_task: 'Видалити завдання',
+    update_task: 'Оновити завдання',
+    exit: 'Вихід',
 
     // slider
     title_1slider: 'Полосатий кіт',

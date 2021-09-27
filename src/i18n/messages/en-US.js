@@ -66,6 +66,12 @@ export default {
     welcome: 'Welcome',
     guest: 'Guest',
     logout: 'Logout',
+    close_modal: 'Close modal',
+    clear_search: 'Clear search',
+    show_all_todos: 'Show all todos',
+    delete_task: 'Delete task',
+    update_task: 'Update task',
+    exit: 'Exit',
 
     // slider
     title_1slider: 'Tabby cat',

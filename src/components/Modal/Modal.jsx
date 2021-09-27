@@ -1,6 +1,7 @@
 import { useEffect, useContext } from 'react';
 import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
+import { useIntl } from 'react-intl';
 import { IconButton } from '@material-ui/core';
 import { Close } from '@material-ui/icons';
 
@@ -16,6 +17,8 @@ const Modal = ({ children, onClose }) => {
     theme === 'light'
       ? `${styles.modal} ${styles.lightModal}`
       : `${styles.modal} ${styles.darkModal}`;
+
+  const intl = useIntl();
 
   useEffect(() => {
     const onEscHandler = event => {
@@ -44,7 +47,7 @@ const Modal = ({ children, onClose }) => {
           aria-label="Close modal"
           type="button"
           onClick={onClose}
-          title="Close modal"
+          title={intl.formatMessage({ id: 'close_modal' })}
         >
           <Close />
         </IconButton>

@@ -33,8 +33,7 @@ const Charts = ({ complete, notComplete }) => {
     });
 
     return () => myChart.destroy();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [complete, notComplete]);
+  }, [complete, intl, notComplete]);
 
   useEffect(() => {
     const canvas = canvasRefBar.current;
@@ -61,8 +60,7 @@ const Charts = ({ complete, notComplete }) => {
     });
 
     return () => myChart.destroy();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [complete, notComplete]);
+  }, [complete, intl, notComplete]);
 
   return (
     <div className={styles.chartWrapper}>

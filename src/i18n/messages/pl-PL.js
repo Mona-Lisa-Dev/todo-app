@@ -66,6 +66,12 @@ export default {
     welcome: 'Witamy',
     guest: 'Gość',
     logout: 'Wyloguj',
+    close_modal: 'Zamknij modal',
+    clear_search: 'Wyczyść wyszukiwanie',
+    show_all_todos: 'Pokaż wszystkie zadania',
+    delete_task: 'Usuń zadanie',
+    update_task: 'Aktualizuj zadanie',
+    exit: 'Wyjście',
 
     // slider
     title_1slider: 'Kot pręgowany',
