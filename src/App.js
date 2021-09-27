@@ -94,155 +94,98 @@ const App = () => {
                     component={TodosPage}
                   />
 
-                  <Route
+                  <PrivateRoute
                     path={`${routes.todos}/sortBy`}
-                    render={props =>
-                      isAuthorized ? (
-                        <TodosPage {...props} chooseSort="sortBy" />
-                      ) : (
-                        <Redirect
-                          to={{
-                            pathname: routes.login,
-                            state: { from: props.location },
-                          }}
-                        />
-                      )
-                    }
+                    redirectTo={routes.login}
+                    component={props => (
+                      <TodosPage {...props} chooseSort="sortBy" />
+                    )}
                   />
-                  <Route
+
+                  <PrivateRoute
                     path={`${routes.todos}/sortByDesc`}
-                    render={props =>
-                      isAuthorized ? (
-                        <TodosPage {...props} chooseSort="sortByDesc" />
-                      ) : (
-                        <Redirect
-                          to={{
-                            pathname: routes.login,
-                            state: { from: props.location },
-                          }}
-                        />
-                      )
-                    }
+                    redirectTo={routes.login}
+                    component={props => (
+                      <TodosPage {...props} chooseSort="sortByDesc" />
+                    )}
                   />
-                  <Route
+
+                  <PrivateRoute
                     path={`${routes.todos}/completed`}
                     exact
-                    render={props =>
-                      isAuthorized ? (
-                        <TodosPage
-                          {...props}
-                          chooseStatus={true}
-                          chooseCompleted={true}
-                        />
-                      ) : (
-                        <Redirect
-                          to={{
-                            pathname: routes.login,
-                            state: { from: props.location },
-                          }}
-                        />
-                      )
-                    }
+                    redirectTo={routes.login}
+                    component={props => (
+                      <TodosPage
+                        {...props}
+                        chooseStatus={true}
+                        chooseCompleted={true}
+                      />
+                    )}
                   />
-                  <Route
+
+                  <PrivateRoute
                     path={`${routes.todos}/completed/sortBy`}
-                    render={props =>
-                      isAuthorized ? (
-                        <TodosPage
-                          {...props}
-                          chooseStatus={true}
-                          chooseCompleted={true}
-                          chooseSort="sortBy"
-                        />
-                      ) : (
-                        <Redirect
-                          to={{
-                            pathname: routes.login,
-                            state: { from: props.location },
-                          }}
-                        />
-                      )
-                    }
+                    redirectTo={routes.login}
+                    component={props => (
+                      <TodosPage
+                        {...props}
+                        chooseStatus={true}
+                        chooseCompleted={true}
+                        chooseSort="sortBy"
+                      />
+                    )}
                   />
-                  <Route
+
+                  <PrivateRoute
                     path={`${routes.todos}/completed/sortByDesc`}
-                    render={props =>
-                      isAuthorized ? (
-                        <TodosPage
-                          {...props}
-                          chooseStatus={true}
-                          chooseCompleted={true}
-                          chooseSort="sortByDesc"
-                        />
-                      ) : (
-                        <Redirect
-                          to={{
-                            pathname: routes.login,
-                            state: { from: props.location },
-                          }}
-                        />
-                      )
-                    }
+                    redirectTo={routes.login}
+                    component={props => (
+                      <TodosPage
+                        {...props}
+                        chooseStatus={true}
+                        chooseCompleted={true}
+                        chooseSort="sortByDesc"
+                      />
+                    )}
                   />
-                  <Route
+
+                  <PrivateRoute
                     path={`${routes.todos}/not_completed`}
                     exact
-                    render={props =>
-                      isAuthorized ? (
-                        <TodosPage
-                          {...props}
-                          chooseStatus={true}
-                          chooseCompleted={false}
-                        />
-                      ) : (
-                        <Redirect
-                          to={{
-                            pathname: routes.login,
-                            state: { from: props.location },
-                          }}
-                        />
-                      )
-                    }
+                    redirectTo={routes.login}
+                    component={props => (
+                      <TodosPage
+                        {...props}
+                        chooseStatus={true}
+                        chooseCompleted={false}
+                      />
+                    )}
                   />
-                  <Route
+
+                  <PrivateRoute
                     path={`${routes.todos}/not_completed/sortBy`}
-                    render={props =>
-                      isAuthorized ? (
-                        <TodosPage
-                          {...props}
-                          chooseStatus={true}
-                          chooseCompleted={false}
-                          chooseSort="sortBy"
-                        />
-                      ) : (
-                        <Redirect
-                          to={{
-                            pathname: routes.login,
-                            state: { from: props.location },
-                          }}
-                        />
-                      )
-                    }
+                    redirectTo={routes.login}
+                    component={props => (
+                      <TodosPage
+                        {...props}
+                        chooseStatus={true}
+                        chooseCompleted={false}
+                        chooseSort="sortBy"
+                      />
+                    )}
                   />
-                  <Route
+
+                  <PrivateRoute
                     path={`${routes.todos}/not_completed/sortByDesc`}
-                    render={props =>
-                      isAuthorized ? (
-                        <TodosPage
-                          {...props}
-                          chooseStatus={true}
-                          chooseCompleted={false}
-                          chooseSort="sortByDesc"
-                        />
-                      ) : (
-                        <Redirect
-                          to={{
-                            pathname: routes.login,
-                            state: { from: props.location },
-                          }}
-                        />
-                      )
-                    }
+                    redirectTo={routes.login}
+                    component={props => (
+                      <TodosPage
+                        {...props}
+                        chooseStatus={true}
+                        chooseCompleted={false}
+                        chooseSort="sortByDesc"
+                      />
+                    )}
                   />
 
                   <PrivateRoute
@@ -266,7 +209,7 @@ const App = () => {
 
                   <Route
                     path={routes.home}
-                    render={props =>
+                    render={() =>
                       isAuthorized ? (
                         <Redirect to={routes.todos} />
                       ) : (

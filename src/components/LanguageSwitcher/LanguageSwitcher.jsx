@@ -31,7 +31,7 @@ const LanguageSwitcher = ({ locale, onChange }) => {
           US: 'English',
           UA: 'Українська',
           RU: 'Русский',
-          PL: 'Polskie',
+          PL: 'Polski',
           FR: 'Français',
           DE: 'Deutsche',
           IT: 'Italiano',

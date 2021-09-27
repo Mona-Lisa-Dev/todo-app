@@ -9,15 +9,24 @@ import styles from './AlertError.module.scss';
 const AlertError = ({ error }) => {
   const dispatch = useDispatch();
 
+  const handleClose = () => dispatch(clearError());
+  const handleOverlayClick = event => {
+    if (event.currentTarget === event.target) {
+      handleClose();
+    }
+  };
+
   return (
-    <Alert
-      className={styles.alert}
-      variant="filled"
-      severity="error"
-      onClose={() => dispatch(clearError())}
-    >
-      {error}
-    </Alert>
+    <div className={styles.alertWrapper} onClick={handleOverlayClick}>
+      <Alert
+        className={styles.alert}
+        variant="filled"
+        severity="error"
+        onClose={handleClose}
+      >
+        {error}
+      </Alert>
+    </div>
   );
 };
 

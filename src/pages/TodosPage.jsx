@@ -24,7 +24,6 @@ import {
 import { getErrorMessage } from 'redux/error/error-selectors';
 import { getTodosByPage, getTodosByStatus } from 'redux/todos/todos-operations';
 
-// const TodosPage = () => {
 const TodosPage = ({
   chooseStatus = false,
   chooseCompleted = false,
@@ -33,10 +32,6 @@ const TodosPage = ({
   const [byStatus, setByStatus] = useState(chooseStatus);
   const [completed, setCompleted] = useState(chooseCompleted);
   const [sort, setSort] = useState(chooseSort);
-
-  // const [byStatus, setByStatus] = useState(false);
-  // const [completed, setCompleted] = useState(false);
-  // const [sort, setSort] = useState('');
 
   const [renderPagination, setRenderPagination] = useState(false);
   const [page, setPage] = useState(1);
