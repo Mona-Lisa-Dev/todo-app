@@ -16,12 +16,14 @@ import authPersistConfig from './auth/auth-persist-config';
 import authReducer from './auth/auth-reducer';
 import todosReducer from './todos/todos-reducer';
 import errorReducer from './error/error-reducer';
+import adminReducer from './admin/admin-reducer';
 
 export const store = configureStore({
   reducer: {
     auth: persistReducer(authPersistConfig, authReducer),
     todos: todosReducer,
     error: errorReducer,
+    admin: adminReducer,
   },
   middleware: getDefaultMiddleware => [
     ...getDefaultMiddleware({

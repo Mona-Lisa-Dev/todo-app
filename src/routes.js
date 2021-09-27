@@ -4,5 +4,6 @@ const routes = {
   login: '/login',
   todos: '/todos',
   slider: '/slider',
+  admin: '/admin',
 };
 export default routes;

@@ -15,11 +15,15 @@ import {
   getIsAuthorized,
   getStatusLoadingUser,
 } from 'redux/auth/auth-selectors';
+import { getIsAdmin } from 'redux/admin/admin-selectors';
 import { I18nProvider, LOCALES } from 'i18n';
 
 import routes from 'routes';
 import './scss/_main.scss';
 
+const AdminPage = lazy(() =>
+  import('./pages/AdminPage' /* webpackChunkName: "AdminPage" */),
+);
 const LoginPage = lazy(() =>
   import('./pages/LoginPage' /* webpackChunkName: "LoginPage" */),
 );
@@ -69,6 +73,7 @@ const App = () => {
   };
 
   const isAuthorized = useSelector(getIsAuthorized);
+  const isAdmin = useSelector(getIsAdmin);
   const isLoadingUser = useSelector(getStatusLoadingUser);
   const dispatch = useDispatch();
   useEffect(() => dispatch(getCurrentUser()), [dispatch]);
@@ -87,13 +92,21 @@ const App = () => {
             <Suspense fallback={null}>
               {isLoadingUser || (
                 <Switch>
+                  {isAdmin && (
+                    <PrivateRoute
+                      path={routes.admin}
+                      exact
+                      component={AdminPage}
+                      redirectTo={routes.login}
+                    />
+                  )}
+
                   <PrivateRoute
                     path={routes.todos}
                     redirectTo={routes.login}
                     exact
                     component={TodosPage}
                   />
-
                   <PrivateRoute
                     path={`${routes.todos}/sortBy`}
                     redirectTo={routes.login}
@@ -101,7 +114,6 @@ const App = () => {
                       <TodosPage {...props} chooseSort="sortBy" />
                     )}
                   />
-
                   <PrivateRoute
                     path={`${routes.todos}/sortByDesc`}
                     redirectTo={routes.login}
@@ -109,7 +121,6 @@ const App = () => {
                       <TodosPage {...props} chooseSort="sortByDesc" />
                     )}
                   />
-
                   <PrivateRoute
                     path={`${routes.todos}/completed`}
                     exact
@@ -122,7 +133,6 @@ const App = () => {
                       />
                     )}
                   />
-
                   <PrivateRoute
                     path={`${routes.todos}/completed/sortBy`}
                     redirectTo={routes.login}
@@ -135,7 +145,6 @@ const App = () => {
                       />
                     )}
                   />
-
                   <PrivateRoute
                     path={`${routes.todos}/completed/sortByDesc`}
                     redirectTo={routes.login}
@@ -148,7 +157,6 @@ const App = () => {
                       />
                     )}
                   />
-
                   <PrivateRoute
                     path={`${routes.todos}/not_completed`}
                     exact
@@ -161,7 +169,6 @@ const App = () => {
                       />
                     )}
                   />
-
                   <PrivateRoute
                     path={`${routes.todos}/not_completed/sortBy`}
                     redirectTo={routes.login}
@@ -174,7 +181,6 @@ const App = () => {
                       />
                     )}
                   />
-
                   <PrivateRoute
                     path={`${routes.todos}/not_completed/sortByDesc`}
                     redirectTo={routes.login}
@@ -187,13 +193,11 @@ const App = () => {
                       />
                     )}
                   />
-
                   <PrivateRoute
                     path={routes.slider}
                     component={SliderPage}
                     redirectTo={routes.login}
                   />
-
                   <PublicRoute
                     path={routes.signup}
                     redirectTo={routes.todos}
@@ -206,7 +210,6 @@ const App = () => {
                     restricted
                     component={LoginPage}
                   />
-
                   <Route
                     path={routes.home}
                     render={() =>

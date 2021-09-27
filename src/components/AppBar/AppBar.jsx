@@ -6,6 +6,7 @@ import AuthNav from 'components/AuthNav';
 import UserMenu from 'components/UserMenu';
 import Navigation from 'components/Navigation';
 import LanguageSwitcher from 'components/LanguageSwitcher';
+import AdminPanel from 'components/AdminPanel';
 
 import { getIsAuthorized } from 'redux/auth/auth-selectors';
 import styles from './AppBar.module.scss';
@@ -15,6 +16,8 @@ const AppBar = ({ themeToggler, locale, onChange }) => {
 
   return (
     <div className={styles.AppBar}>
+      <AdminPanel />
+
       <div className={styles.switcherWrapper}>
         <LanguageSwitcher locale={locale} onChange={onChange} />
         <ThemeButton themeToggler={themeToggler} />

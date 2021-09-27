@@ -20,6 +20,7 @@ import { store } from 'redux/store';
 const { dispatch } = store;
 
 axios.defaults.baseURL = 'https://restapi-todos.herokuapp.com/api';
+// axios.defaults.baseURL = 'http://localhost:5000/api';
 
 axios.interceptors.response.use(
   response =>
