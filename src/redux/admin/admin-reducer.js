@@ -2,9 +2,27 @@ import { combineReducers } from 'redux';
 import { createReducer } from '@reduxjs/toolkit';
 
 import {
-  getAllUsersRequest,
+  // getAllUsersRequest,
   getAllUsersSuccess,
   getAllUsersError,
+  // getAllTasksRequest,
+  getAllTasksSuccess,
+  // getAllTasksError,
+  // getUserByIdRequest,
+  getUserByIdSuccess,
+  // getUserByIdError,
+  // createUserRequest,
+  createUserSuccess,
+  // createUserError,
+  // updateUserRequest,
+  updateUserSuccess,
+  // updateUserError,
+  // updateCompletedRequest,
+  updateCompletedSuccess,
+  // updateCompletedError,
+  // deleteUserRequest,
+  deleteUserSuccess,
+  // deleteUserError,
 } from './admin-actions';
 
 import {
@@ -16,14 +34,29 @@ import {
 const users = createReducer([], {
   [getAllUsersSuccess]: (_, { payload }) => payload,
 
+  [createUserSuccess]: (state, { payload }) => [...state, payload],
+  [deleteUserSuccess]: (state, { payload }) =>
+    state.filter(({ id }) => id !== payload),
+  [updateUserSuccess]: (state, { payload }) =>
+    state.map(item => (item.id === payload.id ? payload : item)),
+  [updateCompletedSuccess]: (state, { payload }) =>
+    state.map(item => (item.id === payload.id ? payload : item)),
+
+  [logoutSuccess]: () => [],
+});
+
+const user = createReducer(null, {
+  [getUserByIdSuccess]: (_, { payload }) => payload,
+});
+
+const tasks = createReducer([], {
+  [getAllTasksSuccess]: (_, { payload }) => payload,
+
   [logoutSuccess]: () => [],
 });
 
 const isAdmin = createReducer(false, {
-  // todo: міняється на тру тільки якщо зайшов адмін
   [getAllUsersSuccess]: () => true,
-
-  [getAllUsersRequest]: () => false,
   [getAllUsersError]: () => false,
 
   [loginSuccess]: (_, { payload }) =>
@@ -36,5 +69,7 @@ const isAdmin = createReducer(false, {
 
 export default combineReducers({
   users,
+  user,
+  tasks,
   isAdmin,
 });

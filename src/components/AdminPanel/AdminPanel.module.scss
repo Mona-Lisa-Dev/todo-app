@@ -2,11 +2,13 @@
 @import 'scss/breakpoints';
 
 .AdminPanel {
-  //   display: flex;
-  //   justify-content: flex-start;
-  //   align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-  //   margin: 0 auto;
+  @media screen and (max-width: $mobile-max) {
+    flex-direction: column;
+  }
 }
 
 .NavLink {

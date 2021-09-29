@@ -4,6 +4,7 @@ const routes = {
   login: '/login',
   todos: '/todos',
   slider: '/slider',
-  admin: '/admin',
+  allUsers: '/admin/users',
+  allTasks: '/admin/tasks',
 };
 export default routes;

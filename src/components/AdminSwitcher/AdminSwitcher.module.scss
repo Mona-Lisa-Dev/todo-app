@@ -1,0 +1,50 @@
+@import 'scss/vars';
+
+.AdminButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 5px;
+  margin-left: 10px;
+
+  width: 100px;
+
+  border: none;
+  outline: none;
+
+  border-radius: 4px;
+  background-color: $accent;
+
+  box-shadow: $main-shadow;
+
+  overflow: hidden;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $accent-hover;
+  }
+
+  p {
+    max-width: 50px;
+    height: auto;
+    transition: all 0.3s linear;
+    color: $white-text;
+
+    &.adminPanel:first-child {
+      transform: translateX(0);
+    }
+
+    &.userPanel:first-child {
+      transform: translateX(100px);
+    }
+
+    &.adminPanel:nth-child(2) {
+      transform: translateX(-100px);
+    }
+
+    &.userPanel:nth-child(2) {
+      transform: translateX(0);
+    }
+  }
+}

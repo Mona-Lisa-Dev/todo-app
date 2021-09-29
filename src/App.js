@@ -21,8 +21,11 @@ import { I18nProvider, LOCALES } from 'i18n';
 import routes from 'routes';
 import './scss/_main.scss';
 
-const AdminPage = lazy(() =>
-  import('./pages/AdminPage' /* webpackChunkName: "AdminPage" */),
+const AllUsersPage = lazy(() =>
+  import('./pages/AllUsersPage' /* webpackChunkName: "AllUsersPage" */),
+);
+const AllTasksPage = lazy(() =>
+  import('./pages/AllTasksPage' /* webpackChunkName: "AllTasksPage" */),
 );
 const LoginPage = lazy(() =>
   import('./pages/LoginPage' /* webpackChunkName: "LoginPage" */),
@@ -40,6 +43,12 @@ const SliderPage = lazy(() =>
 const App = () => {
   const [theme, setTheme] = useState('light');
   const [locale, setLocal] = useState(LOCALES.ENGLISH);
+  const [adminPanel, setAdminPanel] = useState('user');
+
+  const isAuthorized = useSelector(getIsAuthorized);
+  const isAdmin = useSelector(getIsAdmin);
+  const isLoadingUser = useSelector(getStatusLoadingUser);
+  const dispatch = useDispatch();
 
   // const history = useHistory();
   const location = useLocation();
@@ -54,9 +63,26 @@ const App = () => {
       window.localStorage.setItem('theme', 'light');
     }
   };
+
+  const handleChangeLocale = code => {
+    setLocal(code);
+    window.localStorage.setItem('locale', code);
+  };
+
+  const adminToggler = () => {
+    if (adminPanel === 'admin') {
+      setAdminPanel('user');
+      window.localStorage.setItem('admin', 'user');
+    } else {
+      setAdminPanel('admin');
+      window.localStorage.setItem('admin', 'admin');
+    }
+  };
+
   useEffect(() => {
     const localTheme = window.localStorage.getItem('theme');
     const localeLanguage = window.localStorage.getItem('locale');
+    const adminPanel = window.localStorage.getItem('admin');
 
     localTheme
       ? setTheme(localTheme)
@@ -65,17 +91,12 @@ const App = () => {
     localeLanguage
       ? setLocal(localeLanguage)
       : window.localStorage.setItem('locale', LOCALES.ENGLISH);
+
+    adminPanel
+      ? setAdminPanel(adminPanel)
+      : window.localStorage.setItem('admin', 'admin');
   }, []);
 
-  const handleChangeLocale = code => {
-    setLocal(code);
-    window.localStorage.setItem('locale', code);
-  };
-
-  const isAuthorized = useSelector(getIsAuthorized);
-  const isAdmin = useSelector(getIsAdmin);
-  const isLoadingUser = useSelector(getStatusLoadingUser);
-  const dispatch = useDispatch();
   useEffect(() => dispatch(getCurrentUser()), [dispatch]);
 
   return (
@@ -86,21 +107,14 @@ const App = () => {
             themeToggler={themeToggler}
             locale={locale}
             onChange={handleChangeLocale}
+            adminToggler={adminToggler}
+            adminPanel={adminPanel}
           />
 
           <Container>
             <Suspense fallback={null}>
               {isLoadingUser || (
                 <Switch>
-                  {isAdmin && (
-                    <PrivateRoute
-                      path={routes.admin}
-                      exact
-                      component={AdminPage}
-                      redirectTo={routes.login}
-                    />
-                  )}
-
                   <PrivateRoute
                     path={routes.todos}
                     redirectTo={routes.login}
@@ -198,6 +212,24 @@ const App = () => {
                     component={SliderPage}
                     redirectTo={routes.login}
                   />
+
+                  {isAdmin && (
+                    <PrivateRoute
+                      path={routes.allUsers}
+                      exact
+                      component={AllUsersPage}
+                      redirectTo={routes.login}
+                    />
+                  )}
+                  {isAdmin && (
+                    <PrivateRoute
+                      path={routes.allTasks}
+                      exact
+                      component={AllTasksPage}
+                      redirectTo={routes.login}
+                    />
+                  )}
+
                   <PublicRoute
                     path={routes.signup}
                     redirectTo={routes.todos}
@@ -206,7 +238,11 @@ const App = () => {
                   />
                   <PublicRoute
                     path={routes.login}
-                    redirectTo={location?.state?.from?.pathname || routes.todos}
+                    redirectTo={
+                      location?.state?.from?.pathname || isAdmin
+                        ? routes.allUsers
+                        : routes.todos
+                    }
                     restricted
                     component={LoginPage}
                   />

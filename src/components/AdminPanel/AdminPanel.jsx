@@ -3,16 +3,26 @@ import { NavLink } from 'react-router-dom';
 import routes from 'routes';
 import styles from './AdminPanel.module.scss';
 
-const AdminPanel = () => (
-  <div className={styles.AdminPanel}>
-    <NavLink
-      to={routes.admin}
-      className={styles.NavLink}
-      activeClassName={styles.NavLinkActive}
-    >
-      Admin
-    </NavLink>
-  </div>
-);
+const AdminPanel = () => {
+  return (
+    <div className={styles.AdminPanel}>
+      <NavLink
+        to={routes.allUsers}
+        className={styles.NavLink}
+        activeClassName={styles.NavLinkActive}
+      >
+        Users
+      </NavLink>
+
+      <NavLink
+        to={routes.allTasks}
+        className={styles.NavLink}
+        activeClassName={styles.NavLinkActive}
+      >
+        Tasks
+      </NavLink>
+    </div>
+  );
+};
 
 export default AdminPanel;
