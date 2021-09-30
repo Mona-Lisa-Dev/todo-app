@@ -35,7 +35,11 @@ const RegisterForm = () => {
     const user = getValues();
     let isValid = await trigger();
 
-    if (isValid) dispatch(signup(user));
+    // console.log('user', user);
+
+    const { age, email, name, password } = user;
+
+    if (isValid) dispatch(signup({ age, email, name, password }));
   };
 
   const signupText = translate('signup');

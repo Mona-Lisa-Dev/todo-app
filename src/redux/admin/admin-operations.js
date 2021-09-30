@@ -24,6 +24,15 @@ import {
   deleteUserError,
 } from './admin-actions';
 
+import {
+  deleteTodoRequest,
+  deleteTodoSuccess,
+  deleteTodoError,
+  updateTodoRequest,
+  updateTodoSuccess,
+  updateTodoError,
+} from '../todos/todos-actions';
+
 export const getUsers = () => async dispatch => {
   dispatch(getAllUsersRequest());
 
@@ -52,23 +61,6 @@ export const getUserById = id => async dispatch => {
     return data.user;
   } catch (error) {
     dispatch(getUserByIdError(error.message));
-  }
-};
-
-export const getTasks = () => async dispatch => {
-  dispatch(getAllTasksRequest());
-
-  try {
-    const {
-      data: {
-        data: { tasks },
-      },
-    } = await axios.get('/admin/tasks');
-    dispatch(getAllTasksSuccess(tasks));
-
-    return tasks;
-  } catch (error) {
-    dispatch(getAllTasksError(error.message));
   }
 };
 
@@ -125,3 +117,46 @@ export const updateCompleted = (id, updatedCompleted) => async dispatch => {
     dispatch(updateCompletedError());
   }
 };
+
+export const getTasks = () => async dispatch => {
+  dispatch(getAllTasksRequest());
+
+  try {
+    const {
+      data: {
+        data: { tasks },
+      },
+    } = await axios.get('/admin/tasks');
+    dispatch(getAllTasksSuccess(tasks));
+
+    return tasks;
+  } catch (error) {
+    dispatch(getAllTasksError(error.message));
+  }
+};
+
+export const deleteTaskByAdmin = (ownerId, taskId) => async dispatch => {
+  dispatch(deleteTodoRequest());
+
+  try {
+    await axios.delete(`/admin/tasks/${ownerId}/${taskId}`);
+    dispatch(deleteTodoSuccess(taskId));
+  } catch (error) {
+    dispatch(deleteTodoError(error.message));
+  }
+};
+
+export const updateTodoByAdmin =
+  (ownerId, taskId, updatedTodo) => async dispatch => {
+    dispatch(updateTodoRequest());
+
+    try {
+      const {
+        data: { data },
+      } = await axios.put(`/admin/tasks/${ownerId}/${taskId}`, updatedTodo);
+      dispatch(updateTodoSuccess(data.task));
+      return data.task;
+    } catch (error) {
+      dispatch(updateTodoError(error.message));
+    }
+  };

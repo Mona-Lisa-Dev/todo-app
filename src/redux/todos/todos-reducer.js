@@ -42,6 +42,8 @@ const itemsLength = createReducer(null, {
   [getByStatusSuccess]: (_, { payload }) => payload.totalTodos,
   [addTodoSuccess]: (state, _) => state + 1,
   [deleteTodoSuccess]: (state, _) => state - 1,
+
+  [logoutSuccess]: () => null,
 });
 
 const itemsForPagination = createReducer(null, {
@@ -49,6 +51,8 @@ const itemsForPagination = createReducer(null, {
   [getByPageSuccess]: (_, { payload }) => payload.totalByStatus,
   [addTodoSuccess]: (state, _) => state + 1,
   [deleteTodoSuccess]: (state, _) => state - 1,
+
+  [logoutSuccess]: () => null,
 });
 
 const completeItems = createReducer(null, {
@@ -58,6 +62,8 @@ const completeItems = createReducer(null, {
     payload.isDone ? state + 1 : state,
   [updateTodoSuccess]: (state, { payload }) =>
     payload.isDone ? state + 1 : state - 1,
+
+  [logoutSuccess]: () => null,
 });
 
 const notCompleteItems = createReducer(null, {
@@ -67,6 +73,8 @@ const notCompleteItems = createReducer(null, {
     payload.isDone ? state : state + 1,
   [updateTodoSuccess]: (state, { payload }) =>
     payload.isDone ? state - 1 : state + 1,
+
+  [logoutSuccess]: () => null,
 });
 
 const filter = createReducer([], {

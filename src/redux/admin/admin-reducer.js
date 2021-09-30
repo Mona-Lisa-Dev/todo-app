@@ -26,6 +26,18 @@ import {
 } from './admin-actions';
 
 import {
+  addTodoSuccess,
+  // deleteTodoRequest,
+  deleteTodoSuccess,
+  // deleteTodoError,
+  // updateTodoRequest,
+  updateTodoSuccess,
+  // updateTodoError,
+} from '../todos/todos-actions';
+
+import { signupSuccess } from '../auth/auth-actions';
+
+import {
   loginSuccess,
   logoutSuccess,
   getCurrentUserSuccess,
@@ -35,6 +47,7 @@ const users = createReducer([], {
   [getAllUsersSuccess]: (_, { payload }) => payload,
 
   [createUserSuccess]: (state, { payload }) => [...state, payload],
+  [signupSuccess]: (state, { payload }) => [...state, payload],
   [deleteUserSuccess]: (state, { payload }) =>
     state.filter(({ id }) => id !== payload),
   [updateUserSuccess]: (state, { payload }) =>
@@ -51,6 +64,12 @@ const user = createReducer(null, {
 
 const tasks = createReducer([], {
   [getAllTasksSuccess]: (_, { payload }) => payload,
+
+  [addTodoSuccess]: (state, { payload }) => [...state, payload],
+  [deleteTodoSuccess]: (state, { payload }) =>
+    state.filter(({ _id }) => _id !== payload),
+  [updateTodoSuccess]: (state, { payload }) =>
+    state.map(item => (item._id === payload._id ? payload : item)),
 
   [logoutSuccess]: () => [],
 });

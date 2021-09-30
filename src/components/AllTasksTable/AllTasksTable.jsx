@@ -1,27 +1,40 @@
 import { useMemo, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 import { DataGrid, GridActionsCellItem } from '@mui/x-data-grid';
 import { Delete, CheckCircleOutline } from '@material-ui/icons';
 
+import {
+  deleteTaskByAdmin,
+  updateTodoByAdmin,
+} from 'redux/admin/admin-operations';
+
 const AllTasksTable = ({ tasks }) => {
+  const dispatch = useDispatch();
   const tasksForTable = tasks.map(task => {
     return { ...task, id: task._id };
   });
 
   const deleteTask = useCallback(
-    id => () => {
-      console.log('delete');
-    },
-    [],
+    (ownerId, taskId) => () => dispatch(deleteTaskByAdmin(ownerId, taskId)),
+    [dispatch],
   );
 
   const changeCompletedStatus = useCallback(
-    id => () => console.log('change'),
-    [],
+    (ownerId, taskId, isDone) => () =>
+      dispatch(updateTodoByAdmin(ownerId, taskId, { isDone: !isDone })),
+    [dispatch],
   );
 
   const updateHandler = useCallback(
-    ({ id, field, value }) => console.log('update'),
-    [],
+    ({ id, field, value, row }) => {
+      console.log('row', row);
+      const sameDescr = field === 'description' && row.description !== value;
+      const sameIsDone = field === 'isDone' && row.isDone !== value;
+      if (sameDescr || sameIsDone) {
+        dispatch(updateTodoByAdmin(row.owner, id, { [field]: value }));
+      }
+    },
+    [dispatch],
   );
 
   const columns = useMemo(
@@ -59,13 +72,17 @@ const AllTasksTable = ({ tasks }) => {
           <GridActionsCellItem
             icon={<Delete />}
             label="Delete"
-            onClick={deleteTask(params.id)}
+            onClick={deleteTask(params.row.owner, params.id)}
             showInMenu
           />,
           <GridActionsCellItem
             icon={<CheckCircleOutline />}
             label="Change Completed"
-            onClick={changeCompletedStatus(params.id)}
+            onClick={changeCompletedStatus(
+              params.row.owner,
+              params.id,
+              params.row.isDone,
+            )}
             showInMenu
           />,
         ],
