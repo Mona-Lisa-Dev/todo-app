@@ -1,3 +1,12 @@
+@import 'scss/vars';
+
 .confirmation {
+  background-image: radial-gradient(
+    circle farthest-corner at center,
+    rgba(255, 255, 255, 0.7) 0%,
+    rgba(136, 143, 165, 0.7) 100%
+  );
+
+  color: $dark-text;
   padding: 20px;
 }

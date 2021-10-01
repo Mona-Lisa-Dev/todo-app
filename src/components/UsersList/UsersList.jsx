@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import { DataGrid, GridActionsCellItem } from '@mui/x-data-grid';
 import { Delete, Security, CheckCircleOutline } from '@material-ui/icons';
 
+// import Confirmation from 'components/Confirmation';
 import {
   deleteUser,
   updateUser,
@@ -14,6 +15,7 @@ import {
 } from 'redux/admin/admin-operations';
 
 const UsersList = ({ users }) => {
+  // const [openConfirmation, setOpenConfirmation] = useState(false);
   const dispatch = useDispatch();
 
   const deleteHandler = useCallback(

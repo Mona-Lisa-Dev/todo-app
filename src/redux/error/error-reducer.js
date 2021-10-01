@@ -11,9 +11,7 @@ import {
   addTodoRequest,
   deleteTodoRequest,
   updateTodoRequest,
-  getByPageRequest,
   getByQueryRequest,
-  clearFilter,
 } from 'redux/todos/todos-actions';
 
 const setError = (_, { payload }) => payload;
@@ -25,11 +23,9 @@ const isErrorMessage = createReducer('', {
   [logoutRequest]: () => null,
   [clearError]: () => null,
 
-  [clearFilter]: () => null,
   [addTodoRequest]: () => null,
   [deleteTodoRequest]: () => null,
   [updateTodoRequest]: () => null,
-  [getByPageRequest]: () => null,
   [getByQueryRequest]: () => null,
 });
 

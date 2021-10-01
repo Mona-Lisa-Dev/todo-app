@@ -1,20 +1,25 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useIntl } from 'react-intl';
 import { TextField, IconButton, useMediaQuery } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
-import { getTodosByDate } from 'redux/todos/todos-operations';
-import { clearFilter } from 'redux/todos/todos-actions';
+import { getTodos } from 'redux/todos/todos-operations';
+import { getFilterValue, getDateValue } from 'redux/todos/todos-selectors';
+import { setDateValue } from 'redux/todos/todos-actions';
 import { translate } from 'i18n';
 
 import styles from './DatePicker.module.scss';
 
-const DatePicker = () => {
-  const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
+const DatePicker = ({ limit, offset, byStatus, status, sort }) => {
+  const dateValue = useSelector(getDateValue);
+  const [date, setDate] = useState(
+    dateValue || new Date().toISOString().slice(0, 10),
+  );
   const [choosenDate, setChoosenDate] = useState(false);
   const dispatch = useDispatch();
   const intl = useIntl();
+  const filterValue = useSelector(getFilterValue);
 
   const classNameDatePicker = choosenDate
     ? styles.DatePicker
@@ -24,15 +29,21 @@ const DatePicker = () => {
     const today = new Date().toISOString().slice(0, 10);
     setDate(today);
     setChoosenDate(false);
-    dispatch(clearFilter());
+    dispatch(setDateValue(''));
+    dispatch(
+      getTodos(limit, offset, byStatus ? status : '', sort, filterValue, ''),
+    );
   };
 
   const handleChange = e => {
     const { value } = e.target;
     setDate(value);
     setChoosenDate(true);
+    dispatch(setDateValue(value));
 
-    dispatch(getTodosByDate(value));
+    dispatch(
+      getTodos(limit, offset, byStatus ? status : '', sort, filterValue, value),
+    );
   };
 
   const handleMinWidth = width => {

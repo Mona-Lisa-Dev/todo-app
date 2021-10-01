@@ -10,15 +10,9 @@ import {
   updateTodoRequest,
   updateTodoSuccess,
   updateTodoError,
-  getByPageRequest,
-  getByPageSuccess,
-  getByPageError,
   getByQueryRequest,
   getByQuerySuccess,
   getByQueryError,
-  getByStatusRequest,
-  getByStatusSuccess,
-  getByStatusError,
 } from './todos-actions';
 
 export const addTodo = todo => async dispatch => {
@@ -61,59 +55,10 @@ export const updateTodo = (id, updatedTodo) => async dispatch => {
   }
 };
 
-export const getTodosByPage = (limit, offset, sort) => async dispatch => {
-  dispatch(getByPageRequest());
-
-  try {
-    const {
-      data: {
-        data: { tasks },
-      },
-    } = await axios.get(
-      `/tasks?limit=${limit}&offset=${offset}&${sort}=description`,
-    );
-    dispatch(getByPageSuccess(tasks));
-    return tasks;
-  } catch (error) {
-    dispatch(getByPageError(error.message));
-  }
-};
-
-export const getTodosByQuery = query => async dispatch => {
-  dispatch(getByQueryRequest());
-
-  try {
-    const {
-      data: {
-        data: { tasks },
-      },
-    } = await axios.get(`/tasks/query=${query}`);
-    dispatch(getByQuerySuccess(tasks));
-    return tasks;
-  } catch (error) {
-    dispatch(getByQueryError(error.message));
-  }
-};
-
-export const getTodosByDate = date => async dispatch => {
-  dispatch(getByQueryRequest());
-
-  try {
-    const {
-      data: {
-        data: { tasks },
-      },
-    } = await axios.get(`/tasks/date=${date}`);
-    dispatch(getByQuerySuccess(tasks));
-    return tasks;
-  } catch (error) {
-    dispatch(getByQueryError(error.message));
-  }
-};
-
-export const getTodosByStatus =
-  (limit, offset, status, sort) => async dispatch => {
-    dispatch(getByStatusRequest());
+export const getTodos =
+  (limit, offset = 0, status, sort, query = '', date = null) =>
+  async dispatch => {
+    dispatch(getByQueryRequest());
 
     try {
       const {
@@ -121,11 +66,11 @@ export const getTodosByStatus =
           data: { tasks },
         },
       } = await axios.get(
-        `/tasks?limit=${limit}&offset=${offset}&isDone=${status}&${sort}=description`,
+        `/tasks?limit=${limit}&offset=${offset}&isDone=${status}&${sort}=description&query=${query}&date=${date}`,
       );
-      dispatch(getByStatusSuccess(tasks));
+      dispatch(getByQuerySuccess(tasks));
       return tasks;
     } catch (error) {
-      dispatch(getByStatusError(error.message));
+      dispatch(getByQueryError(error.message));
     }
   };

@@ -12,16 +12,9 @@ export const updateTodoRequest = createAction('todos/updateTodoRequest');
 export const updateTodoSuccess = createAction('todos/updateTodoSuccess');
 export const updateTodoError = createAction('todos/updateTodoError');
 
-export const getByPageRequest = createAction('todos/getByPageRequest');
-export const getByPageSuccess = createAction('todos/getByPageSuccess');
-export const getByPageError = createAction('todos/getByPageError');
-
-export const getByStatusRequest = createAction('todos/getByStatusRequest');
-export const getByStatusSuccess = createAction('todos/getByStatusSuccess');
-export const getByStatusError = createAction('todos/getByStatusError');
-
 export const getByQueryRequest = createAction('todos/getByQueryRequest');
 export const getByQuerySuccess = createAction('todos/getByQuerySuccess');
 export const getByQueryError = createAction('todos/getByQueryError');
 
-export const clearFilter = createAction('todos/clearFilter');
+export const setFilterValue = createAction('todos/setFilterValue');
+export const setDateValue = createAction('todos/setDateValue');

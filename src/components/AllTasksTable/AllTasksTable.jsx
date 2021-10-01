@@ -47,19 +47,19 @@ const AllTasksTable = ({ tasks }) => {
       {
         field: 'owner',
         headerName: 'Owner',
-        width: 110,
+        width: 250,
       },
       {
         field: 'description',
         headerName: 'Description',
-        width: 150,
+        // width: 150,
         editable: true,
       },
       {
         field: 'isDone',
         headerName: 'Completed',
         type: 'boolean',
-        width: 100,
+        // width: 100,
         editable: true,
       },
 
@@ -67,7 +67,7 @@ const AllTasksTable = ({ tasks }) => {
         field: 'actions',
         headerName: 'Actions',
         type: 'actions',
-        width: 80,
+        // width: 80,
         getActions: params => [
           <GridActionsCellItem
             icon={<Delete />}

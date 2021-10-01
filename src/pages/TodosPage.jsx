@@ -15,18 +15,19 @@ import TodosContentWrapper from 'components/TodosContentWrapper';
 import {
   getTodosByOnePage,
   getTotalTodos,
-  getFilter,
+  getFilterValue,
+  getDateValue,
   getLoadingTodos,
   getLengthForPagination,
   getCompleteTodos,
   getNotCompleteTodos,
 } from 'redux/todos/todos-selectors';
 import { getErrorMessage } from 'redux/error/error-selectors';
-import { getTodosByPage, getTodosByStatus } from 'redux/todos/todos-operations';
+import { getTodos } from 'redux/todos/todos-operations';
 
 const TodosPage = ({
   chooseStatus = false,
-  chooseCompleted = false,
+  chooseCompleted = '',
   chooseSort = '',
 }) => {
   const [byStatus, setByStatus] = useState(chooseStatus);
@@ -39,14 +40,15 @@ const TodosPage = ({
   const [isDeletedTodo, setIsDeletedTodo] = useState(false);
 
   const ITEMS_ON_PAGE = 4;
-  const ITEMS_FOR_SCROLL_TOP = 6;
+  // const ITEMS_FOR_SCROLL_TOP = 6;
 
   const todosLength = useSelector(getTotalTodos);
   const todosLengthForPagination = useSelector(getLengthForPagination);
   const todosToShow = useSelector(getTodosByOnePage);
-  const filteredItems = useSelector(getFilter);
   const isLoading = useSelector(getLoadingTodos);
   const error = useSelector(getErrorMessage);
+  const filterValue = useSelector(getFilterValue);
+  const dateValue = useSelector(getDateValue);
 
   const complete = useSelector(getCompleteTodos);
   const notComplete = useSelector(getNotCompleteTodos);
@@ -64,9 +66,16 @@ const TodosPage = ({
   }, [countPages]);
 
   useEffect(() => {
-    byStatus
-      ? dispatch(getTodosByStatus(ITEMS_ON_PAGE, 0, completed, sort))
-      : dispatch(getTodosByPage(ITEMS_ON_PAGE, 0, sort));
+    dispatch(
+      getTodos(
+        ITEMS_ON_PAGE,
+        0,
+        byStatus ? completed : '',
+        sort,
+        filterValue,
+        dateValue,
+      ),
+    );
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
@@ -76,9 +85,16 @@ const TodosPage = ({
       if (isCreatedTodo) {
         const skipPage = ITEMS_ON_PAGE * (page - 1);
 
-        byStatus
-          ? dispatch(getTodosByStatus(ITEMS_ON_PAGE, skipPage, completed, sort))
-          : dispatch(getTodosByPage(ITEMS_ON_PAGE, skipPage, sort));
+        dispatch(
+          getTodos(
+            ITEMS_ON_PAGE,
+            skipPage,
+            byStatus ? completed : '',
+            sort,
+            filterValue,
+            dateValue,
+          ),
+        );
 
         setIsCreatedTodo(false);
       }
@@ -98,9 +114,16 @@ const TodosPage = ({
           skipPage = ITEMS_ON_PAGE * (page - 1);
         }
 
-        byStatus
-          ? dispatch(getTodosByStatus(ITEMS_ON_PAGE, skipPage, completed, sort))
-          : dispatch(getTodosByPage(ITEMS_ON_PAGE, skipPage, sort));
+        dispatch(
+          getTodos(
+            ITEMS_ON_PAGE,
+            skipPage,
+            byStatus ? completed : '',
+            sort,
+            filterValue,
+            dateValue,
+          ),
+        );
 
         setIsDeletedTodo(false);
       }
@@ -116,17 +139,31 @@ const TodosPage = ({
     setPage(value);
     const skipPage = ITEMS_ON_PAGE * (value - 1);
 
-    byStatus
-      ? dispatch(getTodosByStatus(ITEMS_ON_PAGE, skipPage, completed, sort))
-      : dispatch(getTodosByPage(ITEMS_ON_PAGE, skipPage, sort));
+    dispatch(
+      getTodos(
+        ITEMS_ON_PAGE,
+        skipPage,
+        byStatus ? completed : '',
+        sort,
+        filterValue,
+        dateValue,
+      ),
+    );
   };
 
   const handleClickSort = typeOfSort => {
     resetPage();
 
-    byStatus
-      ? dispatch(getTodosByStatus(ITEMS_ON_PAGE, 0, completed, typeOfSort))
-      : dispatch(getTodosByPage(ITEMS_ON_PAGE, 0, typeOfSort));
+    dispatch(
+      getTodos(
+        ITEMS_ON_PAGE,
+        0,
+        byStatus ? completed : '',
+        sort,
+        filterValue,
+        dateValue,
+      ),
+    );
     setSort(typeOfSort);
   };
 
@@ -134,13 +171,26 @@ const TodosPage = ({
     setCompleted(statusCompleted);
     setByStatus(true);
     resetPage();
-    dispatch(getTodosByStatus(ITEMS_ON_PAGE, 0, statusCompleted, sort));
+
+    dispatch(
+      getTodos(ITEMS_ON_PAGE, 0, statusCompleted, sort, filterValue, dateValue),
+    );
   };
 
   const handleClickAllTodos = () => {
     setByStatus(false);
     resetPage();
-    dispatch(getTodosByPage(ITEMS_ON_PAGE, 0, sort));
+
+    dispatch(
+      getTodos(
+        ITEMS_ON_PAGE,
+        0,
+        byStatus ? completed : '',
+        sort,
+        filterValue,
+        dateValue,
+      ),
+    );
   };
 
   const groupOfItemsForButtons = {
@@ -160,44 +210,44 @@ const TodosPage = ({
       {isLoading && <Loader />}
 
       <TodosContentWrapper>
-        {!!todosLength && filteredItems.length === 0 && (
+        {!!todosLength && (
           <Charts complete={complete} notComplete={notComplete} />
         )}
 
         <div style={{ width: '100%' }}>
-          {filteredItems.length === 0 && <AddTodoBtn createTodo={createTodo} />}
+          <AddTodoBtn createTodo={createTodo} />
           {(!!todosLength || !!todosLengthForPagination) && (
             <>
-              <Filters />
+              <Filters
+                limit={ITEMS_ON_PAGE}
+                offset={0}
+                byStatus={byStatus}
+                status={completed}
+                sort={sort}
+              />
 
-              {filteredItems.length === 0 && (
-                <SortButtonsPanel
-                  sortBy={sort}
-                  byStatus={byStatus}
-                  completed={completed}
-                  items={groupOfItemsForButtons}
-                  onClicks={groupOfFunctionsForButtons}
-                />
-              )}
+              <SortButtonsPanel
+                sortBy={sort}
+                byStatus={byStatus}
+                completed={completed}
+                items={groupOfItemsForButtons}
+                onClicks={groupOfFunctionsForButtons}
+              />
             </>
           )}
-          {(renderTodoList || !!todosLengthForPagination) &&
-            (filteredItems.length === 0 ? (
-              <TodoList todosToShow={todosToShow} deleteTodo={deleteTodo} />
-            ) : (
-              <TodoList todosToShow={filteredItems} deleteTodo={deleteTodo} />
-            ))}
-          {renderPagination && filteredItems.length === 0 && (
+          {(renderTodoList || !!todosLengthForPagination) && (
+            <TodoList todosToShow={todosToShow} deleteTodo={deleteTodo} />
+          )}
+          {renderPagination && !filterValue && !dateValue && (
             <PaginationTodos
               page={page}
               countPages={countPages}
               onClickPage={handleClickOnPage}
             />
           )}
-
-          {filteredItems.length > ITEMS_FOR_SCROLL_TOP && <ButtonScrollTop />}
         </div>
       </TodosContentWrapper>
+      <ButtonScrollTop />
     </>
   );
 };

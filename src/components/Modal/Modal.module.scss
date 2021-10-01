@@ -22,6 +22,9 @@
   max-height: calc(100vh - 24px);
   padding: 20px;
 
+  background-color: rgb(255, 255, 255);
+  color: $dark-text;
+
   @media screen and (max-width: $mobile-max) {
     padding: 5px;
   }
@@ -36,27 +39,19 @@
 }
 
 .lightModal {
-  background-color: rgb(255, 255, 255);
-
   background-image: radial-gradient(
     circle farthest-corner at center,
     rgba(255, 255, 255, 0.7) 0%,
     rgba(136, 143, 165, 0.7) 100%
   );
-
-  color: $dark-text;
 }
 
 .darkModal {
-  background-color: rgb(120, 119, 128);
-
   background-image: radial-gradient(
     circle farthest-corner at center,
     rgba(174, 185, 218, 0.7) 0%,
-    rgba(27, 30, 39, 0.7) 100%
+    rgba(82, 89, 112, 0.7) 100%
   );
-
-  color: $text-dark-theme;
 
   svg {
     fill: $text-dark-theme;

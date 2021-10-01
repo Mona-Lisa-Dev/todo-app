@@ -6,7 +6,7 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-} from '@material-ui/core';
+} from '@mui/material';
 import { Close, DeleteForever } from '@material-ui/icons';
 
 import { translate } from 'i18n';
@@ -22,12 +22,10 @@ const Confirmation = ({ open, onClose, onDelete }) => {
     >
       <div className={styles.confirmation}>
         <DialogTitle id="alert-dialog-title">
-          {/* {'Are you sure you want to delete this task?'} */}
           {translate('confirm_delete_title')}
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            {/* You'll not be able to restore this task if you delete it. */}
             {translate('confirm_delete_text')}
           </DialogContentText>
         </DialogContent>
@@ -39,7 +37,6 @@ const Confirmation = ({ open, onClose, onDelete }) => {
             endIcon={<Close>Close</Close>}
             autoFocus
           >
-            {/* Cancel */}
             {translate('cancel')}
           </Button>
           <Button
@@ -48,7 +45,6 @@ const Confirmation = ({ open, onClose, onDelete }) => {
             color="primary"
             endIcon={<DeleteForever>Delete</DeleteForever>}
           >
-            {/* Delete */}
             {translate('delete')}
           </Button>
         </DialogActions>

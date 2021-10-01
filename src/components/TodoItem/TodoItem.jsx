@@ -41,13 +41,12 @@ const TodoItem = ({ todo, action }) => {
 
   return (
     <>
-      {openConfirmation && (
-        <Confirmation
-          open={openConfirmation}
-          onClose={handleToggleConfirmation}
-          onDelete={handleDeleteTask}
-        />
-      )}
+      <Confirmation
+        open={openConfirmation}
+        onClose={handleToggleConfirmation}
+        onDelete={handleDeleteTask}
+      />
+
       {showModal && (
         <Modal onClose={handleToggleModal}>
           <ModalFormCreateUpdateTodo
