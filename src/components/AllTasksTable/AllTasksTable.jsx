@@ -1,23 +1,43 @@
-import { useMemo, useCallback } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { DataGrid, GridActionsCellItem } from '@mui/x-data-grid';
 import { Delete, CheckCircleOutline } from '@material-ui/icons';
 
+import Confirmation from 'components/Confirmation';
 import {
   deleteTaskByAdmin,
   updateTodoByAdmin,
 } from 'redux/admin/admin-operations';
 
 const AllTasksTable = ({ tasks }) => {
+  const [openConfirmation, setOpenConfirmation] = useState(false);
+  const [idForDelete, setIdForDelete] = useState([]);
   const dispatch = useDispatch();
   const tasksForTable = tasks.map(task => {
     return { ...task, id: task._id };
   });
 
-  const deleteTask = useCallback(
-    (ownerId, taskId) => () => dispatch(deleteTaskByAdmin(ownerId, taskId)),
-    [dispatch],
+  const openConfirmationModal = useCallback(
+    (ownerId, taskId) => () => {
+      setOpenConfirmation(true);
+      setIdForDelete([ownerId, taskId]);
+    },
+    [],
   );
+
+  const closeConfirmation = () => setOpenConfirmation(false);
+
+  const handleDeleteTask = () => {
+    const [ownerId, taskId] = idForDelete;
+
+    dispatch(deleteTaskByAdmin(ownerId, taskId));
+    closeConfirmation();
+  };
+
+  // const deleteTask = useCallback(
+  //   (ownerId, taskId) => () => dispatch(deleteTaskByAdmin(ownerId, taskId)),
+  //   [dispatch],
+  // );
 
   const changeCompletedStatus = useCallback(
     (ownerId, taskId, isDone) => () =>
@@ -72,7 +92,7 @@ const AllTasksTable = ({ tasks }) => {
           <GridActionsCellItem
             icon={<Delete />}
             label="Delete"
-            onClick={deleteTask(params.row.owner, params.id)}
+            onClick={openConfirmationModal(params.row.owner, params.id)}
             showInMenu
           />,
           <GridActionsCellItem
@@ -88,20 +108,27 @@ const AllTasksTable = ({ tasks }) => {
         ],
       },
     ],
-    [deleteTask, changeCompletedStatus],
+    [openConfirmationModal, changeCompletedStatus],
   );
   return (
-    <div style={{ height: 400, width: '100%' }}>
-      <DataGrid
-        rows={tasksForTable}
-        columns={columns}
-        pageSize={20}
-        rowsPerPageOptions={[20]}
-        checkboxSelection
-        disableSelectionOnClick
-        onCellEditCommit={updateHandler}
+    <>
+      <Confirmation
+        open={openConfirmation}
+        onClose={closeConfirmation}
+        onDelete={handleDeleteTask}
       />
-    </div>
+      <div style={{ height: 400, width: '100%' }}>
+        <DataGrid
+          rows={tasksForTable}
+          columns={columns}
+          pageSize={20}
+          rowsPerPageOptions={[20]}
+          checkboxSelection
+          disableSelectionOnClick
+          onCellEditCommit={updateHandler}
+        />
+      </div>
+    </>
   );
 };
 

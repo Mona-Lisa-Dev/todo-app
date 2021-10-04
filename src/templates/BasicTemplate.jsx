@@ -13,12 +13,6 @@ import {
 
 import routes from 'routes';
 
-const AllUsersPage = lazy(() =>
-  import('../pages/AllUsersPage' /* webpackChunkName: "AllUsersPage" */),
-);
-const AllTasksPage = lazy(() =>
-  import('../pages/AllTasksPage' /* webpackChunkName: "AllTasksPage" */),
-);
 const LoginPage = lazy(() =>
   import('../pages/LoginPage' /* webpackChunkName: "LoginPage" */),
 );
@@ -32,9 +26,10 @@ const SliderPage = lazy(() =>
   import('../pages/SliderPage' /* webpackChunkName: "SliderPage" */),
 );
 
-const AdminTemplate = () => {
+const BasicTemplate = ({ themeToggler, locale, onChange }) => {
   const isAuthorized = useSelector(getIsAuthorized);
   const isLoadingUser = useSelector(getStatusLoadingUser);
+
   // const history = useHistory();
   const location = useLocation();
 
@@ -138,20 +133,6 @@ const AdminTemplate = () => {
             redirectTo={routes.login}
           />
 
-          <PrivateRoute
-            path={routes.allUsers}
-            exact
-            component={AllUsersPage}
-            redirectTo={routes.login}
-          />
-
-          <PrivateRoute
-            path={routes.allTasks}
-            exact
-            component={AllTasksPage}
-            redirectTo={routes.login}
-          />
-
           <PublicRoute
             path={routes.signup}
             redirectTo={routes.todos}
@@ -181,4 +162,4 @@ const AdminTemplate = () => {
   );
 };
 
-export default AdminTemplate;
+export default BasicTemplate;

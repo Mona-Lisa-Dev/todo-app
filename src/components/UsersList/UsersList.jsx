@@ -2,12 +2,12 @@
 // import PropTypes from 'prop-types';
 // import { translate } from 'i18n';
 
-import { useMemo, useCallback } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { DataGrid, GridActionsCellItem } from '@mui/x-data-grid';
 import { Delete, Security, CheckCircleOutline } from '@material-ui/icons';
 
-// import Confirmation from 'components/Confirmation';
+import Confirmation from 'components/Confirmation';
 import {
   deleteUser,
   updateUser,
@@ -15,13 +15,29 @@ import {
 } from 'redux/admin/admin-operations';
 
 const UsersList = ({ users }) => {
-  // const [openConfirmation, setOpenConfirmation] = useState(false);
+  const [openConfirmation, setOpenConfirmation] = useState(false);
+  const [idForDelete, setIdForDelete] = useState('');
   const dispatch = useDispatch();
 
-  const deleteHandler = useCallback(
-    id => () => dispatch(deleteUser(id)),
-    [dispatch],
+  const openConfirmationModal = useCallback(
+    id => () => {
+      setOpenConfirmation(true);
+      setIdForDelete(id);
+    },
+    [],
   );
+
+  const closeConfirmation = () => setOpenConfirmation(false);
+
+  const handleDeleteUser = () => {
+    dispatch(deleteUser(idForDelete));
+    closeConfirmation();
+  };
+
+  // const deleteHandler = useCallback(
+  //   id => () => dispatch(deleteUser(id)),
+  //   [dispatch],
+  // );
 
   const updateCompletedHandler = useCallback(
     (id, completed) => () =>
@@ -89,7 +105,7 @@ const UsersList = ({ users }) => {
           <GridActionsCellItem
             icon={<Delete />}
             label="Delete"
-            onClick={deleteHandler(params.id)}
+            onClick={openConfirmationModal(params.id)}
             showInMenu
           />,
           <GridActionsCellItem
@@ -107,21 +123,28 @@ const UsersList = ({ users }) => {
         ],
       },
     ],
-    [deleteHandler, updateCompletedHandler, changeAdminHandler],
+    [openConfirmationModal, updateCompletedHandler, changeAdminHandler],
   );
 
   return (
-    <div style={{ height: 400, width: '100%' }}>
-      <DataGrid
-        rows={users}
-        columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
-        checkboxSelection
-        disableSelectionOnClick
-        onCellEditCommit={updateHandler}
+    <>
+      <Confirmation
+        open={openConfirmation}
+        onClose={closeConfirmation}
+        onDelete={handleDeleteUser}
       />
-    </div>
+      <div style={{ height: 400, width: '100%' }}>
+        <DataGrid
+          rows={users}
+          columns={columns}
+          pageSize={5}
+          rowsPerPageOptions={[5]}
+          checkboxSelection
+          disableSelectionOnClick
+          onCellEditCommit={updateHandler}
+        />
+      </div>
+    </>
   );
 };
 

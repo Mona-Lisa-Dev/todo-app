@@ -1,57 +1,51 @@
-import { lazy, Suspense, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Route, Redirect, Switch } from 'react-router-dom';
-
-import { useLocation } from 'react-router';
+// import { useLocation } from 'react-router';
 
 import AppBar from 'components/AppBar';
 import Container from 'components/Container';
-import PrivateRoute from 'components/PrivateRoute';
-import PublicRoute from 'components/PublicRoute';
-import { ThemeContext } from 'Context';
+import AdminTemplate from 'templates/AdminTemplate';
+import BasicTemplate from 'templates/BasicTemplate';
 
+import { ThemeContext } from 'Context';
 import { getCurrentUser } from 'redux/auth/auth-operations';
-import {
-  getIsAuthorized,
-  getStatusLoadingUser,
-} from 'redux/auth/auth-selectors';
+// import {
+//   getIsAuthorized,
+//   getStatusLoadingUser,
+// } from 'redux/auth/auth-selectors';
 import { getIsAdmin } from 'redux/admin/admin-selectors';
 import { I18nProvider, LOCALES } from 'i18n';
 
-import routes from 'routes';
 import './scss/_main.scss';
 
-const AllUsersPage = lazy(() =>
-  import('./pages/AllUsersPage' /* webpackChunkName: "AllUsersPage" */),
-);
-const AllTasksPage = lazy(() =>
-  import('./pages/AllTasksPage' /* webpackChunkName: "AllTasksPage" */),
-);
-const LoginPage = lazy(() =>
-  import('./pages/LoginPage' /* webpackChunkName: "LoginPage" */),
-);
-const RegisterPage = lazy(() =>
-  import('./pages/RegisterPage' /* webpackChunkName: "RegisterPage" */),
-);
-const TodosPage = lazy(() =>
-  import('./pages/TodosPage' /* webpackChunkName: "TodosPage" */),
-);
-const SliderPage = lazy(() =>
-  import('./pages/SliderPage' /* webpackChunkName: "SliderPage" */),
-);
-
 const App = () => {
+  // const location = useLocation();
+  // const condition = () => {
+  //   if (
+  //     location?.state?.from?.pathname.includes('todos') ||
+  //     location?.state?.from?.pathname.includes('slider')
+  //   ) {
+  //     return 'user';
+  //   }
+  //   if (
+  //     location?.state?.from?.pathname === `${routes.allTasks}` ||
+  //     location?.state?.from?.pathname === `${routes.allUsers}`
+  //   ) {
+  //     return 'admin';
+  //   }
+  // };
+
   const [theme, setTheme] = useState('light');
   const [locale, setLocal] = useState(LOCALES.ENGLISH);
   const [adminPanel, setAdminPanel] = useState('user');
+  // const [adminPanel, setAdminPanel] = useState(condition() || 'user');
 
-  const isAuthorized = useSelector(getIsAuthorized);
+  // const isAuthorized = useSelector(getIsAuthorized);
   const isAdmin = useSelector(getIsAdmin);
-  const isLoadingUser = useSelector(getStatusLoadingUser);
+  // const isLoadingUser = useSelector(getStatusLoadingUser);
   const dispatch = useDispatch();
 
   // const history = useHistory();
-  const location = useLocation();
 
   const classNameApp = theme === 'light' ? 'lightTheme' : 'darkTheme';
   const themeToggler = () => {
@@ -82,7 +76,7 @@ const App = () => {
   useEffect(() => {
     const localTheme = window.localStorage.getItem('theme');
     const localeLanguage = window.localStorage.getItem('locale');
-    const adminPanel = window.localStorage.getItem('admin');
+    const admin = window.localStorage.getItem('admin');
 
     localTheme
       ? setTheme(localTheme)
@@ -92,8 +86,8 @@ const App = () => {
       ? setLocal(localeLanguage)
       : window.localStorage.setItem('locale', LOCALES.ENGLISH);
 
-    adminPanel
-      ? setAdminPanel(adminPanel)
+    admin
+      ? setAdminPanel(admin)
       : window.localStorage.setItem('admin', 'admin');
   }, []);
 
@@ -112,7 +106,8 @@ const App = () => {
           />
 
           <Container>
-            <Suspense fallback={null}>
+            {isAdmin ? <AdminTemplate /> : <BasicTemplate />}
+            {/* <Suspense fallback={null}>
               {isLoadingUser || (
                 <Switch>
                   <PrivateRoute
@@ -258,8 +253,10 @@ const App = () => {
                   />
                   <Redirect to={routes.home} />
                 </Switch>
+              
               )}
             </Suspense>
+           */}
           </Container>
         </div>
       </I18nProvider>
