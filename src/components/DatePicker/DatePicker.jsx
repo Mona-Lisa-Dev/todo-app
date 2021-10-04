@@ -1,25 +1,33 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory, useLocation } from 'react-router';
 import { useIntl } from 'react-intl';
+import queryString from 'query-string';
 import { TextField, IconButton, useMediaQuery } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 import { getTodos } from 'redux/todos/todos-operations';
-import { getFilterValue, getDateValue } from 'redux/todos/todos-selectors';
+import { getFilterValue } from 'redux/todos/todos-selectors';
 import { setDateValue } from 'redux/todos/todos-actions';
 import { translate } from 'i18n';
 
 import styles from './DatePicker.module.scss';
 
-const DatePicker = ({ limit, offset, byStatus, status, sort }) => {
-  const dateValue = useSelector(getDateValue);
+const DatePicker = ({ limit, byStatus, sort }) => {
+  const filterValue = useSelector(getFilterValue);
+
+  const history = useHistory();
+  const location = useLocation();
+
   const [date, setDate] = useState(
-    dateValue || new Date().toISOString().slice(0, 10),
+    queryString.parse(location.search).date ||
+      new Date().toISOString().slice(0, 10),
   );
-  const [choosenDate, setChoosenDate] = useState(false);
+  const [choosenDate, setChoosenDate] = useState(
+    location.search.includes('date'),
+  );
   const dispatch = useDispatch();
   const intl = useIntl();
-  const filterValue = useSelector(getFilterValue);
 
   const classNameDatePicker = choosenDate
     ? styles.DatePicker
@@ -30,9 +38,16 @@ const DatePicker = ({ limit, offset, byStatus, status, sort }) => {
     setDate(today);
     setChoosenDate(false);
     dispatch(setDateValue(''));
-    dispatch(
-      getTodos(limit, offset, byStatus ? status : '', sort, filterValue, ''),
-    );
+
+    if (sort === '' && !byStatus) {
+      dispatch(getTodos(limit, 0, '', '', filterValue, ''));
+    }
+
+    history.push({
+      ...location,
+      pathname: location.pathname,
+      search: filterValue ? `?query=${filterValue}` : '',
+    });
   };
 
   const handleChange = e => {
@@ -41,9 +56,28 @@ const DatePicker = ({ limit, offset, byStatus, status, sort }) => {
     setChoosenDate(true);
     dispatch(setDateValue(value));
 
-    dispatch(
-      getTodos(limit, offset, byStatus ? status : '', sort, filterValue, value),
-    );
+    if (sort === '' && !byStatus) {
+      dispatch(
+        getTodos(
+          limit,
+          0,
+          '',
+          '',
+          queryString.parse(location.search).query || filterValue,
+          value,
+        ),
+      );
+    }
+
+    const condition = filterValue
+      ? `?query=${filterValue}&date=${value}`
+      : `?date=${value}`;
+
+    history.push({
+      ...location,
+      pathname: location.pathname,
+      search: value ? condition : '',
+    });
   };
 
   const handleMinWidth = width => {

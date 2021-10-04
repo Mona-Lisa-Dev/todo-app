@@ -3,23 +3,11 @@ import DatePicker from 'components/DatePicker';
 
 import styles from './Filters.module.scss';
 
-const Filters = ({ limit, offset, byStatus, status, sort }) => {
+const Filters = ({ limit, byStatus, sort }) => {
   return (
     <div className={styles.Filters}>
-      <DatePicker
-        limit={limit}
-        offset={offset}
-        byStatus={byStatus}
-        status={status}
-        sort={sort}
-      />
-      <Search
-        limit={limit}
-        offset={offset}
-        byStatus={byStatus}
-        status={status}
-        sort={sort}
-      />
+      <DatePicker limit={limit} byStatus={byStatus} sort={sort} />
+      <Search limit={limit} byStatus={byStatus} sort={sort} />
     </div>
   );
 };

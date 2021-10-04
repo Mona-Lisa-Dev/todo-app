@@ -75,13 +75,13 @@ const notCompleteItems = createReducer(null, {
 const filterValue = createReducer('', {
   [setFilterValue]: (_, { payload }) => payload,
 
-  [logoutSuccess]: () => [],
+  [logoutSuccess]: () => '',
 });
 
 const dateValue = createReducer('', {
   [setDateValue]: (_, { payload }) => payload,
 
-  [logoutSuccess]: () => [],
+  [logoutSuccess]: () => '',
 });
 
 const isLoading = createReducer(false, {
@@ -120,7 +120,6 @@ export default combineReducers({
   notCompleteItems,
   filterValue,
   dateValue,
-
   isLoading,
   error,
 });

@@ -210,7 +210,7 @@ const SortButtonsPanel = ({ sortBy, byStatus, completed, items, onClicks }) => {
 SortButtonsPanel.propTypes = {
   sortBy: PropTypes.string.isRequired,
   byStatus: PropTypes.bool.isRequired,
-  completed: PropTypes.bool.isRequired,
+  completed: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]).isRequired,
   items: PropTypes.shape({
     todosLength: PropTypes.number.isRequired,
     todosLengthForPagination: PropTypes.number.isRequired,

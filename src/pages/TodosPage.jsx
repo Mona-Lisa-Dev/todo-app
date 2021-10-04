@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useLocation } from 'react-router';
+import queryString from 'query-string';
 
 import AddTodoBtn from 'components/AddTodoBtn';
 import TodoList from 'components/TodoList';
@@ -24,6 +26,7 @@ import {
 } from 'redux/todos/todos-selectors';
 import { getErrorMessage } from 'redux/error/error-selectors';
 import { getTodos } from 'redux/todos/todos-operations';
+import { setDateValue, setFilterValue } from 'redux/todos/todos-actions';
 
 const TodosPage = ({
   chooseStatus = false,
@@ -40,7 +43,6 @@ const TodosPage = ({
   const [isDeletedTodo, setIsDeletedTodo] = useState(false);
 
   const ITEMS_ON_PAGE = 4;
-  // const ITEMS_FOR_SCROLL_TOP = 6;
 
   const todosLength = useSelector(getTotalTodos);
   const todosLengthForPagination = useSelector(getLengthForPagination);
@@ -54,6 +56,7 @@ const TodosPage = ({
   const notComplete = useSelector(getNotCompleteTodos);
 
   const dispatch = useDispatch();
+  const location = useLocation();
 
   const countPages = Math.ceil(todosLengthForPagination / ITEMS_ON_PAGE);
   const renderTodoList = todosLength > 0;
@@ -65,17 +68,58 @@ const TodosPage = ({
     countPages > 1 ? setRenderPagination(true) : setRenderPagination(false);
   }, [countPages]);
 
+  const [isQuery, setIsQuery] = useState(true);
+
   useEffect(() => {
-    dispatch(
-      getTodos(
-        ITEMS_ON_PAGE,
-        0,
-        byStatus ? completed : '',
-        sort,
-        filterValue,
-        dateValue,
-      ),
-    );
+    if (
+      !queryString.parse(location.search).query &&
+      !queryString.parse(location.search).date
+    ) {
+      dispatch(
+        getTodos(
+          ITEMS_ON_PAGE,
+          0,
+          byStatus ? completed : '',
+          sort,
+          filterValue,
+          dateValue,
+        ),
+      );
+      return;
+    }
+
+    if (queryString.parse(location?.search)?.query && isQuery) {
+      dispatch(
+        getTodos(
+          ITEMS_ON_PAGE,
+          0,
+          byStatus ? completed : '',
+          sort,
+          queryString.parse(location?.search)?.query,
+          queryString.parse(location?.search)?.date || dateValue,
+        ),
+      );
+      dispatch(setFilterValue(queryString.parse(location.search).query || ''));
+      dispatch(setDateValue(queryString.parse(location.search).date || ''));
+      setIsQuery(false);
+      return;
+    }
+
+    if (queryString.parse(location?.search)?.date) {
+      dispatch(
+        getTodos(
+          ITEMS_ON_PAGE,
+          0,
+          byStatus ? completed : '',
+          sort,
+          queryString.parse(location?.search)?.query || filterValue,
+          queryString.parse(location?.search)?.date,
+        ),
+      );
+      dispatch(setFilterValue(queryString.parse(location.search).query || ''));
+      dispatch(setDateValue(queryString.parse(location.search).date || ''));
+      return;
+    }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
@@ -153,17 +197,6 @@ const TodosPage = ({
 
   const handleClickSort = typeOfSort => {
     resetPage();
-
-    dispatch(
-      getTodos(
-        ITEMS_ON_PAGE,
-        0,
-        byStatus ? completed : '',
-        sort,
-        filterValue,
-        dateValue,
-      ),
-    );
     setSort(typeOfSort);
   };
 
@@ -171,26 +204,11 @@ const TodosPage = ({
     setCompleted(statusCompleted);
     setByStatus(true);
     resetPage();
-
-    dispatch(
-      getTodos(ITEMS_ON_PAGE, 0, statusCompleted, sort, filterValue, dateValue),
-    );
   };
 
   const handleClickAllTodos = () => {
     setByStatus(false);
     resetPage();
-
-    dispatch(
-      getTodos(
-        ITEMS_ON_PAGE,
-        0,
-        byStatus ? completed : '',
-        sort,
-        filterValue,
-        dateValue,
-      ),
-    );
   };
 
   const groupOfItemsForButtons = {
@@ -218,13 +236,7 @@ const TodosPage = ({
           <AddTodoBtn createTodo={createTodo} />
           {(!!todosLength || !!todosLengthForPagination) && (
             <>
-              <Filters
-                limit={ITEMS_ON_PAGE}
-                offset={0}
-                byStatus={byStatus}
-                status={completed}
-                sort={sort}
-              />
+              <Filters limit={ITEMS_ON_PAGE} byStatus={byStatus} sort={sort} />
 
               <SortButtonsPanel
                 sortBy={sort}

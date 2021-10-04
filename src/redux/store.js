@@ -1,5 +1,3 @@
-// import thunkMiddleware from 'redux-thunk';
-
 import { configureStore } from '@reduxjs/toolkit';
 import { persistStore, persistReducer } from 'redux-persist';
 
