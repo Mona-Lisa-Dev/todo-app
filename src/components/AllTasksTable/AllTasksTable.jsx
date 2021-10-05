@@ -14,7 +14,7 @@ const AllTasksTable = ({ tasks }) => {
   const [idForDelete, setIdForDelete] = useState([]);
   const dispatch = useDispatch();
   const tasksForTable = tasks.map(task => {
-    return { ...task, id: task._id };
+    return { ...task, id: task._id, email: task.owner?.email };
   });
 
   const openConfirmationModal = useCallback(
@@ -65,7 +65,7 @@ const AllTasksTable = ({ tasks }) => {
         hide: true,
       },
       {
-        field: 'owner',
+        field: 'email',
         headerName: 'Owner',
         width: 250,
       },
