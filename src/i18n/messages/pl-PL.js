@@ -63,7 +63,7 @@ export default {
     in_reverse: 'W odwrotnej kolejności',
     description: 'Opis',
     actions: 'Akcje',
-    welcome: 'Witamy',
+    my_profile: 'Mój profil',
     guest: 'Gość',
     logout: 'Wyloguj',
     close_modal: 'Zamknij modal',

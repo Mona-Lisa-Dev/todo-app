@@ -63,7 +63,7 @@ export default {
     in_reverse: 'Alphabetical in reverse',
     description: 'Name',
     actions: 'Actions',
-    welcome: 'Welcome',
+    my_profile: 'My profile',
     guest: 'Guest',
     logout: 'Logout',
     close_modal: 'Close modal',

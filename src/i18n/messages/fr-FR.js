@@ -63,7 +63,7 @@ export default {
     in_reverse: "Alphabétique à l'envers",
     description: 'Description',
     actions: 'Actions',
-    welcome: 'Bienvenue',
+    my_profile: 'Mon profil',
     guest: 'Invité',
     logout: 'Déconnexion',
     close_modal: 'Fermer le modal',

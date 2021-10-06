@@ -1,0 +1,42 @@
+@import 'scss/vars';
+@import 'scss/breakpoints';
+
+.AppBar {
+  padding: 20px 0;
+  height: max-content;
+  border-bottom: 1px solid $border-color;
+
+  @media screen and (max-width: $mobile-max) {
+    padding: 10px 0;
+  }
+
+  .switcherWrapper {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+
+    max-width: $main-max-width;
+    margin: 0 auto;
+    margin-bottom: 5px;
+
+    button {
+      height: 36px;
+    }
+  }
+
+  .menuWrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  .appBarWrapper {
+    max-width: $main-max-width;
+    margin: 0 auto;
+    padding: 0 20px;
+
+    @media screen and (max-width: $mobile-max) {
+      padding: 0 10px;
+    }
+  }
+}

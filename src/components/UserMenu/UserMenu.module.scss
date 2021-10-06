@@ -3,39 +3,79 @@
 
 .userMenu {
   display: flex;
-  justify-content: space-between;
+  // justify-content: space-between;
+  // align-items: flex-end;
+  // flex-direction: column;
+  justify-content: center;
   align-items: center;
   margin-left: 10px;
 
-  .exitBtn {
+  .NavLink {
+    color: inherit;
+    padding: 10px;
+    border-radius: 4px;
+
+    transition: $main-transition;
+
+    &:hover {
+      box-shadow: $main-shadow;
+    }
+  }
+
+  .NavLinkActive {
+    box-shadow: $main-shadow;
+    // background-color: $accent;
+    // color: $white-text;
+  }
+
+  .infoWrapper {
+    display: flex;
+    align-items: center;
+  }
+
+  .imageWrapper {
+    margin-right: 10px;
+    width: 40px;
+    height: 40px;
+
+    .avatar {
+      border-radius: 4px;
+
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  // @media screen and (max-width: $mobile-max) {
+  //   flex-direction: column;
+  // }
+
+  // .exitBtn {
+  //   // margin-left: 10px;
+  //   margin-top: 10px;
+  //   height: 36px;
+
+  //   svg {
+  //     stroke: none;
+  //   }
+  // }
+
+  .exitBtnMobile {
     margin-left: 10px;
-    height: 36px;
+    width: 40px;
+    height: 40px;
+
+    border-radius: 4px;
+    background-color: $accent;
+    color: $white-text;
 
     svg {
       stroke: none;
     }
-  }
 
-  @media screen and (max-width: $mobile-max) {
-    flex-direction: column;
-
-    button {
-      margin-left: 10px;
-      margin-top: 5px;
-      width: 85px;
-      height: 36px;
-
-      border-radius: 4px;
-      background-color: $accent;
-      color: $white-text;
-
-      svg {
-        stroke: none;
-      }
-
-      &:hover {
-        background-color: $accent-hover;
-      }
+    &:hover {
+      background-color: $accent-hover;
     }
   }
 }

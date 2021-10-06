@@ -13,6 +13,9 @@ import {
   getCurrentUserSuccess,
   getCurrentUserError,
   noToken,
+  updateAvatarRequest,
+  updateAvatarSuccess,
+  updateAvatarError,
 } from './auth-actions';
 import { createErrorMessage } from 'redux/error/error-action';
 
@@ -136,5 +139,21 @@ export const getCurrentUser = () => async (dispatch, getState) => {
     return data;
   } catch (error) {
     dispatch(getCurrentUserError(error.message));
+  }
+};
+
+export const updateAvatar = avatar => async dispatch => {
+  dispatch(updateAvatarRequest());
+
+  try {
+    const {
+      data: { data },
+    } = await axios.patch('/users/avatars', avatar);
+
+    dispatch(updateAvatarSuccess(data));
+
+    return data.avatarUrl;
+  } catch (error) {
+    dispatch(updateAvatarError(error));
   }
 };

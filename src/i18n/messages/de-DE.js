@@ -64,7 +64,7 @@ export default {
     in_reverse: 'Alphabetisch rückwärts',
     description: 'Beschreibung',
     actions: 'Aktionen',
-    welcome: 'Wilkommen',
+    my_profile: 'Mein Profil',
     guest: 'Gast',
     logout: 'Abmelden',
     close_modal: 'Modal schließen',

@@ -63,7 +63,7 @@ export default {
     in_reverse: 'В обратном порядке',
     description: 'Описание',
     actions: 'Действия',
-    welcome: 'Добро пожаловать',
+    my_profile: 'Мой профайл',
     guest: 'Гость',
     logout: 'Выйти',
     close_modal: 'Закрыть модальное окно',

@@ -17,3 +17,7 @@ export const getCurrentUserSuccess = createAction('auth/getCurrentUserSuccess');
 export const getCurrentUserError = createAction('auth/getCurrentUserError');
 
 export const noToken = createAction('auth/noToken');
+
+export const updateAvatarRequest = createAction('auth/updateAvatarRequest');
+export const updateAvatarSuccess = createAction('auth/updateAvatarSuccess');
+export const updateAvatarError = createAction('auth/updateAvatarError');

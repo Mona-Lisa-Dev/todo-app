@@ -68,7 +68,7 @@ const UsersList = ({ users }) => {
         field: 'name',
         headerName: 'Name',
         width: 150,
-        // editable: true,
+        editable: true,
       },
       {
         field: 'email',

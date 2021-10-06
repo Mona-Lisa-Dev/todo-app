@@ -62,7 +62,7 @@ export default {
     in_reverse: 'アルファベット順逆',
     description: '説明',
     actions: 'アクション',
-    welcome: 'いらっしゃいませ',
+    my_profile: '私のプロフィール',
     guest: 'ゲスト',
     logout: 'ログアウト',
 

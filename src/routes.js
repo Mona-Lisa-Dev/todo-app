@@ -6,5 +6,6 @@ const routes = {
   slider: '/slider',
   allUsers: '/admin/users',
   allTasks: '/admin/tasks',
+  profile: '/profile',
 };
 export default routes;
