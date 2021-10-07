@@ -2,7 +2,8 @@ import { useEffect, useContext } from 'react';
 import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
 import { useIntl } from 'react-intl';
-import { IconButton } from '@material-ui/core';
+import { IconButton } from '@mui/material';
+// import { IconButton } from '@material-ui/core';
 import { Close } from '@material-ui/icons';
 
 import { ThemeContext } from 'Context';

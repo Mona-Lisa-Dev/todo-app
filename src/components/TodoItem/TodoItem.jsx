@@ -2,10 +2,11 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { useIntl } from 'react-intl';
+import { IconButton } from '@mui/material';
 import {
   ListItem,
   ListItemText,
-  IconButton,
+  // IconButton,
   Checkbox,
   useMediaQuery,
 } from '@material-ui/core';

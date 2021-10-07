@@ -5,7 +5,8 @@ import { useIntl } from 'react-intl';
 import _debouce from 'lodash/debounce';
 import queryString from 'query-string';
 
-import { TextField, IconButton } from '@material-ui/core';
+import { IconButton } from '@mui/material';
+import { TextField } from '@material-ui/core';
 import { Clear } from '@material-ui/icons';
 
 import { getTodos } from 'redux/todos/todos-operations';

@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
-import Pagination from '@material-ui/lab/Pagination';
+import { Pagination } from '@mui/material';
+// import Pagination from '@material-ui/lab/Pagination';
 import { useMediaQuery } from '@material-ui/core';
 
 import styles from './PaginationTodos.module.scss';

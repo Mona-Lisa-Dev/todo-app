@@ -1,8 +1,8 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { useIntl } from 'react-intl';
-
-import { IconButton } from '@material-ui/core';
+import { IconButton } from '@mui/material';
+// import { IconButton } from '@material-ui/core';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 import { logout } from 'redux/auth/auth-operations';

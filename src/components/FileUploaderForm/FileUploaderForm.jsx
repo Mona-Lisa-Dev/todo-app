@@ -1,7 +1,8 @@
 import { useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import AvatarEditor from 'react-avatar-editor';
-import { Button, IconButton } from '@material-ui/core';
+import { Button, IconButton } from '@mui/material';
+// import { IconButton } from '@material-ui/core';
 import { Edit, ExitToApp } from '@material-ui/icons';
 
 import { logout } from 'redux/auth/auth-operations';
