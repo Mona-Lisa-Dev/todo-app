@@ -1,5 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { useForm, Controller } from 'react-hook-form';
+import { useHistory } from 'react-router';
 import { RHFInput } from 'react-hook-form-input';
 
 import {
@@ -13,6 +14,7 @@ import {
 import { signup } from 'redux/auth/auth-operations';
 import { translate } from 'i18n';
 
+import routes from 'routes';
 import styles from './RegisterForm.module.scss';
 
 const RegisterForm = () => {
@@ -29,17 +31,19 @@ const RegisterForm = () => {
     mode: 'onChange',
   });
 
+  const history = useHistory();
   const dispatch = useDispatch();
 
   const handleSubmitForm = async data => {
     const user = getValues();
     let isValid = await trigger();
 
-    // console.log('user', user);
-
     const { age, email, name, password } = user;
 
-    if (isValid) dispatch(signup({ age, email, name, password }));
+    if (isValid) {
+      dispatch(signup({ age, email, name, password }));
+      history.push(routes.not_completed_profile);
+    }
   };
 
   const signupText = translate('signup');

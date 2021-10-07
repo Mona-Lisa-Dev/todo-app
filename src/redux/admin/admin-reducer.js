@@ -14,9 +14,9 @@ import {
   // createUserRequest,
   createUserSuccess,
   // createUserError,
-  // updateUserRequest,
-  updateUserSuccess,
-  // updateUserError,
+  // updateUserByAdminRequest,
+  updateUserByAdminSuccess,
+  // updateUserByAdminError,
   // updateCompletedRequest,
   updateCompletedSuccess,
   // updateCompletedError,
@@ -35,9 +35,8 @@ import {
   // updateTodoError,
 } from '../todos/todos-actions';
 
-import { signupSuccess } from '../auth/auth-actions';
-
 import {
+  signupSuccess,
   loginSuccess,
   logoutSuccess,
   getCurrentUserSuccess,
@@ -47,10 +46,10 @@ const users = createReducer([], {
   [getAllUsersSuccess]: (_, { payload }) => payload,
 
   [createUserSuccess]: (state, { payload }) => [...state, payload],
-  [signupSuccess]: (state, { payload }) => [...state, payload],
+  [signupSuccess]: (state, { payload }) => [...state, payload.user],
   [deleteUserSuccess]: (state, { payload }) =>
     state.filter(({ id }) => id !== payload),
-  [updateUserSuccess]: (state, { payload }) =>
+  [updateUserByAdminSuccess]: (state, { payload }) =>
     state.map(item => (item.id === payload.id ? payload : item)),
   [updateCompletedSuccess]: (state, { payload }) =>
     state.map(item => (item.id === payload.id ? payload : item)),

@@ -16,9 +16,15 @@ export const createUserRequest = createAction('admin/createUserRequest');
 export const createUserSuccess = createAction('admin/createUserSuccess');
 export const createUserError = createAction('admin/createUserError');
 
-export const updateUserRequest = createAction('admin/updateUserRequest');
-export const updateUserSuccess = createAction('admin/updateUserSuccess');
-export const updateUserError = createAction('admin/updateUserError');
+export const updateUserByAdminRequest = createAction(
+  'admin/updateUserByAdminRequest',
+);
+export const updateUserByAdminSuccess = createAction(
+  'admin/updateUserByAdminSuccess',
+);
+export const updateUserByAdminError = createAction(
+  'admin/updateUserByAdminError',
+);
 
 export const updateCompletedRequest = createAction(
   'admin/updateCompletedRequest',

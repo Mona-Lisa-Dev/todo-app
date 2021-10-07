@@ -13,9 +13,9 @@ import {
   createUserRequest,
   createUserSuccess,
   createUserError,
-  updateUserRequest,
-  updateUserSuccess,
-  updateUserError,
+  updateUserByAdminRequest,
+  updateUserByAdminSuccess,
+  updateUserByAdminError,
   updateCompletedRequest,
   updateCompletedSuccess,
   updateCompletedError,
@@ -91,16 +91,16 @@ export const deleteUser = id => async dispatch => {
 };
 
 export const updateUser = (id, updatedUser) => async dispatch => {
-  dispatch(updateUserRequest());
+  dispatch(updateUserByAdminRequest());
 
   try {
     const {
       data: { data },
     } = await axios.put(`/admin/users/${id}`, updatedUser);
-    dispatch(updateUserSuccess(data.user));
+    dispatch(updateUserByAdminSuccess(data.user));
     return data.user;
   } catch (error) {
-    dispatch(updateUserError(error.message));
+    dispatch(updateUserByAdminError(error.message));
   }
 };
 

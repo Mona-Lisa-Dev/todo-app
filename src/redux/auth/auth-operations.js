@@ -16,6 +16,9 @@ import {
   updateAvatarRequest,
   updateAvatarSuccess,
   updateAvatarError,
+  updateUserRequest,
+  updateUserSuccess,
+  updateUserError,
 } from './auth-actions';
 import { createErrorMessage } from 'redux/error/error-action';
 
@@ -78,9 +81,9 @@ export const signup = payload => async dispatch => {
     } = await axios.post('/users/signup', payload);
     dispatch(signupSuccess(data));
 
-    const { email, password } = payload;
-    const user = { email, password };
-    dispatch(login(user));
+    // const { email, password } = payload;
+    // const user = { email, password };
+    // dispatch(login(user));
 
     return data;
   } catch (error) {
@@ -150,10 +153,26 @@ export const updateAvatar = avatar => async dispatch => {
       data: { data },
     } = await axios.patch('/users/avatars', avatar);
 
-    dispatch(updateAvatarSuccess(data));
+    dispatch(updateAvatarSuccess(data.avatarUrl));
 
     return data.avatarUrl;
   } catch (error) {
     dispatch(updateAvatarError(error));
+  }
+};
+
+export const updateUser = payload => async dispatch => {
+  dispatch(updateUserRequest());
+
+  try {
+    const {
+      data: { data },
+    } = await axios.put('/users', payload);
+
+    dispatch(updateUserSuccess(data.user));
+
+    return data.user;
+  } catch (error) {
+    dispatch(updateUserError(error));
   }
 };

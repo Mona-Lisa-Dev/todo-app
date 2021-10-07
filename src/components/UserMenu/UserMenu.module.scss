@@ -3,9 +3,6 @@
 
 .userMenu {
   display: flex;
-  // justify-content: space-between;
-  // align-items: flex-end;
-  // flex-direction: column;
   justify-content: center;
   align-items: center;
   margin-left: 10px;
@@ -24,8 +21,6 @@
 
   .NavLinkActive {
     box-shadow: $main-shadow;
-    // background-color: $accent;
-    // color: $white-text;
   }
 
   .infoWrapper {
@@ -46,20 +41,6 @@
       object-fit: cover;
     }
   }
-
-  // @media screen and (max-width: $mobile-max) {
-  //   flex-direction: column;
-  // }
-
-  // .exitBtn {
-  //   // margin-left: 10px;
-  //   margin-top: 10px;
-  //   height: 36px;
-
-  //   svg {
-  //     stroke: none;
-  //   }
-  // }
 
   .exitBtnMobile {
     margin-left: 10px;

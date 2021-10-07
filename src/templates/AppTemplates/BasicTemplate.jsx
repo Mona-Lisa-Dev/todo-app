@@ -30,6 +30,11 @@ const SliderPage = lazy(() =>
 const ProfilePage = lazy(() =>
   import('../../pages/ProfilePage' /* webpackChunkName: "ProfilePage" */),
 );
+const WaitCompletedPage = lazy(() =>
+  import(
+    '../../pages/WaitCompletedPage' /* webpackChunkName: "WaitCompletedPage" */
+  ),
+);
 
 const BasicTemplate = ({ themeToggler, locale, onChange }) => {
   const isAuthorized = useSelector(getIsAuthorized);
@@ -154,9 +159,14 @@ const BasicTemplate = ({ themeToggler, locale, onChange }) => {
                 redirectTo={routes.login}
               />
 
+              <Route
+                path={routes.not_completed_profile}
+                component={WaitCompletedPage}
+              />
+
               <PublicRoute
                 path={routes.signup}
-                redirectTo={routes.todos}
+                redirectTo={routes.not_completed_profile}
                 restricted
                 component={RegisterPage}
               />

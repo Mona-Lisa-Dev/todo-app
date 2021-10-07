@@ -21,3 +21,7 @@ export const noToken = createAction('auth/noToken');
 export const updateAvatarRequest = createAction('auth/updateAvatarRequest');
 export const updateAvatarSuccess = createAction('auth/updateAvatarSuccess');
 export const updateAvatarError = createAction('auth/updateAvatarError');
+
+export const updateUserRequest = createAction('auth/updateUserRequest');
+export const updateUserSuccess = createAction('auth/updateUserSuccess');
+export const updateUserError = createAction('auth/updateUserError');

@@ -18,7 +18,10 @@ import {
   // updateAvatarRequest,
   updateAvatarSuccess,
   // updateAvatarError,
+  updateUserSuccess,
 } from './auth-actions';
+
+import { updateCompletedSuccess } from 'redux/admin/admin-actions';
 
 const initialUserState = { name: null, email: null, age: null };
 
@@ -28,13 +31,14 @@ const user = createReducer(initialUserState, {
   [logoutSuccess]: () => initialUserState,
   [logoutError]: () => initialUserState,
   [getCurrentUserSuccess]: (_, { payload }) => payload.user,
+  [updateUserSuccess]: (_, { payload }) => payload,
 });
 
 const avatar = createReducer(null, {
   [signupSuccess]: (_, { payload }) => payload.user.avatar,
   [loginSuccess]: (_, { payload }) => payload.user.avatar,
   [getCurrentUserSuccess]: (_, { payload }) => payload.user.avatar,
-  [updateAvatarSuccess]: (_, { payload }) => payload.avatarUrl,
+  [updateAvatarSuccess]: (_, { payload }) => payload,
 });
 
 const token = createReducer(null, {
@@ -58,6 +62,11 @@ const isLoadingUser = createReducer(true, {
   [getCurrentUserSuccess]: () => false,
   [getCurrentUserError]: () => false,
   [getCurrentUserRequest]: () => true,
+});
+
+const isCompleted = createReducer(false, {
+  [updateCompletedSuccess]: (_, { payload }) =>
+    payload.completed ? true : false,
 });
 
 const isLoading = createReducer(false, {
@@ -93,6 +102,7 @@ export default combineReducers({
   token,
   isAuthorized,
   isLoadingUser,
+  isCompleted,
   isLoading,
   error,
 });

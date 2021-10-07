@@ -38,26 +38,11 @@ const ProfilePage = lazy(() =>
 );
 
 const AdminTemplate = ({ themeToggler, locale, onChange }) => {
-  // const condition = () => {
-  //   if (
-  //     location?.state?.from?.pathname.includes('todos') ||
-  //     location?.state?.from?.pathname.includes('slider')
-  //   ) {
-  //     return 'user';
-  //   }
-  //   if (
-  //     location?.state?.from?.pathname === `${routes.allTasks}` ||
-  //     location?.state?.from?.pathname === `${routes.allUsers}`
-  //   ) {
-  //     return 'admin';
-  //   }
-  // };
+  const location = useLocation();
 
-  const [adminPanel, setAdminPanel] = useState('user');
+  const [adminPanel, setAdminPanel] = useState('');
   const isAuthorized = useSelector(getIsAuthorized);
   const isLoadingUser = useSelector(getStatusLoadingUser);
-
-  const location = useLocation();
 
   const adminToggler = () => {
     if (adminPanel === 'admin') {
