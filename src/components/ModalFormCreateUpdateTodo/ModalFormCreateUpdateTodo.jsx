@@ -4,18 +4,16 @@ import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { RHFInput } from 'react-hook-form-input';
 import { useIntl } from 'react-intl';
-import { Button, IconButton } from '@mui/material';
-
 import {
   Checkbox,
   FormControlLabel,
   TextField,
-  // Button,
-  // IconButton,
+  Button,
+  IconButton,
   FormHelperText,
   useMediaQuery,
-} from '@material-ui/core';
-import { SaveAltRounded } from '@material-ui/icons';
+} from '@mui/material';
+import { SaveAltRounded } from '@mui/icons-material';
 
 import { addTodo, updateTodo } from 'redux/todos/todos-operations';
 import { translate } from 'i18n';
@@ -71,6 +69,7 @@ const ModalFormCreateUpdateTodo = ({
     <form className={styles.todoForm} onSubmit={handleSubmit(handleSubmitForm)}>
       {mobile ? (
         <Checkbox
+          className={styles.checkbox}
           color="primary"
           checked={updatedIsDone}
           onChange={handleCompleted}
@@ -79,6 +78,7 @@ const ModalFormCreateUpdateTodo = ({
         <FormControlLabel
           control={
             <Checkbox
+              className={styles.checkbox}
               color="primary"
               checked={updatedIsDone}
               onChange={handleCompleted}
@@ -132,6 +132,7 @@ const ModalFormCreateUpdateTodo = ({
         </IconButton>
       ) : (
         <Button
+          className={styles.buttonSave}
           type="submit"
           variant="contained"
           color="primary"

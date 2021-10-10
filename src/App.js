@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import AdminTemplate from 'templates/AppTemplates/AdminTemplate';
-import BasicTemplate from 'templates/AppTemplates/BasicTemplate';
+import AdminTemplate from 'templates/AdminTemplate';
+import BasicTemplate from 'templates/BasicTemplate';
 
 import { ThemeContext } from 'Context';
 import { getCurrentUser } from 'redux/auth/auth-operations';

@@ -3,18 +3,17 @@ import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { RHFInput } from 'react-hook-form-input';
 import { useIntl } from 'react-intl';
-import { Button, IconButton } from '@mui/material';
 import {
-  // IconButton,
+  Button,
+  IconButton,
   OutlinedInput,
   InputLabel,
   InputAdornment,
   FormControl,
   TextField,
   FormHelperText,
-  // Button,
-} from '@material-ui/core';
-import { Visibility, VisibilityOff } from '@material-ui/icons';
+} from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 import { login } from 'redux/auth/auth-operations';
 import { translate } from 'i18n';
@@ -100,7 +99,7 @@ const LoginForm = () => {
                     </IconButton>
                   </InputAdornment>
                 }
-                labelWidth={70}
+                label={translate('password')}
               />
             }
             name="password"

@@ -2,15 +2,14 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { useIntl } from 'react-intl';
-import { IconButton } from '@mui/material';
 import {
   ListItem,
   ListItemText,
-  // IconButton,
+  IconButton,
   Checkbox,
   useMediaQuery,
-} from '@material-ui/core';
-import { Edit, DeleteForever } from '@material-ui/icons';
+} from '@mui/material';
+import { Edit, DeleteForever } from '@mui/icons-material';
 
 import Modal from 'components/Modal';
 import ModalFormCreateUpdateTodo from 'components/ModalFormCreateUpdateTodo';

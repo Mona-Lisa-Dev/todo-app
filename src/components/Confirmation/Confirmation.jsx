@@ -7,7 +7,7 @@ import {
   DialogContentText,
   DialogTitle,
 } from '@mui/material';
-import { Close, DeleteForever } from '@material-ui/icons';
+import { Close, DeleteForever } from '@mui/icons-material';
 
 import { translate } from 'i18n';
 import styles from './Confirmation.module.scss';

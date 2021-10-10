@@ -3,8 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router';
 import { useIntl } from 'react-intl';
 import queryString from 'query-string';
-import { TextField, IconButton, useMediaQuery } from '@material-ui/core';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+
+import { TextField, IconButton, useMediaQuery } from '@mui/material';
+import { ArrowBack } from '@mui/icons-material';
 
 import { getTodos } from 'redux/todos/todos-operations';
 import { getFilterValue } from 'redux/todos/todos-selectors';
@@ -96,7 +97,7 @@ const DatePicker = ({ limit, byStatus, sort }) => {
           onClick={reset}
           disabled={choosenDate ? false : true}
         >
-          <ArrowBackIcon />
+          <ArrowBack />
         </IconButton>
 
         <TextField

@@ -1,1 +1,2 @@
-export { default } from './AppBar';
+export { AppBarAdminTemplate } from './AppBarAdminTemplate';
+export { AppBarBasicTemplate } from './AppBarBasicTemplate';

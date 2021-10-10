@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router';
-
+import { translate } from 'i18n';
 import routes from 'routes';
 import styles from './AdminSwitcher.module.scss';
 
@@ -20,8 +20,8 @@ const AdminSwitcher = ({ adminToggler, adminPanel }) => {
 
   return (
     <button className={styles.AdminButton} onClick={handleClickSwitcher}>
-      <p className={classNameAdminSwitcher}>Admin</p>
-      <p className={classNameAdminSwitcher}>User</p>
+      <p className={classNameAdminSwitcher}> {translate('admin')}</p>
+      <p className={classNameAdminSwitcher}> {translate('user')}</p>
     </button>
   );
 };

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { List, ListItem, ListItemText } from '@material-ui/core';
+import { List, ListItem, ListItemText } from '@mui/material';
 import TodoItem from 'components/TodoItem';
 import { translate } from 'i18n';
 

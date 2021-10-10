@@ -1,12 +1,8 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory, useLocation } from 'react-router';
-import {
-  InputLabel,
-  FormControl,
-  Select,
-  FormHelperText,
-} from '@material-ui/core';
+
+import { InputLabel, FormControl, Select, FormHelperText } from '@mui/material';
 import { useIntl } from 'react-intl';
 import { translate } from 'i18n';
 import routes from 'routes';

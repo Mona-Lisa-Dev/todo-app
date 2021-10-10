@@ -2,8 +2,7 @@ import { useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import AvatarEditor from 'react-avatar-editor';
 import { Button, IconButton } from '@mui/material';
-// import { IconButton } from '@material-ui/core';
-import { Edit, ExitToApp } from '@material-ui/icons';
+import { Edit, ExitToApp } from '@mui/icons-material';
 
 import { logout } from 'redux/auth/auth-operations';
 import { translate } from 'i18n';
@@ -104,7 +103,7 @@ const FileUploaderForm = () => {
               position={position}
               onPositionChange={handlePositionChange}
             />
-            <label>Zoom:</label>
+            <label>{translate('zoom')}:</label>
             <input
               name="scale"
               type="range"
@@ -116,10 +115,10 @@ const FileUploaderForm = () => {
             />
 
             <Button variant="contained" onClick={handleToggleModal}>
-              Cancel
+              {translate('cancel')}
             </Button>
             <Button variant="contained" onClick={uploadHandler}>
-              Save
+              {translate('save')}
             </Button>
           </div>
         </Modal>
@@ -130,7 +129,7 @@ const FileUploaderForm = () => {
         <span className={styles.emailText}>{userEmail}</span>
       </div>
       <div className={styles.nameWrapper}>
-        <span>Name:</span>
+        <span>{translate('name')}:</span>
         {updateName ? (
           <input
             autoFocus
@@ -168,7 +167,7 @@ const FileUploaderForm = () => {
 
       <div>
         <Button variant="contained" component="label">
-          Update Avatar
+          {translate('update_avatar')}
           <input
             name="avatar"
             type="file"

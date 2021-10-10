@@ -1,12 +1,12 @@
 // todo
 // import PropTypes from 'prop-types';
-// import { translate } from 'i18n';
 
 import { useState, useMemo, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { DataGrid, GridActionsCellItem } from '@mui/x-data-grid';
-import { Delete, Security, CheckCircleOutline } from '@material-ui/icons';
+import { Delete, Security, CheckCircleOutline } from '@mui/icons-material';
 
+// import { translate } from 'i18n';
 import Confirmation from 'components/Confirmation';
 import {
   deleteUser,

@@ -2,8 +2,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { useIntl } from 'react-intl';
 import { IconButton } from '@mui/material';
-// import { IconButton } from '@material-ui/core';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 
 import { logout } from 'redux/auth/auth-operations';
 import { getUserName, getUserAvatar } from 'redux/auth/auth-selectors';

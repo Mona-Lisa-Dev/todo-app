@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import PropTypes from 'prop-types';
-import { WbSunny, NightsStay } from '@material-ui/icons';
+
+import { WbSunny, NightsStay } from '@mui/icons-material';
 
 import { ThemeContext } from 'Context';
 import styles from './ThemeButton.module.scss';

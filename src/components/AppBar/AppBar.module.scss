@@ -18,20 +18,25 @@
     max-width: $main-max-width;
     margin: 0 auto;
     margin-bottom: 5px;
-    padding: 0 20px;
 
     button {
       height: 36px;
     }
   }
 
-  .appBarWrapper {
+  .menuWrapper {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
+  }
 
+  .appBarWrapper {
     max-width: $main-max-width;
     margin: 0 auto;
     padding: 0 20px;
+
+    @media screen and (max-width: $mobile-max) {
+      padding: 0 10px;
+    }
   }
 }

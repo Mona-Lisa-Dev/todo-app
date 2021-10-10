@@ -1,6 +1,5 @@
-// import { Button } from '@material-ui/core';
 import { Button } from '@mui/material';
-import { ArrowUpward } from '@material-ui/icons';
+import { ArrowUpward } from '@mui/icons-material';
 
 import styles from './ButtonScrollTop.module.scss';
 

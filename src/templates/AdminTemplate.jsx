@@ -1,4 +1,4 @@
-import { lazy, Suspense } from 'react';
+import { useEffect, useState, lazy, Suspense } from 'react';
 import { useSelector } from 'react-redux';
 import { Route, Redirect, Switch } from 'react-router-dom';
 import { useLocation } from 'react-router';
@@ -6,7 +6,7 @@ import { useLocation } from 'react-router';
 import PrivateRoute from 'components/PrivateRoute';
 import PublicRoute from 'components/PublicRoute';
 import Container from 'components/Container';
-import { AppBarBasicTemplate } from 'templates/AppBarTemplates';
+import { AppBarAdminTemplate } from 'components/AppBar';
 
 import {
   getIsAuthorized,
@@ -15,39 +15,61 @@ import {
 
 import routes from 'routes';
 
+const AllUsersPage = lazy(() =>
+  import('../pages/AllUsersPage' /* webpackChunkName: "AllUsersPage" */),
+);
+const AllTasksPage = lazy(() =>
+  import('../pages/AllTasksPage' /* webpackChunkName: "AllTasksPage" */),
+);
 const LoginPage = lazy(() =>
-  import('../../pages/LoginPage' /* webpackChunkName: "LoginPage" */),
+  import('../pages/LoginPage' /* webpackChunkName: "LoginPage" */),
 );
 const RegisterPage = lazy(() =>
-  import('../../pages/RegisterPage' /* webpackChunkName: "RegisterPage" */),
+  import('../pages/RegisterPage' /* webpackChunkName: "RegisterPage" */),
 );
 const TodosPage = lazy(() =>
-  import('../../pages/TodosPage' /* webpackChunkName: "TodosPage" */),
+  import('../pages/TodosPage' /* webpackChunkName: "TodosPage" */),
 );
 const SliderPage = lazy(() =>
-  import('../../pages/SliderPage' /* webpackChunkName: "SliderPage" */),
+  import('../pages/SliderPage' /* webpackChunkName: "SliderPage" */),
 );
 const ProfilePage = lazy(() =>
-  import('../../pages/ProfilePage' /* webpackChunkName: "ProfilePage" */),
-);
-const WaitCompletedPage = lazy(() =>
-  import(
-    '../../pages/WaitCompletedPage' /* webpackChunkName: "WaitCompletedPage" */
-  ),
+  import('../pages/ProfilePage' /* webpackChunkName: "ProfilePage" */),
 );
 
-const BasicTemplate = ({ themeToggler, locale, onChange }) => {
+const AdminTemplate = ({ themeToggler, locale, onChange }) => {
+  const location = useLocation();
+
+  const [adminPanel, setAdminPanel] = useState('');
   const isAuthorized = useSelector(getIsAuthorized);
   const isLoadingUser = useSelector(getStatusLoadingUser);
 
-  const location = useLocation();
+  const adminToggler = () => {
+    if (adminPanel === 'admin') {
+      setAdminPanel('user');
+      window.localStorage.setItem('admin', 'user');
+    } else {
+      setAdminPanel('admin');
+      window.localStorage.setItem('admin', 'admin');
+    }
+  };
+
+  useEffect(() => {
+    const admin = window.localStorage.getItem('admin');
+
+    admin
+      ? setAdminPanel(admin)
+      : window.localStorage.setItem('admin', 'admin');
+  }, []);
 
   return (
     <>
-      <AppBarBasicTemplate
+      <AppBarAdminTemplate
         themeToggler={themeToggler}
         locale={locale}
         onChange={onChange}
+        adminToggler={adminToggler}
+        adminPanel={adminPanel}
       />
       <Container>
         <Suspense fallback={null}>
@@ -145,6 +167,11 @@ const BasicTemplate = ({ themeToggler, locale, onChange }) => {
                   />
                 )}
               />
+              <PrivateRoute
+                path={routes.slider}
+                component={SliderPage}
+                redirectTo={routes.login}
+              />
 
               <PrivateRoute
                 path={routes.profile}
@@ -154,19 +181,22 @@ const BasicTemplate = ({ themeToggler, locale, onChange }) => {
               />
 
               <PrivateRoute
-                path={routes.slider}
-                component={SliderPage}
+                path={routes.allUsers}
+                exact
+                component={AllUsersPage}
                 redirectTo={routes.login}
               />
 
-              <Route
-                path={routes.not_completed_profile}
-                component={WaitCompletedPage}
+              <PrivateRoute
+                path={routes.allTasks}
+                exact
+                component={AllTasksPage}
+                redirectTo={routes.login}
               />
 
               <PublicRoute
                 path={routes.signup}
-                redirectTo={routes.not_completed_profile}
+                redirectTo={routes.todos}
                 restricted
                 component={RegisterPage}
               />
@@ -195,4 +225,4 @@ const BasicTemplate = ({ themeToggler, locale, onChange }) => {
   );
 };
 
-export default BasicTemplate;
+export default AdminTemplate;

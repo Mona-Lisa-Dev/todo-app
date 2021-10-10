@@ -1,7 +1,7 @@
 import { useState, useMemo, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { DataGrid, GridActionsCellItem } from '@mui/x-data-grid';
-import { Delete, CheckCircleOutline } from '@material-ui/icons';
+import { Delete, CheckCircleOutline } from '@mui/icons-material';
 
 import Confirmation from 'components/Confirmation';
 import {

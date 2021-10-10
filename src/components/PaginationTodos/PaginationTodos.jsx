@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
-import { Pagination } from '@mui/material';
-// import Pagination from '@material-ui/lab/Pagination';
-import { useMediaQuery } from '@material-ui/core';
+import { useMediaQuery } from '@mui/material';
+import Pagination from '@mui/material/Pagination';
 
 import styles from './PaginationTodos.module.scss';
 
@@ -14,6 +13,7 @@ const PaginationTodos = ({ page, countPages, onClickPage }) => {
   return (
     <Pagination
       size={mobile ? 'small' : 'medium'}
+      shape="rounded"
       className={styles.pagination}
       count={countPages}
       page={page}

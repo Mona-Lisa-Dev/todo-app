@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import Alert from '@material-ui/lab/Alert';
+import Alert from '@mui/material/Alert';
 
 import { clearError } from 'redux/error/error-action';
 

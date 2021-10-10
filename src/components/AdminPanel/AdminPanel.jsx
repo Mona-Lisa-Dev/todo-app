@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-// import { translate } from 'i18n';
+import { translate } from 'i18n';
 import routes from 'routes';
 import styles from './AdminPanel.module.scss';
 
@@ -11,7 +11,7 @@ const AdminPanel = () => {
         className={styles.NavLink}
         activeClassName={styles.NavLinkActive}
       >
-        Users
+        {translate('users')}
       </NavLink>
 
       <NavLink
@@ -19,7 +19,7 @@ const AdminPanel = () => {
         className={styles.NavLink}
         activeClassName={styles.NavLinkActive}
       >
-        Tasks
+        {translate('tasks')}
       </NavLink>
     </div>
   );
