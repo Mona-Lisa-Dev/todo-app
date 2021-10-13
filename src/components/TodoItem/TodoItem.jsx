@@ -1,15 +1,11 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { useIntl } from 'react-intl';
-import {
-  ListItem,
-  ListItemText,
-  IconButton,
-  Checkbox,
-  useMediaQuery,
-} from '@mui/material';
-import { Edit, DeleteForever } from '@mui/icons-material';
+import { ListItem, ListItemText, Checkbox } from '@mui/material';
+
+import { Edit } from 'icons/Edit';
+import { DeleteForever } from 'icons/DeleteForever';
+import UIIconBtn from 'components/UI/UIIconBtn';
 
 import Modal from 'components/Modal';
 import ModalFormCreateUpdateTodo from 'components/ModalFormCreateUpdateTodo';
@@ -24,7 +20,6 @@ const TodoItem = ({ todo, action }) => {
   const [showModal, setShowModal] = useState(false);
   const [openConfirmation, setOpenConfirmation] = useState(false);
   const dispatch = useDispatch();
-  const intl = useIntl();
 
   const handleToggleModal = () => setShowModal(!showModal);
   const handleToggleConfirmation = () => setOpenConfirmation(!openConfirmation);
@@ -33,11 +28,6 @@ const TodoItem = ({ todo, action }) => {
     await dispatch(deleteTodo(id));
     action(true);
   };
-
-  const handleMaxWidth = width => {
-    return `(max-width:${width}px) `;
-  };
-  const mobile = useMediaQuery(handleMaxWidth(600));
 
   return (
     <>
@@ -69,25 +59,22 @@ const TodoItem = ({ todo, action }) => {
           {description}
         </ListItemText>
         <div className={styles.last}>
-          <IconButton
-            size={mobile ? 'small' : 'medium'}
-            aria-label="Update task"
+          <UIIconBtn
+            icon={Edit}
+            label="Update task"
+            title="update_task"
             type="button"
             onClick={handleToggleModal}
-            title={intl.formatMessage({ id: 'update_task' })}
-          >
-            <Edit />
-          </IconButton>
-
-          <IconButton
-            size={mobile ? 'small' : 'medium'}
-            aria-label="Delete"
+            classNameForm="round"
+          />
+          <UIIconBtn
+            icon={DeleteForever}
+            label="Delete"
+            title="delete_task"
             type="button"
             onClick={handleToggleConfirmation}
-            title={intl.formatMessage({ id: 'delete_task' })}
-          >
-            <DeleteForever />
-          </IconButton>
+            classNameForm="round"
+          />
         </div>
       </ListItem>
     </>

@@ -4,7 +4,6 @@ import { useForm } from 'react-hook-form';
 import { RHFInput } from 'react-hook-form-input';
 import { useIntl } from 'react-intl';
 import {
-  Button,
   IconButton,
   OutlinedInput,
   InputLabel,
@@ -15,6 +14,7 @@ import {
 } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 
+import UIBtn from 'components/UI/UIBtn';
 import { login } from 'redux/auth/auth-operations';
 import { translate } from 'i18n';
 
@@ -40,15 +40,13 @@ const LoginForm = () => {
     if (isValid) dispatch(login(user)); // lena@mail.ua 12345678
   };
 
-  const loginText = translate('login');
-
   return (
     <form
       className={styles.LoginForm}
       onSubmit={handleSubmit(handleSubmitForm)}
       autoComplete="off"
     >
-      <h2 className={styles.formTitle}>{loginText}</h2>
+      <h2 className={styles.formTitle}>{translate('login')}</h2>
 
       <div className={styles.inputWrapper}>
         <RHFInput
@@ -118,9 +116,7 @@ const LoginForm = () => {
         )}
       </div>
 
-      <Button type="submit" variant="contained" color="primary">
-        {loginText}
-      </Button>
+      <UIBtn classNameForm="contained" text="login" type="submit" />
     </form>
   );
 };

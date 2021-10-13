@@ -35,17 +35,6 @@ body {
       font-size: $main-font-size-mobile;
     }
   }
-
-  button {
-    box-shadow: none;
-    transition: $main-transition;
-    &:hover {
-      box-shadow: $main-shadow;
-      svg {
-        transition: $main-transition;
-      }
-    }
-  }
 }
 
 .darkTheme {
@@ -65,13 +54,8 @@ body {
   }
 
   input,
-  select,
-  button {
-    color: $text-dark-theme;
-  }
-
-  input,
   select {
+    color: $text-dark-theme;
     font-size: $main-font-size-desc;
     line-height: 1.22;
 
@@ -80,20 +64,10 @@ body {
     }
   }
 
-  button {
-    transition: $main-transition;
-    &:hover {
-      box-shadow: $main-shadow;
-      svg {
-        fill: $accent;
-        stroke: rgba(240, 231, 231, 0.8);
-      }
-    }
-  }
-
-  button,
   a,
-  select {
+  select,
+  input,
+  button {
     box-shadow: $light-shadow;
   }
 }

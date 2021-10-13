@@ -1,16 +1,16 @@
-import { Button } from '@mui/material';
-import { ArrowUpward } from '@mui/icons-material';
+import { ArrowUpward } from 'icons/ArrowUpward';
+import UIIconBtn from 'components/UI/UIIconBtn';
 
 import styles from './ButtonScrollTop.module.scss';
 
 const ButtonScrollTop = () => {
   return (
     <div className={styles.buttonScrollTop}>
-      <Button
-        variant="outlined"
-        color="primary"
+      <UIIconBtn
+        icon={ArrowUpward}
+        label="Scroll to top"
+        title="scroll_to_top"
         type="button"
-        title="Scroll to top"
         onClick={() =>
           window.scrollTo({
             top: 0,
@@ -18,9 +18,8 @@ const ButtonScrollTop = () => {
             behavior: 'smooth',
           })
         }
-      >
-        <ArrowUpward />
-      </Button>
+        classNameForm="outlined"
+      />
     </div>
   );
 };

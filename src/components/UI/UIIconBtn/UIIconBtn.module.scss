@@ -1,0 +1,115 @@
+@import 'scss/vars';
+
+.iconBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+
+  border: none;
+
+  svg {
+    fill: $white-text;
+    stroke: none;
+  }
+
+  &:disabled {
+    background-color: transparent;
+
+    &:hover {
+      background-color: transparent;
+    }
+
+    svg {
+      fill: rgb(67, 72, 85);
+    }
+  }
+}
+
+.square {
+  border-radius: 4px;
+  background-color: $accent;
+  color: $white-text;
+
+  &:hover {
+    background-color: $accent-hover;
+  }
+}
+
+.round {
+  background-color: transparent;
+  border-radius: 50%;
+
+  svg {
+    fill: $accent;
+  }
+}
+
+.outlined {
+  border: 1px solid $accent;
+  border-radius: 4px;
+  box-shadow: $light-shadow;
+  transition: $main-transition;
+  background-color: transparent;
+
+  svg {
+    fill: $accent;
+  }
+
+  &:hover {
+    box-shadow: $main-shadow;
+  }
+}
+
+.light {
+  box-shadow: none;
+  transition: $main-transition;
+
+  &:hover {
+    box-shadow: $main-shadow;
+    svg {
+      transition: $main-transition;
+    }
+  }
+
+  &:disabled {
+    background-color: transparent;
+    box-shadow: none;
+
+    &:hover {
+      background-color: transparent;
+    }
+
+    svg {
+      fill: rgb(67, 72, 85);
+    }
+  }
+}
+
+.dark {
+  color: $text-dark-theme;
+  box-shadow: $light-shadow;
+  transition: $main-transition;
+
+  &:hover {
+    box-shadow: $main-shadow;
+    svg {
+      fill: $accent;
+      stroke: rgba(240, 231, 231, 0.8);
+    }
+  }
+
+  &:disabled {
+    background-color: transparent;
+    box-shadow: $light-shadow;
+
+    &:hover {
+      background-color: transparent;
+      svg {
+        fill: rgb(67, 72, 85);
+        stroke: transparent;
+      }
+    }
+  }
+}

@@ -1,8 +1,11 @@
 import { useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import AvatarEditor from 'react-avatar-editor';
-import { Button, IconButton } from '@mui/material';
-import { Edit, ExitToApp } from '@mui/icons-material';
+
+import { Edit } from 'icons/Edit';
+import { ExitToAppIcon } from 'icons/ExitToAppIcon';
+import UIIconBtn from 'components/UI/UIIconBtn';
+import UIBtn from 'components/UI/UIBtn';
 
 import { logout } from 'redux/auth/auth-operations';
 import { translate } from 'i18n';
@@ -114,12 +117,16 @@ const FileUploaderForm = () => {
               value={scale}
             />
 
-            <Button variant="contained" onClick={handleToggleModal}>
-              {translate('cancel')}
-            </Button>
-            <Button variant="contained" onClick={uploadHandler}>
-              {translate('save')}
-            </Button>
+            <UIBtn
+              classNameForm="contained"
+              text="cancel"
+              onClick={handleToggleModal}
+            />
+            <UIBtn
+              classNameForm="contained"
+              text="save"
+              onClick={uploadHandler}
+            />
           </div>
         </Modal>
       )}
@@ -149,14 +156,14 @@ const FileUploaderForm = () => {
             </p>
             {/* {errorMessage && <FormHelperText>{errorMessage}</FormHelperText>} */}
 
-            <IconButton
-              aria-label="Update name"
+            <UIIconBtn
+              icon={Edit}
+              label="Update name"
+              title="update_name"
               type="button"
               onClick={toggleUpdateName}
-              title="Update name"
-            >
-              <Edit />
-            </IconButton>
+              classNameForm="round"
+            />
           </>
         )}
       </div>
@@ -165,8 +172,8 @@ const FileUploaderForm = () => {
         <img src={preview} alt="User avatar" />
       </div>
 
-      <div>
-        <Button variant="contained" component="label">
+      <div className={styles.updateAvatarBtn}>
+        <label>
           {translate('update_avatar')}
           <input
             name="avatar"
@@ -175,19 +182,16 @@ const FileUploaderForm = () => {
             onChange={handleFileInput}
             hidden
           />
-        </Button>
+        </label>
       </div>
 
-      <Button
-        className={styles.exitBtn}
+      <UIBtn
+        classNameForm="contained"
+        text="logout"
         type="button"
-        variant="contained"
-        color="primary"
-        endIcon={<ExitToApp>exit</ExitToApp>}
         onClick={logoutHandler}
-      >
-        {translate('logout')}
-      </Button>
+        icon={ExitToAppIcon}
+      />
     </>
   );
 };

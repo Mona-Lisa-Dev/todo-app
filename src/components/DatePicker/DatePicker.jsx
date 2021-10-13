@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router';
-import { useIntl } from 'react-intl';
 import queryString from 'query-string';
+import { TextField, useMediaQuery } from '@mui/material';
 
-import { TextField, IconButton, useMediaQuery } from '@mui/material';
-import { ArrowBack } from '@mui/icons-material';
+import { ArrowBack } from 'icons/ArrowBack';
+import UIIconBtn from 'components/UI/UIIconBtn';
 
 import { getTodos } from 'redux/todos/todos-operations';
 import { getFilterValue } from 'redux/todos/todos-selectors';
@@ -28,7 +28,6 @@ const DatePicker = ({ limit, byStatus, sort }) => {
     location.search.includes('date'),
   );
   const dispatch = useDispatch();
-  const intl = useIntl();
 
   const classNameDatePicker = choosenDate
     ? styles.DatePicker
@@ -89,16 +88,15 @@ const DatePicker = ({ limit, byStatus, sort }) => {
   return (
     desc && (
       <form className={classNameDatePicker} noValidate>
-        <IconButton
-          aria-label="Show all todos"
+        <UIIconBtn
+          icon={ArrowBack}
+          label="Show all todos"
+          title="show_all_todos"
           type="reset"
-          color="primary"
-          title={intl.formatMessage({ id: 'show_all_todos' })}
           onClick={reset}
           disabled={choosenDate ? false : true}
-        >
-          <ArrowBack />
-        </IconButton>
+          classNameForm="round"
+        />
 
         <TextField
           label={translate('date_picker_label')}

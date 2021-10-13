@@ -1,12 +1,13 @@
 import { useState, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, useLocation } from 'react-router';
-import { useIntl } from 'react-intl';
 import _debouce from 'lodash/debounce';
 import queryString from 'query-string';
 
-import { IconButton, TextField } from '@mui/material';
-import { Clear } from '@mui/icons-material';
+import { TextField } from '@mui/material';
+
+import { Clear } from 'icons/Clear';
+import UIIconBtn from 'components/UI/UIIconBtn';
 
 import { getTodos } from 'redux/todos/todos-operations';
 import { setFilterValue } from 'redux/todos/todos-actions';
@@ -26,7 +27,6 @@ const Search = ({ limit, byStatus, sort }) => {
     queryString.parse(location.search).query || filterValue,
   );
   const dispatch = useDispatch();
-  const intl = useIntl();
 
   const fn = (searchValue, condition) => {
     if (sort === '' && !byStatus) {
@@ -81,17 +81,16 @@ const Search = ({ limit, byStatus, sort }) => {
 
   return (
     <div className={styles.Search}>
-      <IconButton
-        className={styles.btnClearSearch}
-        aria-label="Clear search"
+      <UIIconBtn
+        icon={Clear}
+        label="Clear search"
+        title="clear_search"
         type="button"
-        color="primary"
-        title={intl.formatMessage({ id: 'clear_search' })}
         onClick={reset}
         disabled={filterValue ? false : true}
-      >
-        <Clear />
-      </IconButton>
+        classNameForm="round"
+      />
+
       <TextField
         type="text"
         label={translate('search')}

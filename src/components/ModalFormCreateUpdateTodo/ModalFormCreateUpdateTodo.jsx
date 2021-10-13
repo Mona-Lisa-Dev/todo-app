@@ -3,18 +3,17 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { RHFInput } from 'react-hook-form-input';
-import { useIntl } from 'react-intl';
 import {
   Checkbox,
   FormControlLabel,
   TextField,
-  Button,
-  IconButton,
   FormHelperText,
   useMediaQuery,
 } from '@mui/material';
-import { SaveAltRounded } from '@mui/icons-material';
 
+import { SaveAltRounded } from 'icons/SaveAltRounded';
+import UIIconBtn from 'components/UI/UIIconBtn';
+import UIBtn from 'components/UI/UIBtn';
 import { addTodo, updateTodo } from 'redux/todos/todos-operations';
 import { translate } from 'i18n';
 
@@ -32,7 +31,6 @@ const ModalFormCreateUpdateTodo = ({
   const [updatedIsDone, setUpdatedsDone] = useState(isDone || false);
 
   const dispatch = useDispatch();
-  const intl = useIntl();
 
   const handleCompleted = () => setUpdatedsDone(!updatedIsDone);
   const handleSubmitForm = async () => {
@@ -121,26 +119,24 @@ const ModalFormCreateUpdateTodo = ({
           </FormHelperText>
         )}
       </div>
-      {mobile ? (
-        <IconButton
-          aria-label="Save todo"
-          type="submit"
-          color="primary"
-          title={intl.formatMessage({ id: 'save' })}
-        >
-          <SaveAltRounded />
-        </IconButton>
-      ) : (
-        <Button
-          className={styles.buttonSave}
-          type="submit"
-          variant="contained"
-          color="primary"
-          endIcon={<SaveAltRounded>Save</SaveAltRounded>}
-        >
-          {translate('save')}
-        </Button>
-      )}
+      <div className={styles.btnWrapper}>
+        {mobile ? (
+          <UIIconBtn
+            icon={SaveAltRounded}
+            label="Save todo"
+            title="save"
+            type="submit"
+            classNameForm="square"
+          />
+        ) : (
+          <UIBtn
+            classNameForm="contained"
+            text="save"
+            type="submit"
+            icon={SaveAltRounded}
+          />
+        )}
+      </div>
     </form>
   );
 };

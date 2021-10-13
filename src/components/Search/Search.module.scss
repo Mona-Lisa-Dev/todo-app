@@ -11,15 +11,9 @@
     width: 206px;
   }
 
-  .btnClearSearch {
+  button {
     position: absolute;
     right: -22%;
-
-    &:disabled {
-      svg {
-        fill: rgb(67, 72, 85);
-      }
-    }
   }
 
   @media screen and (max-width: $mobile-max) {
@@ -28,11 +22,6 @@
     }
     label {
       font-size: $main-font-size-mobile;
-    }
-
-    .btnClearSearch {
-      position: absolute;
-      right: -24%;
     }
   }
 }

@@ -73,10 +73,25 @@
   }
 }
 
-.exitBtn {
-  margin-top: 20px;
+.updateAvatarBtn {
+  text-align: center;
+  margin: 20px 0;
+  width: 200px;
+  border: 1px solid $accent;
+  border-radius: 4px;
+  box-shadow: $light-shadow;
+  transition: $main-transition;
+  text-transform: uppercase;
 
-  svg {
-    stroke: none;
+  cursor: pointer;
+
+  label {
+    display: block;
+    padding: 10px;
+    cursor: pointer;
+  }
+
+  &:hover {
+    box-shadow: $main-shadow;
   }
 }

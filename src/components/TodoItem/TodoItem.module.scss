@@ -25,6 +25,8 @@
   }
 
   .last {
+    display: flex;
+    justify-content: flex-end;
     text-align: end;
     flex-basis: 25%;
   }

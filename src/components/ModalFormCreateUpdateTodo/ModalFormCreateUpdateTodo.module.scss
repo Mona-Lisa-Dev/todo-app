@@ -5,7 +5,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  // padding: 20px 20px;
   margin: 20px;
 
   & > label {
@@ -17,22 +16,9 @@
   @media screen and (max-width: $mobile-max) {
     padding: 40px 5px;
     margin: 0;
-
-    button {
-      background-color: $accent;
-      color: $white-text;
-
-      border-radius: 4px;
-      width: 40px;
-      height: 40px;
-
-      &:hover {
-        background-color: $accent-hover;
-      }
-    }
   }
 
-  button {
+  .btnWrapper {
     margin-left: 10px;
   }
 

@@ -1,14 +1,15 @@
 import PropTypes from 'prop-types';
 import {
-  Button,
   Dialog,
   DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
 } from '@mui/material';
-import { Close, DeleteForever } from '@mui/icons-material';
 
+import UIBtn from 'components/UI/UIBtn';
+import { Clear } from 'icons/Clear';
+import { DeleteForever } from 'icons/DeleteForever';
 import { translate } from 'i18n';
 import styles from './Confirmation.module.scss';
 
@@ -30,23 +31,21 @@ const Confirmation = ({ open, onClose, onDelete }) => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button
+          <UIBtn
+            classNameForm="contained"
+            text="cancel"
+            type="button"
             onClick={onClose}
-            variant="contained"
-            color="primary"
-            endIcon={<Close>Close</Close>}
+            icon={Clear}
             autoFocus
-          >
-            {translate('cancel')}
-          </Button>
-          <Button
+          />
+          <UIBtn
+            classNameForm="contained"
+            text="delete"
+            type="button"
             onClick={onDelete}
-            variant="contained"
-            color="primary"
-            endIcon={<DeleteForever>Delete</DeleteForever>}
-          >
-            {translate('delete')}
-          </Button>
+            icon={DeleteForever}
+          />
         </DialogActions>
       </div>
     </Dialog>

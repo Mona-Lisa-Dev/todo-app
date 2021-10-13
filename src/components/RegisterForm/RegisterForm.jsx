@@ -3,13 +3,13 @@ import { useForm, Controller } from 'react-hook-form';
 import { useHistory } from 'react-router';
 import { RHFInput } from 'react-hook-form-input';
 import {
-  Button,
   TextField,
   Checkbox,
   FormControlLabel,
   FormHelperText,
 } from '@mui/material';
 
+import UIBtn from 'components/UI/UIBtn';
 import { signup } from 'redux/auth/auth-operations';
 import { translate } from 'i18n';
 
@@ -45,15 +45,13 @@ const RegisterForm = () => {
     }
   };
 
-  const signupText = translate('signup');
-
   return (
     <form
       className={styles.RegisterForm}
       onSubmit={handleSubmit(handleSubmitForm)}
       autoComplete="off"
     >
-      <h2 className={styles.formTitle}>{signupText}</h2>
+      <h2 className={styles.formTitle}>{translate('signup')}</h2>
       <div className={styles.inputWrapper}>
         <RHFInput
           as={
@@ -243,9 +241,7 @@ const RegisterForm = () => {
         />
       </div>
 
-      <Button type="submit" variant="contained" color="primary">
-        {signupText}
-      </Button>
+      <UIBtn classNameForm="contained" text="signup" type="submit" />
     </form>
   );
 };

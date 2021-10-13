@@ -1,17 +1,17 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { useIntl } from 'react-intl';
-import { IconButton } from '@mui/material';
-import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import { ExitToAppIcon } from 'icons/ExitToAppIcon';
 
+import UIIconBtn from 'components/UI/UIIconBtn';
 import { logout } from 'redux/auth/auth-operations';
 import { getUserName, getUserAvatar } from 'redux/auth/auth-selectors';
 import { translate } from 'i18n';
+
+import AvatarTemplate from 'images/avatar_template.png';
 import routes from 'routes';
 import styles from './UserMenu.module.scss';
 
 const UserMenu = () => {
-  const intl = useIntl();
   const name = useSelector(getUserName);
   const avatar = useSelector(getUserAvatar);
 
@@ -27,7 +27,11 @@ const UserMenu = () => {
       >
         <div className={styles.infoWrapper}>
           <div className={styles.imageWrapper}>
-            <img className={styles.avatar} src={avatar} alt="User avatar" />
+            <img
+              className={styles.avatar}
+              src={avatar || AvatarTemplate}
+              alt="User avatar"
+            />
           </div>
           <div>
             <p>
@@ -41,16 +45,14 @@ const UserMenu = () => {
         </div>
       </NavLink>
 
-      <IconButton
-        className={styles.exitBtnMobile}
-        aria-label="Exit"
+      <UIIconBtn
+        icon={ExitToAppIcon}
+        label="Exit"
+        title="exit"
         type="button"
-        color="primary"
-        title={intl.formatMessage({ id: 'exit' })}
         onClick={logoutHandler}
-      >
-        <ExitToAppIcon />
-      </IconButton>
+        classNameForm="square"
+      />
     </div>
   );
 };

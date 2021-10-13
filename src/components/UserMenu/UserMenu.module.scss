@@ -42,21 +42,7 @@
     }
   }
 
-  .exitBtnMobile {
+  button {
     margin-left: 10px;
-    width: 40px;
-    height: 40px;
-
-    border-radius: 4px;
-    background-color: $accent;
-    color: $white-text;
-
-    svg {
-      stroke: none;
-    }
-
-    &:hover {
-      background-color: $accent-hover;
-    }
   }
 }

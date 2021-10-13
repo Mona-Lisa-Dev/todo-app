@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import ReactFlagsSelect from 'react-flags-select';
 import { useIntl } from 'react-intl';
 
-import { languages } from 'i18n';
+import { languages, LOCALES } from 'i18n';
 import { ThemeContext } from 'Context';
 
 import styles from './LanguageSwitcher.module.scss';
 
-const LanguageSwitcher = ({ locale, onChange }) => {
+const LanguageSwitcher = ({ locale = LOCALES.ENGLISH, onChange }) => {
   const intl = useIntl();
   const theme = useContext(ThemeContext);
   const classNameBtn =
@@ -48,7 +48,7 @@ const LanguageSwitcher = ({ locale, onChange }) => {
 };
 
 LanguageSwitcher.propTypes = {
-  locale: PropTypes.string.isRequired,
+  locale: PropTypes.string,
   onChange: PropTypes.func.isRequired,
 };
 

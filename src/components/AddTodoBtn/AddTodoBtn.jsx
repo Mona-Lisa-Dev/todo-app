@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Button } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
+
+import { AddIcon } from 'icons/AddIcon';
+import UIBtn from 'components/UI/UIBtn';
 
 import Modal from 'components/Modal';
 import ModalFormCreateUpdateTodo from 'components/ModalFormCreateUpdateTodo';
-import { translate } from 'i18n';
 
 import styles from './AddTodoBtn.module.scss';
 
@@ -25,15 +25,14 @@ const AddTodoBtn = ({ createTodo }) => {
           />
         </Modal>
       )}
-      <Button
+
+      <UIBtn
+        classNameForm="contained"
+        text="add"
         type="button"
-        variant="contained"
-        color="primary"
         onClick={handleToggleModal}
-        endIcon={<AddIcon>add</AddIcon>}
-      >
-        {translate('add')}
-      </Button>
+        icon={AddIcon}
+      />
     </div>
   );
 };

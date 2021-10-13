@@ -5,19 +5,4 @@
   display: flex;
   justify-content: center;
   margin-bottom: 20px;
-
-  button {
-    height: 36px;
-    font-size: $main-font-size-desc;
-
-    @media screen and (max-width: $mobile-max) {
-      height: max-content;
-      width: 150px;
-      font-size: $main-font-size-mobile;
-    }
-
-    @media screen and (max-width: $mobile) {
-      font-size: 10px;
-    }
-  }
 }

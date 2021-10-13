@@ -1,10 +1,9 @@
 import { useEffect, useContext } from 'react';
 import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
-import { useIntl } from 'react-intl';
-import { IconButton } from '@mui/material';
-import { Close } from '@mui/icons-material';
 
+import { Clear } from 'icons/Clear';
+import UIIconBtn from 'components/UI/UIIconBtn';
 import { ThemeContext } from 'Context';
 
 import styles from './Modal.module.scss';
@@ -17,8 +16,6 @@ const Modal = ({ children, onClose }) => {
     theme === 'light'
       ? `${styles.modal} ${styles.lightModal}`
       : `${styles.modal} ${styles.darkModal}`;
-
-  const intl = useIntl();
 
   useEffect(() => {
     const onEscHandler = event => {
@@ -42,15 +39,16 @@ const Modal = ({ children, onClose }) => {
   return createPortal(
     <div className={styles.backdrop} onClick={handleOverlayClick}>
       <div className={classNameModal} onClick={e => e.stopPropagation()}>
-        <IconButton
-          className={styles.closeButton}
-          aria-label="Close modal"
-          type="button"
-          onClick={onClose}
-          title={intl.formatMessage({ id: 'close_modal' })}
-        >
-          <Close />
-        </IconButton>
+        <div className={styles.closeButton}>
+          <UIIconBtn
+            icon={Clear}
+            label="Close modal"
+            title="close_modal"
+            type="button"
+            onClick={onClose}
+            classNameForm="round"
+          />
+        </div>
         {children}
       </div>
     </div>,
