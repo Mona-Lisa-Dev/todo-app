@@ -21,12 +21,12 @@ const Template = args => <UIBtn {...args} />;
 
 export const Contained = Template.bind({});
 Contained.args = {
-  text: 'Button',
+  text: 'search',
   classNameForm: 'contained',
 };
 
 export const Outlined = Template.bind({});
 Outlined.args = {
-  text: 'Button',
+  text: 'search',
   classNameForm: 'outlined',
 };
