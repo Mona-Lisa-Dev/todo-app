@@ -1,0 +1,9 @@
+@import 'scss/breakpoints';
+
+.todosContentWrapper {
+  display: flex;
+
+  @media screen and (max-width: $desktop-min) {
+    flex-direction: column-reverse;
+  }
+}

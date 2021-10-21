@@ -1,0 +1,59 @@
+@import 'scss/vars';
+@import 'scss/breakpoints';
+
+.backdrop {
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal {
+  position: relative;
+  max-width: calc(100vw - 48px);
+  max-height: calc(100vh - 24px);
+  padding: 20px;
+
+  background-color: rgb(255, 255, 255);
+  color: $dark-text;
+
+  @media screen and (max-width: $mobile-max) {
+    padding: 5px;
+  }
+
+  border-radius: 4px;
+
+  .closeButton {
+    position: absolute;
+    top: 0%;
+    right: 0%;
+  }
+}
+
+.lightModal {
+  background-image: radial-gradient(
+    circle farthest-corner at center,
+    rgba(255, 255, 255, 0.7) 0%,
+    rgba(136, 143, 165, 0.7) 100%
+  );
+}
+
+.darkModal {
+  background-image: radial-gradient(
+    circle farthest-corner at center,
+    rgba(174, 185, 218, 0.7) 0%,
+    rgba(82, 89, 112, 0.7) 100%
+  );
+
+  svg {
+    fill: $text-dark-theme;
+  }
+}

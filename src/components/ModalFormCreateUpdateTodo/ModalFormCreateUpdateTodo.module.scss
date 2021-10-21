@@ -1,0 +1,33 @@
+@import 'scss/vars';
+@import 'scss/breakpoints';
+
+.todoForm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+
+  & > label {
+    width: 150px;
+  }
+
+  // background-color: rgba(255, 255, 255, 0.3);
+
+  @media screen and (max-width: $mobile-max) {
+    padding: 40px 5px;
+    margin: 0;
+  }
+
+  .btnWrapper {
+    margin-left: 10px;
+  }
+
+  .inputWrapper {
+    position: relative;
+
+    .helperText {
+      position: absolute;
+      color: #ff0000;
+    }
+  }
+}

@@ -1,0 +1,41 @@
+@import 'scss/vars';
+
+.switcher {
+  display: flex;
+  justify-content: center;
+
+  .btn_flag {
+    width: 150px;
+  }
+
+  .darkBtnFlags {
+    color: $white-text;
+  }
+
+  .lightBtnFlags {
+    color: $dark-text;
+  }
+
+  .menu_flags {
+    color: $dark-text;
+
+    ul {
+      background-color: rgb(118, 162, 206);
+      box-shadow: $main-shadow;
+
+      div,
+      input {
+        background-color: inherit;
+        border: none;
+        outline: none;
+      }
+
+      input::-webkit-input-placeholder {
+        color: $text-dark-theme;
+      }
+      input::-moz-placeholder {
+        color: $text-dark-theme;
+      }
+    }
+  }
+}

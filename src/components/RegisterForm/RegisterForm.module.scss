@@ -1,0 +1,56 @@
+@import 'scss/vars';
+
+.RegisterForm {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+
+  padding: 20px;
+  max-width: 520px;
+  border-radius: 8px;
+  background-color: $auth-form-bg-color;
+  box-shadow: $main-shadow;
+
+  .formTitle {
+    margin: 0 auto 15px;
+  }
+
+  .inputWrapper,
+  .checkbox {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .checkbox {
+    margin-bottom: 15px;
+  }
+
+  .inputWrapper {
+    position: relative;
+
+    margin-top: 15px;
+    margin-bottom: 15px;
+
+    .helperText {
+      position: absolute;
+      width: 100%;
+      top: 94%;
+    }
+  }
+
+  .checkbox span {
+    font-size: 12px;
+  }
+
+  .labelCheckbox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    font-size: 10px;
+
+    .checkbox {
+      margin: 0 5px;
+    }
+  }
+}

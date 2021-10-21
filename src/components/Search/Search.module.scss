@@ -1,0 +1,27 @@
+@import 'scss/breakpoints';
+@import 'scss/vars';
+
+.Search {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  input {
+    width: 206px;
+  }
+
+  button {
+    position: absolute;
+    right: -22%;
+  }
+
+  @media screen and (max-width: $mobile-max) {
+    input {
+      width: 176px;
+    }
+    label {
+      font-size: $main-font-size-mobile;
+    }
+  }
+}

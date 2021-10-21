@@ -1,0 +1,97 @@
+@import 'scss/vars';
+
+.modalDataWrapper {
+  display: flex;
+  flex-direction: column;
+
+  padding: 20px;
+
+  canvas {
+    margin-bottom: 10px;
+  }
+
+  button {
+    margin-top: 10px;
+  }
+}
+
+.imageWrapper {
+  margin-bottom: 10px;
+  width: 250px;
+  height: 250px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  box-shadow: $main-shadow;
+
+  img {
+    width: 100%;
+    border-radius: 4px;
+    object-fit: cover;
+  }
+}
+
+.emailWrapper {
+  cursor: default;
+
+  .emailText {
+    width: 250px;
+    padding: 20px 10px 0;
+  }
+}
+
+.nameWrapper {
+  display: flex;
+
+  align-items: center;
+  width: 250px;
+  padding: 20px 0;
+
+  span {
+    cursor: default;
+  }
+
+  .updateName {
+    display: block;
+    padding: 10px;
+    height: 48px;
+
+    margin-left: 10px;
+    background-color: inherit;
+  }
+
+  .name {
+    padding: 0 10px;
+  }
+
+  button {
+    margin-left: 10px;
+    margin-left: auto;
+
+    svg {
+      cursor: pointer;
+    }
+  }
+}
+
+.updateAvatarBtn {
+  text-align: center;
+  margin: 20px 0;
+  width: 200px;
+  border: 1px solid $accent;
+  border-radius: 4px;
+  box-shadow: $light-shadow;
+  transition: $main-transition;
+  text-transform: uppercase;
+
+  cursor: pointer;
+
+  label {
+    display: block;
+    padding: 10px;
+    cursor: pointer;
+  }
+
+  &:hover {
+    box-shadow: $main-shadow;
+  }
+}

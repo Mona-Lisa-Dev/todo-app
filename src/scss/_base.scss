@@ -1,0 +1,73 @@
+@import './vars';
+@import './breakpoints';
+
+body {
+  font-size: $main-font-size-desc;
+  line-height: 1.22;
+
+  @media screen and (max-width: $mobile-max) {
+    font-size: $main-font-size-mobile;
+  }
+
+  @media screen and (max-width: $mobile) {
+    font-size: 10px;
+  }
+
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+  }
+}
+
+.lightTheme {
+  min-height: 100vh;
+  background-color: rgb(255, 255, 255);
+  color: $dark-text;
+
+  input,
+  select {
+    font-size: $main-font-size-desc;
+    line-height: 1.22;
+
+    @media screen and (max-width: $mobile-max) {
+      font-size: $main-font-size-mobile;
+    }
+  }
+}
+
+.darkTheme {
+  min-height: 100vh;
+  background-color: rgb(120, 119, 128);
+
+  background-image: radial-gradient(
+    circle farthest-corner at center,
+    rgba(174, 185, 218, 0.7) 0%,
+    rgba(27, 30, 39, 0.7) 100%
+  );
+
+  color: $text-dark-theme;
+
+  svg {
+    fill: $text-dark-theme;
+  }
+
+  input,
+  select {
+    color: $text-dark-theme;
+    font-size: $main-font-size-desc;
+    line-height: 1.22;
+
+    @media screen and (max-width: $mobile-max) {
+      font-size: $main-font-size-mobile;
+    }
+  }
+
+  a,
+  select,
+  input,
+  button {
+    box-shadow: $light-shadow;
+  }
+}

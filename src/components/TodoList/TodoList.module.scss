@@ -1,0 +1,51 @@
+@import 'scss/vars';
+@import 'scss/breakpoints';
+
+.listContainer {
+  margin: 0 auto;
+  max-width: 767px;
+  min-height: 340px;
+
+  @media screen and (max-width: $mobile-max) {
+    min-height: 315px;
+  }
+}
+
+.listNames {
+  display: flex;
+
+  span {
+    padding: 0 10px;
+    text-transform: uppercase;
+    font-size: $main-font-size-desc;
+
+    @media screen and (max-width: $mobile) {
+      text-transform: capitalize;
+      font-size: $main-font-size-mobile;
+    }
+  }
+
+  .middle {
+    text-align: center;
+    flex-basis: 50%;
+    border: 1px solid $border-color;
+  }
+
+  .first {
+    text-align: start;
+    flex-basis: 25%;
+    border-top: 1px solid $border-color;
+    border-bottom: 1px solid $border-color;
+    border-left: 1px solid $border-color;
+    border-radius: 4px 0 0 4px;
+  }
+
+  .last {
+    text-align: end;
+    flex-basis: 25%;
+    border-top: 1px solid $border-color;
+    border-bottom: 1px solid $border-color;
+    border-right: 1px solid $border-color;
+    border-radius: 0 4px 4px 0;
+  }
+}

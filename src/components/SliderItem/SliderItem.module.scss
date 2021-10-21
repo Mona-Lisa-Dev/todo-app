@@ -1,0 +1,40 @@
+@import 'scss/vars';
+
+.sliderItem {
+  position: relative;
+  margin: 10px;
+
+  .imageWrapper {
+    width: 100%;
+    max-width: 500px;
+    margin-bottom: 20px;
+
+    .image {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+      border-radius: 8px;
+
+      height: 300px;
+    }
+  }
+
+  .infoWrapper {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    margin: 10px;
+    padding: 10px;
+    text-align: left;
+    border-radius: 12px;
+    border: 1px solid $text-dark-theme;
+
+    color: $text-dark-theme;
+    background-color: rgba(0, 0, 0, 0.7);
+
+    .text {
+      font-size: 12px;
+    }
+  }
+}

@@ -1,0 +1,73 @@
+@import 'scss/vars';
+@import 'scss/breakpoints';
+
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px;
+
+  font-size: $main-font-size-desc;
+  line-height: 1.46;
+  border: none;
+  transition: $main-transition;
+  text-transform: uppercase;
+
+  @media screen and (max-width: $mobile-max) {
+    height: max-content;
+    width: 150px;
+    font-size: $main-font-size-mobile;
+  }
+
+  @media screen and (max-width: $mobile) {
+    font-size: 10px;
+  }
+}
+
+.contained {
+  border-radius: 4px;
+  background-color: $accent;
+  color: $white-text;
+
+  &:hover {
+    background-color: $accent-hover;
+    box-shadow: $main-shadow;
+  }
+
+  svg {
+    margin-left: 10px;
+    fill: $white-text;
+    stroke: none;
+  }
+}
+
+.outlined {
+  border: 1px solid $accent;
+  border-radius: 4px;
+  box-shadow: $light-shadow;
+  transition: $main-transition;
+  background-color: transparent;
+
+  &.light {
+    svg {
+      fill: $accent;
+    }
+  }
+
+  &:hover {
+    box-shadow: $main-shadow;
+  }
+}
+
+.dark {
+  box-shadow: $light-shadow;
+  transition: $main-transition;
+
+  &:hover {
+    box-shadow: $main-shadow;
+    svg {
+      fill: $accent;
+      stroke: rgba(240, 231, 231, 0.8);
+    }
+  }
+}

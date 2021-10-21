@@ -1,0 +1,46 @@
+@import 'scss/vars';
+@import 'scss/breakpoints';
+
+.AuthNav {
+  display: flex;
+  // justify-content: space-evenly;
+  justify-content: center;
+  align-items: center;
+
+  margin: 0 auto;
+}
+
+.NavLink {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  padding: 10px;
+  width: 130px;
+  height: 36px;
+  text-transform: uppercase;
+
+  @media screen and (max-width: $mobile-max) {
+    width: 110px;
+  }
+
+  &:not(:last-child) {
+    margin-right: 10px;
+  }
+
+  background-color: $nav-link-bg-color;
+  color: $dark-text;
+
+  border-radius: 4px;
+  transition: $main-transition;
+
+  &:hover {
+    box-shadow: $main-shadow;
+  }
+}
+
+.NavLinkActive {
+  background-color: $accent;
+  color: $white-text;
+}

@@ -1,0 +1,33 @@
+@import 'scss/vars';
+@import 'scss/breakpoints';
+
+.todoItem {
+  display: flex;
+
+  .todoText {
+    text-align: center;
+    flex-basis: 50%;
+
+    overflow: hidden;
+
+    span {
+      font-size: $main-font-size-desc;
+
+      @media screen and (max-width: $mobile) {
+        font-size: $main-font-size-mobile;
+      }
+    }
+  }
+
+  .first {
+    text-align: start;
+    flex-basis: 25%;
+  }
+
+  .last {
+    display: flex;
+    justify-content: flex-end;
+    text-align: end;
+    flex-basis: 25%;
+  }
+}
