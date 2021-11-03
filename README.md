@@ -1,4 +1,4 @@
-## Website for creating todos (tasks) with authorization.
+# Website for creating todos (tasks) with authorization.
 
 - Implemented all requests for CRUD technology.
 - The authorized user has the ability to create, edit, mark tasks when they are
@@ -27,7 +27,9 @@ React Intl | React slick | Storybook React
 
 The [backend](https://github.com/OlenaTsemko/todo-rest-api) repository used
 
-Task list:
+---
+
+## Task list:
 
 - create a project using create-react-app
 - installation of prettier, ESLint and other libraries for code formatting,
