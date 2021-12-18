@@ -20,7 +20,7 @@ React Intl | React slick | Storybook React
 ---
 
 1. Clone the repository -
-   `git clone https://github.com/OlenaTsemko/some-new-repo.git`
+   `git clone https://github.com/OlenaTsemko/todo-app.git`
 2. Open the repository directory and execute the command - `npm i` to set all
    dependencies
 3. To open a page on localhost:3000 enter the command - `npm start`
